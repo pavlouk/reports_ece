@@ -1,5 +1,5 @@
 from Tkinter import *
-import math
+from random import randint
 
 class Node:
     def __init__(self, x, y):
@@ -45,17 +45,17 @@ class Window:
                 if len(R) >= 3:
                     R = R[-2:]
                 elif len(R) == 1:
-                    R = hex(math.randint(0, 15))[2:] + R
+                    R = hex(randint(0, 15))[2:] + R
                 G = hex((i.x + j.x + i.y + j.y) / 4)[2:]
                 if len(G) >= 3:
                     G = G[-2:]
                 elif len(G) == 1:
-                    G = hex(math.randint(0, 15))[2:] + G
+                    G = hex(randint(0, 15))[2:] + G
                 B = hex((i.y + j.y) / 2)[2:]
                 if len(B) >= 3:
                     B = B[-2:]
                 elif len(B) == 1:
-                    B = hex(math.randint(0, 15))[2:] + B
+                    B = hex(randint(0, 15))[2:] + B
                 self.color = "#" + R + G + B
                 self.gameCanvas.create_line(i.x, i.y, j.x, j.y, fill=self.color)
         for i in self.setofPoints:
