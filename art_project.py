@@ -15,7 +15,7 @@ class Window:
         self.root = root
         self.setofPoints = []
         self.distances = []
-        self.color = "#40E0D0"
+        self.color = ""
         self.gameCanvas = Canvas(self.root, width=1000, height=600, bg="black")
         self.gameCanvas.pack()
         self.gameMenu = Menu(self.root)
@@ -25,7 +25,7 @@ class Window:
         self.fileMenu.add_command(label="Connect all nodes", command=self.connect)
         self.fileMenu.add_command(label="Color all lines", command=self.setlineColor)
         self.fileMenu.add_command(label="New", command=self.new)
-        self.fileMenu.add_command(label="Create Triangle Fan", command=self.createTriangles)
+        self.fileMenu.add_command(label="Create Triangles", command=self.createTriangles)
         self.fileMenu.add_command(label="Exit", command=self.root.destroy)
         self.root.bind("<Button-1>", self.point)
 
@@ -41,6 +41,7 @@ class Window:
 
     def new(self):
         self.setofPoints = []
+        self.distances = []
         self.gameCanvas.delete(ALL)
 
     def setlineColor(self):
@@ -63,10 +64,9 @@ class Window:
                     B = hex(randint(0, 15))[2:] + B
                 self.color = "#" + R + G + B
                 self.gameCanvas.create_line(i.x, i.y, j.x, j.y, fill=self.color)
-        for i in self.setofPoints:
-            self.gameCanvas.create_oval(i.x - 5, i.y - 5, i.x + 5, i.y + 5, fill="white")
 
     def createTriangles(self):
+        self.gameCanvas.delete(ALL)
         for i in self.setofPoints:
             distances = []
             for j in self.setofPoints:
@@ -76,6 +76,7 @@ class Window:
             del distances[2:]
             self.distances += distances
         for i in range(0, len(self.setofPoints)):
+            self.color = ""
             R = hex((self.setofPoints[i].x + self.distances[2*i][1] + self.distances[2*i+1][1]) / 3)[2:]
             if len(R) >= 3:
                 R = R[-2:]
@@ -100,7 +101,7 @@ class Window:
 
 def main():
     root = Tk()
-    root.title("Computer Generated Art")
+    root.title("Computer Generated Art-Abstract Paint Generator")
     root.geometry("1000x600+350+150")
     Window(root)
     root.mainloop()
