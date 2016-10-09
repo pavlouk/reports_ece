@@ -38,6 +38,5 @@ int main() {
         else
             cout << "Case #" << i << ": " << minimum - 1 << endl;
     }
-
     return 0;
 }
