@@ -47,7 +47,7 @@ class Window:
     def setlineColor(self):
         for i in self.setofPoints:
             for j in self.setofPoints:
-                R = hex((i.x + j.x) / 2)[2:]
+                R = hex((i.x + j.x)/2)[2:]
                 if len(R) >= 3:
                     R = R[-2:]
                 elif len(R) == 1:
@@ -57,7 +57,7 @@ class Window:
                     G = G[-2:]
                 elif len(G) == 1:
                     G = hex(randint(0, 15))[2:] + G
-                B = hex((i.y + j.y) / 2)[2:]
+                B = hex((i.y + j.y)/2)[2:]
                 if len(B) >= 3:
                     B = B[-2:]
                 elif len(B) == 1:
@@ -71,31 +71,31 @@ class Window:
             distances = []
             for j in self.setofPoints:
                 if i != j:
-                    distances.append([(sqrt((j.x-i.x) ** 2 + (j.y-i.y) ** 2)), j.x, j.y])
+                    distances.append([(sqrt((j.x-i.x)**2 + (j.y-i.y)**2)), j.x, j.y])
             distances.sort(key=itemgetter(0))
             del distances[2:]
             self.distances += distances
         for i in range(0, len(self.setofPoints)):
             self.color = ""
-            R = hex((self.setofPoints[i].x + self.distances[2 * i][1] + self.distances[2 * i + 1][1]) / 3)[2:]
+            R = hex((self.setofPoints[i].x + self.distances[2*i][1] + self.distances[2*i + 1][1])/3)[2:]
             if len(R) >= 3:
                 R = R[-2:]
             elif len(R) == 1:
                 R = hex(randint(0, 15))[2:] + R
-            G = hex((self.setofPoints[i].y + self.distances[2 * i][2] + self.distances[2 * i + 1][2] + self.setofPoints[i].x +
-                     self.distances[2 * i][1] + self.distances[2 * i + 1][1]) / 6)[2:]
+            G = hex((self.setofPoints[i].y + self.distances[2*i][2] + self.distances[2*i + 1][2] + self.setofPoints[i].x +
+                     self.distances[2*i][1] + self.distances[2*i + 1][1])/6)[2:]
             if len(G) >= 3:
                 G = G[-2:]
             elif len(G) == 1:
                 G = hex(randint(0, 15))[2:] + G
-            B = hex((self.setofPoints[i].y + self.distances[2 * i][2] + self.distances[2 * i + 1][2]) / 3)[2:]
+            B = hex((self.setofPoints[i].y + self.distances[2*i][2] + self.distances[2*i + 1][2])/3)[2:]
             if len(B) >= 3:
                 B = B[-2:]
             elif len(B) == 1:
                 B = hex(randint(0, 15))[2:] + B
             self.color = "#" + R + G + B
             self.gameCanvas.create_polygon(self.setofPoints[i].x, self.setofPoints[i].y, self.distances[2*i][1],
-                                           self.distances[2 * i][2], self.distances[2 * i + 1][1], self.distances[2 * i + 1][2],
+                                           self.distances[2*i][2], self.distances[2*i + 1][1], self.distances[2*i + 1][2],
                                            fill=self.color)
 
 
