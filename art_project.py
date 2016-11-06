@@ -52,7 +52,7 @@ class Window:
                     R = R[-2:]
                 elif len(R) == 1:
                     R = hex(randint(0, 15))[2:] + R
-                G = hex((i.x + j.x + i.y + j.y) / 4)[2:]
+                G = hex((i.x + j.x + i.y + j.y)/4)[2:]
                 if len(G) >= 3:
                     G = G[-2:]
                 elif len(G) == 1:
@@ -71,7 +71,7 @@ class Window:
             distances = []
             for j in self.setofPoints:
                 if i != j:
-                    distances.append([(sqrt((j.x-i.x)**2 + (j.y-i.y)**2)), j.x, j.y])
+                    distances.append([(sqrt((j.x - i.x)**2 + (j.y - i.y)**2)), j.x, j.y])
             distances.sort(key=itemgetter(0))
             del distances[2:]
             self.distances += distances
