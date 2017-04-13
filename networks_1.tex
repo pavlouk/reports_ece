@@ -1,0 +1,84 @@
+\documentclass[a4parer, 12pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[english, greek]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{wrapfig}
+\newcommand{\en}{\selectlanguage{english}}
+\newcommand{\gr}{\selectlanguage{greek}} 
+\textwidth=6.5in
+\textheight=9.0in
+\usepackage{graphicx}
+\usepackage{collcell}
+\newcommand{\includepic}[1]{\includegraphics[width=0.5\textwidth]{#1}}
+\newcolumntype{i}{@{\hspace{1ex}}
+>{\collectcell\includepic}c<{\endcollectcell}}
+
+\begin{document}
+\noindent
+\normalsize\textbf {Τμήμα Ηλεκτρολόγων Μηχανικών \& Τεχνολογίας Υπολογιστών} \\
+\normalsize\textbf {Δίκτυα Επικοινωνίας Υπολογιστών} \\
+\normalsize\textbf {Άσκηση 1} \\
+\normalsize\textbf {Παύλος Λουκαρέας} \\
+\normalsize\textbf {Α.Μ. 1046970}
+
+\section*{Άσκηση 1.}
+
+Τα μοντέλα επιπέδου εφαρμογών του διαδικτύου
+\en \emph{client-server} \gr
+και \en \emph{peer-to-peer} \gr
+έχουν αρκετά διαφορετικές αρχιτεκτονικές προκειμένου να εξυπηρετήσουν 
+διαφορετικές ανάγκες. Στην \en \emph{client-server} \gr επικοινωνία υπάρχει ένας υπολογιστής 
+ειδικού σκοπού, ο \en server, \gr ο οποίος εξυπηρετεί τα αιτήματα
+(\en requests\gr) από τους
+\en client hosts. \gr 
+Συνεπώς, δεν είναι δυνατή η απευθείας επικοινωνία μεταξύ δύο
+\en client hosts. \gr
+Κλασικές εφαρμογές του μοντέλου αυτού είναι οι υπηρεσίες \en e-mail\gr. Αντίθετα, στην 
+\en \emph{peer-to-peer} \gr επικοινωνία απουσιάζει ο \en server \gr
+και δύο συνδεδεμένοι \en hosts \gr ή \en\emph{peers} \gr επικοινωνούν απευθείας. Επίσης, μια υπηρεσία \en \emph{peer-to-peer} \gr δεν είναι εξαρτημένη από μια ή παραπάνω κεντρικές μονάδες, αλλά εξαρτάται από τους ίδιους τους χρήστες της, άρα είναι κατανεμημένη στο δίκτυο.
+Μερικές εφαρμογές του μοντέλου αυτού είναι οι υπηρεσίες \en video-calling (Skype) \gr και
+\en file sharing. \gr
+
+\begin{figure}[h]
+\includegraphics[width=12cm]{network_corr}
+\centering
+\end{figure}
+
+Στο παραπάνω σχήμα φαίνονται αριθμημένα τα βήματα της διαδικασίας, προκειμένου να αποσταλλεί ένα 
+\en e-mail \gr από τη διεύθυνση \en mlogo@upatras.gr \gr στη διεύθυνση
+\en logom1@yahoo.gr\gr. Αρχικά, ο \en client mlogo@upatras.gr \gr στέλνει στον
+\en server upatras.gr \gr ένα αίτημα διαμέσου του δρόμου \{1, 2\} και στη συνέχεια αφού εγκριθεί στέλνει το επιθυμητό αρχείο από τον ίδιο δρόμο. Έπειτα, το μήνυμα μπαίνει σε μία ουρά αναμονής 
+για να αποσταλλεί στον \en server yahoo.gr \gr, με τον οποίο υπάρχει παρόμοια διαδικασία επικοινωνίας. Συνεπώς, το μήνυμα ακολουθεί το δρόμο \{3, 4, 5, 6, 7, 8\} και αποθηκεύεται στη βάση δεδομένων του \en server yahoo.gr. \gr Στη συνέχεια, ο \en client logom1 \gr κάνει αίτημα να δεί 
+τα μηνύματά του στον \en server yahoo.gr \gr μέσα από το δρόμο \{9, 10, 11, 12\} και έπειτα του αποστέλλονται από την ίδια αντίθετη διαδρομή \{13, 14, 15, 16\}. Με αυτόν τον τρόπο ολοκληρώνεται η επικοινωνία των δύο \en client hosts mlogo@upatras.gr \gr και \en logom1@yahoo.gr\gr.
+
+\section*{Άσκηση 2.}
+
+Mια \en \emph{connection-oriented} \gr υπηρεσία διαφέρει αρκετά απο μια αντίστοιχη 
+\en \emph{connectionless} \gr, καθώς η πρώτη έχει ως προτεραιότητα να θέσει σε ισχύ μια σύνδεση 
+μεταξύ δύο χρηστών, προκειμένου να γίνει σωστή και επιτυχημένη μετάδοση των δεδομένων. Αντίθετα, 
+στην \en \emph{connectionless} \gr υπηρεσία τα πακέτα των δεδομένων μεταδίδονται απλά με τη διεύθυνση του παραλήπτη, χωρίς να εγκαθιδρύεται μια σύνδεση. Αυτά έχουν ως αποτέλεσμα η 
+\en \emph{connectionless} \gr να είναι αρκετά ταχύτερη, αλλά λιγότερο ασφαλής όσον αφορά την
+επιτυχή λήψη των πακέτων, ενώ τα ακριβώς αντίθετα συμβαίνουν για μια
+\en \emph{connection-oriented} \gr υπηρεσία, δηλαδή ένω διασφαλίζεται σε μεγάλο βαθμό η επιτυχής 
+μετάδοση πακέτων υπάρχει ορισμένη καθυστέρηση. Τα πρωτόκολλα που χρησιμοποιούνται είναι το
+\en TCP \gr για την \en \emph{connection-oriented} \gr και το \en UDP \gr για την
+\en \emph{connectionless}. \gr
+
+\section*{Άσκηση 3.}
+
+\begin{tabular}{ii}
+upatras & ntua
+\end{tabular}
+
+Παρατηρούμε ότι στη σύνδεση με το δίκτυο του τμήματος μας υπάρχουν λιγότεροι ενδιάμεσοι
+\en routers \gr σχετικά με τη σύνδεση με το ΕΜΠ, το όποιο είναι και λογικό λόγω της απόστασης που υπάρχει. Επίσης, φαίνεται ότι για να γίνει ένα αίτημα σε έναν εξυπηρετητή πάντα περνάει από το
+δίκτυο του \en ISP.\gr
+\section*{Άσκηση 4.}
+
+Το \en ping \gr είναι ένα εργαλείο με το οποίο ανιχνεύεται η διαθεσιμότητα και η απόδοση ενός
+δικτυακού πόρου, μέσα από την απόστολη των πακέτων του \en Internet Control Message Protocol \gr και την επιστροφή τους στον αρχικό υπολογιστή.\\
+Δεν κατάλαβα πως μπορούμε να εξάγουμε την πραγματική απόσταση από μια μέση τιμή του 
+\en ping time.\gr
+
+\end{document}
