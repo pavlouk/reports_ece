@@ -21,4 +21,4 @@ for k in range(len(adj_m)):
                 adj_m[i][j] = adj_m[i][k] + adj_m[k][j]
 print "After \n"
 print '\n'.join(''.join(str(row)) for row in adj_m)
-#final adjancy matrix
+#final adjacency matrix
