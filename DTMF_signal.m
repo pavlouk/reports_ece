@@ -15,12 +15,37 @@ t = 0:tstep:(len - 1)*tstep;
 fftx = fft(audio_input, nfft);
 fftx = fftx(1:(nfft/2 + 1));
 amp = abs(fftx)/nfft;
-amp(2:nfft/2) = 2*amp(2:nfft/2);
-%% Find the dominant amplitudes and their respective frequencies
-%  after splitting the domain due to noise
-[A, F] = sort(amp, 'descend');
-f1 = (F(1) - 1)*(Fs/nfft);
-f2 = (F(2) - 1)*(Fs/nfft);
-%% Gross plotting
+amp(2:nfft/2) = sqrt(2)*amp(2:nfft/2);
+%% Downsample the audio signal and find calculate its FFT
 %
+less_audio = audio_input(1:4:end);
+td = 0:tstep*4:(length(less_audio) - 1)*tstep*4;
+nfftd = 2^(nextpow2(length(less_audio)));
+fd = (0:nfftd/2)*(Fs/nfftd);
+fftxd = fft(less_audio, nfftd);
+fftxd = fftxd(1:(nfftd/2 + 1));
+ampd = abs(fftxd)/nfftd;
+ampd(2:nfftd/2) = sqrt(2)*amp(2:nfftd/2);
+%% Plotting
+%
+subplot(2, 2, 1);
+plot(t, audio_input);
+title('Input audio');
+xlabel('t(sec)');
+ylabel('Amplitude')
+subplot(2, 2, 2);
 plot(f, amp);
+title('Spectrum of the audio');
+xlabel('f(Hz)');
+ylabel('Amplitude')
+subplot(2, 2, 3);
+plot(td, less_audio);
+title('Input audio downsampled by 4');
+xlabel('t(sec)');
+ylabel('Amplitude')
+subplot(2, 2, 4);
+plot(fd, ampd);
+title('Spectrum of the downsampled audio');
+xlabel('f(Hz)');
+ylabel('Amplitude')
+
