@@ -1,2 +1,2 @@
 # Homework
-Nothing particularly interesting in this repository
+This folder contains some documentation of lab exercises.
