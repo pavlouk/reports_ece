@@ -75,7 +75,7 @@ def max_spender_shopper(h_table):
 
 
 def main():
-    for i in range(1000000):
+    for _ in range(1000000):
         customer, customer_ID, price = createSale()
         store_hash(customer, customer_ID, price)
     max_spender_shopper(h_table)

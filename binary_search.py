@@ -66,7 +66,7 @@ def main():
 
 
 if __name__ == '__main__':
-    N = 1000 #Please use an even integer for N
+    N = 1000  # Please use an even integer for N
     random.seed(1046970)
     start = time.time()
     main()
