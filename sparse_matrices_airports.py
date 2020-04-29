@@ -1,10 +1,11 @@
 import random
 from math import sqrt
 
+
 def createFields(AM):
     random.seed(AM)
-    wx_europe = 3154 #km
-    wy_europe = 5341 #km
+    wx_europe = 3154  # km
+    wy_europe = 5341  # km
     init_wx = random.randint(0, wx_europe)
     init_wy = random.randint(0, wy_europe)
     longitude = []
@@ -26,6 +27,7 @@ def createFields(AM):
 
     return longitude, latitude
 
+
 def createFlights():
     departures = []
     arrivals = []
@@ -38,6 +40,7 @@ def createFlights():
 
     return departures, arrivals
 
+
 def store_sparse(dep, arr, lon, lat):
     iloc = [-1] * 1000
     j = [-1] * 10000
@@ -45,7 +48,8 @@ def store_sparse(dep, arr, lon, lat):
     Next = [-1] * 10000
     for i in range(10000):
         j[i] = arr[i]
-        D[i] = sqrt((lon[arr[i]] - lon[dep[i]]) ** 2 + (lat[arr[i]] - lat[dep[i]]) ** 2)
+        D[i] = sqrt((lon[arr[i]] - lon[dep[i]]) ** 2 +
+                    (lat[arr[i]] - lat[dep[i]]) ** 2)
         if iloc[dep[i]] == -1:
             iloc[dep[i]] = i
         else:
@@ -58,6 +62,7 @@ def store_sparse(dep, arr, lon, lat):
                 Next[index] = i
 
     return iloc, j, D, Next
+
 
 def printMin(iloc, j, D, Next):
     min_sum = 0
@@ -72,11 +77,13 @@ def printMin(iloc, j, D, Next):
             min_sum = min_sum + min_dist
     print(min_sum, "km")
 
+
 def main():
     longitude, latitude = createFields(1046970)
     departures, arrivals = createFlights()
     iloc, j, D, Next = store_sparse(departures, arrivals, longitude, latitude)
     printMin(iloc, j, D, Next)
+
 
 if __name__ == '__main__':
     main()

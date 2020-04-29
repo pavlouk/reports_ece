@@ -27,10 +27,11 @@ class Window:
             for j in range(25):
                 if self.Area[i][j].state == 1:
                     self.gameCanvas.create_oval(((10 * self.Area[i][j].x) + 5), ((10 * self.Area[i][j].y) + 5),
-                                                ((10 * self.Area[i][j].x) + 15), ((10 * self.Area[i][j].y) + 15),
+                                                ((10 * self.Area[i][j].x) + 15), ((
+                                                    10 * self.Area[i][j].y) + 15),
                                                 fill="red")
         nextStepButton = Button(self.parent, text="Next Step",
-                           font=("Helvetica 8"), command=self.NextStep)
+                                font=("Helvetica 8"), command=self.NextStep)
         nextStepButton.grid(row=26, column=12)
 
     def NextStep(self):
@@ -49,7 +50,8 @@ class Window:
             for j in range(25):
                 if self.Area[i][j].state == 1:
                     self.gameCanvas.create_oval(((10 * self.Area[i][j].x) + 5), ((10 * self.Area[i][j].y) + 5),
-                                                ((10 * self.Area[i][j].x) + 15), ((10 * self.Area[i][j].y) + 15),
+                                                ((10 * self.Area[i][j].x) + 15), ((
+                                                    10 * self.Area[i][j].y) + 15),
                                                 fill="red")
 
 
@@ -71,7 +73,8 @@ class Cell:
             self.state = 1
 
     def set_alive(self, state1, state2, state3, state4, state5, state6, state7, state8):
-        self.alive_n = state1 + state2 + state3 + state4 + state5 + state6 + state7 + state8
+        self.alive_n = state1 + state2 + state3 + \
+            state4 + state5 + state6 + state7 + state8
 
 
 def Moore(Area):
@@ -110,7 +113,8 @@ def Moore(Area):
                                      Area[i][j - 1].state)
             else:
                 Area[i][j].set_alive(Area[i][j + 1].state, Area[i + 1][j + 1].state, Area[i - 1][j + 1].state,
-                                     Area[i][j - 1].state, Area[i - 1][j - 1].state, Area[i - 1][j].state,
+                                     Area[i][j - 1].state, Area[i - 1][j -
+                                                                       1].state, Area[i - 1][j].state,
                                      Area[i + 1][j].state,
                                      Area[i + 1][j - 1].state)
 
@@ -127,11 +131,13 @@ def new(gameCanvas, Area):
         for j in range(25):
             if Area[i][j].state == 0:
                 gameCanvas.create_oval(((10 * Area[i][j].x) + 5), ((10 * Area[i][j].y) + 5),
-                                   ((10 * Area[i][j].x) + 15), ((10 * Area[i][j].y) + 15),
-                                   activefill="red")
+                                       ((10 * Area[i][j].x) +
+                                        15), ((10 * Area[i][j].y) + 15),
+                                       activefill="red")
             else:
                 gameCanvas.create_oval(((10 * Area[i][j].x) + 5), ((10 * Area[i][j].y) + 5),
-                                       ((10 * Area[i][j].x) + 15), ((10 * Area[i][j].y) + 15),
+                                       ((10 * Area[i][j].x) +
+                                        15), ((10 * Area[i][j].y) + 15),
                                        fill="red")
             gameCanvas.bind("<Button-1>", callback)
 
@@ -174,11 +180,12 @@ def initializer():
     for i in range(25):
         for j in range(25):
             gameCanvas.create_oval(((10 * Area[i][j].x) + 5), ((10 * Area[i][j].y) + 5),
-                                   ((10 * Area[i][j].x) + 15), ((10 * Area[i][j].y) + 15),
+                                   ((10 * Area[i][j].x) +
+                                    15), ((10 * Area[i][j].y) + 15),
                                    activefill="red")
             gameCanvas.bind("<Button-1>", callback)
     nextStepButton = Button(root1, text="Begin generation",
-                           font=("Helvetica 8"), command=main)
+                            font=("Helvetica 8"), command=main)
     nextStepButton.grid(row=26, column=12)
     root1.mainloop()
 

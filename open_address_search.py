@@ -64,7 +64,7 @@ def main():
 
 
 if __name__ == '__main__':
-    N = 1000 #Please use an even integer for N
+    N = 1000  # Please use an even integer for N
     prime = 20*N
     prime = 20011
     h_table = [[]]*prime
