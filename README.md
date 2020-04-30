@@ -1,4 +1,22 @@
-# Source collection of my time as an electrical and computer engineering student 
+# Awesome source collection 
+` MATLAB, C, C++, Python`
 
-> Miscellaneous source files that solve some encountered algorithmic and numerical problems.
+## Directories include 
 
+    1. Communication-system modeling --- MATLAB
+        - DTMF decoder 
+        - Noise-free channel's impulse response
+
+    2. Google Code Jam Qualification Rounds 
+        - 2015: B (Python)
+        - 2016: A, C (C++)
+        - 2017: A, B (C++)  
+
+    3. Numerical Analysis Algorithms --- C
+        - Newton-Raphson Root Finding Method 
+        - Simpson's Integration
+        - Trapezoidal Integration 
+        - Euler's Differencial Equation Solution
+        - String-based Addition and Substraction
+
+    
