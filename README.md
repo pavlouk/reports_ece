@@ -19,4 +19,13 @@
         - Euler's Differencial Equation Solution
         - String-based Addition and Substraction
 
+    4. Searching Algorithms and Sparse Data Representation
+        - binary_search.py
+        - floyd_warshall.py              
+        - maximum integer subarray (naive, partial sums, dynamic programming)        
+        - sparse_matrices_airports.py
+        - chaining_search.py  
+        - hash_table.py                 
+        - complete_search.py 
+        - open_address_search.py
     
