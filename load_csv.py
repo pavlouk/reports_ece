@@ -37,7 +37,7 @@ def load_csv(hours, name='BAT'):
     ας επιστρέψω για αρχή λίστα γιατί έχω καθυστερήσει
     μετά να το κάνω να επιστρέφει pd.Series
     """
-    data = pd.Series(index=hours)
+    data = dict.fromkeys(hours)
     if name == 'WAT':
         csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/WAT/CSV_*.csv'))
         
@@ -49,6 +49,6 @@ def load_csv(hours, name='BAT'):
     csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/BAT/CSV_*.csv'))
 
     for sampleHour, file in zip(hours, csvFiles):
-        data[sampleHour] = [_data_fixer(file)]
+        data[sampleHour] = _data_fixer(file)
         
     return data
