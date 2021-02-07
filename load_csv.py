@@ -34,21 +34,23 @@ def _data_fixer(fname):
 
 def load_csv(hours, name='BAT'):
     """
-    ας επιστρέψω για αρχή λίστα γιατί έχω καθυστερήσει
-    μετά να το κάνω να επιστρέφει pd.Series
+    ας επιστρέψω για αρχή λεξικό γιατί έχω καθυστερήσει
+    μετά να το κάνω να επιστρέφει λίστα από λεξικά 
+    
+    
     """
-    data = dict.fromkeys(hours)
+    data_dictionary = dict.fromkeys(hours)
     if name == 'WAT':
         csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/WAT/CSV_*.csv'))
         
         for sampleHour, file in zip(hours, csvFiles):
-            data[sampleHour] = [_data_fixer(file)]
+            data_dictionary[sampleHour] = _data_fixer(file)
             
-        return data
+        return pd.DataFrame(data_dictionary)
     
     csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/BAT/CSV_*.csv'))
 
     for sampleHour, file in zip(hours, csvFiles):
-        data[sampleHour] = _data_fixer(file)
+        data_dictionary[sampleHour] = _data_fixer(file)
         
-    return data
+    return pd.DataFrame(data_dictionary)

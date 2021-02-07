@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['clean_code.py', 'load_csv.py', 'test_code.py', 'plot_shape_index.py', 'plot_cluster_comparison.py', '..\\anaconda3\\lib\\site-packages\\skimage\\feature\\__init__.py']
+recent_files = ['clean_code.py', 'load_csv.py', 'test_code.py', 'plot_morphology.py', 'plot_label.py', 'image_annotated_heatmap.py']
 

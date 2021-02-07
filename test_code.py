@@ -49,7 +49,7 @@
 
 # anim = animation.FuncAnimation(fig, animate, init_func=init, frames=nx * ny, interval=50)
 # anim.save(filename='afafa.mp4', writer='ffmpeg')
-
+import numpy as np
 import matplotlib.pyplot as plt
 
 from skimage import data
@@ -73,3 +73,82 @@ ax1.axis('off')
 fig.colorbar(img1, ax=ax1)
 
 plt.show()
+
+
+
+def overplot(func):
+    def testplot_wrapper():
+        x, y = np.linspace(0,5), np.linspace(0,10)
+        plt.plot(x,y)
+        print('asterakia mou')
+        func()
+    return(testplot_wrapper)
+
+@overplot
+def testplot():
+    x, y = np.linspace(0,5), np.linspace(0,5)
+    print('ajjjjjjjjjj')
+    plt.plot(x,y) 
+
+testplot()
+plt.show()
+
+
+
+
+fig3 = plt.figure(constrained_layout=True)
+gs = fig3.add_gridspec(3, 3)
+f3_ax1 = fig3.add_subplot(np.arange(0, 9, 1), silhouette, 'k--', label='silhouette')
+f3_ax1.set_title('gs[0, :]')
+f3_ax2 = fig3.add_subplot(gs[1, :-1])
+f3_ax2.set_title('gs[1, :-1]')
+f3_ax3 = fig3.add_subplot(gs[1:, -1])
+f3_ax3.set_title('gs[1:, -1]')
+f3_ax4 = fig3.add_subplot(gs[-1, 0])
+f3_ax4.set_title('gs[-1, 0]')
+f3_ax5 = fig3.add_subplot(gs[-1, -2])
+f3_ax5.set_title('gs[-1, -2]')
+
+
+
+
+import numpy as np
+from itertools import product
+
+
+def squiggle_xy(a, b, c, d, i=np.arange(0.0, 2*np.pi, 0.05)):
+    return np.sin(i*a)*np.cos(i*b), np.sin(i*c)*np.cos(i*d)
+
+
+fig11 = plt.figure(figsize=(8, 8), constrained_layout=False)
+
+# gridspec inside gridspec
+outer_grid = fig11.add_gridspec(nrows=4, ncols=4, wspace=0.2, hspace=0.3)
+
+for i in range(16):
+    inner_grid = outer_grid[i].subgridspec(nrows=3, ncols=3, wspace=0.1, hspace=0.2)
+    a, b = int(i/4)+1, i % 4+1
+    for j, (c, d) in enumerate(product(range(1, 4), repeat=2)):
+        ax = fig11.add_subplot(inner_grid[j])
+        ax.plot(*squiggle_xy(a, b, c, d))
+        ax.set_xticks([])
+        ax.set_yticks([])
+        fig11.add_subplot(ax)
+
+all_axes = fig11.get_axes()
+
+# show only the outside spines
+for ax in all_axes:
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    if ax.is_first_row():
+        ax.spines['top'].set_visible(True)
+    if ax.is_last_row():
+        ax.spines['bottom'].set_visible(True)
+    if ax.is_first_col():
+        ax.spines['left'].set_visible(True)
+    if ax.is_last_col():
+        ax.spines['right'].set_visible(True)
+
+plt.show()
+
