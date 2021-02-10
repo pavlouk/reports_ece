@@ -12,7 +12,11 @@
 `python setup.py`
 
 ## Demo 
-![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock1.gif "Logo Title Text 1")
-![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock2.gif "Logo Title Text 1")
-![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock3.gif "Logo Title Text 1")
-![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock4.gif "Logo Title Text 1")
+### Welcome Page
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock1.gif "Welcome")
+### Customizable `p, q` ---key generation
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock2.gif "Customize")
+### Message Encryption
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock3.gif "Encryption")
+### Message Decryption
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock4.gif "Decryption")
