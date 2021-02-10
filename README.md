@@ -8,5 +8,11 @@
         - Message encryption based on the Bob's `public key`
         - Message decryption based on user's own `private key`
 
-### Usage 
+### Installation  
 `python setup.py`
+
+## Demo 
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock1.gif "Logo Title Text 1")
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock2.gif "Logo Title Text 1")
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock3.gif "Logo Title Text 1")
+![alt text](https://github.com/ploukareas/Cryptomania/blob/master/images/Lock4.gif "Logo Title Text 1")
