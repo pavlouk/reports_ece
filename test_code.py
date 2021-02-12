@@ -152,3 +152,44 @@ for ax in all_axes:
 
 plt.show()
 
+
+    #-------------- Figure: 2-figure the used features: intensity and texture ----------------------------
+    fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(8, 4))
+    fig.suptitle('Utilized Features' + sampleHour)
+    axs[0].imshow(X=segmentedImage, cmap=plt.cm.nipy_spectral)
+    axs[0].set_title('Intensity')
+
+    axs[1].imshow(textureImage, cmap=plt.cm.gray)
+    axs[1].scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
+    axs[1].set_title('Texture, Skeleton')
+
+    axs[2].imshow(textureImage, cmap=plt.cm.gray)
+    axs[2].scatter(x=thinOrdinateY, y=thinOrdinateX, c='red', s=1)
+    axs[2].set_title('Texture, Thin')
+
+
+
+from PIL import Image, ImageDraw
+
+images = []
+
+width = 200
+center = width // 2
+color_1 = (0, 0, 0)
+color_2 = (255, 255, 255)
+max_radius = int(center * 1.5)
+step = 8
+
+for i in range(0, max_radius, step):
+    im = Image.new('RGB', (width, width), color_1)
+    draw = ImageDraw.Draw(im)
+    draw.ellipse((center - i, center - i, center + i, center + i), fill=color_2)
+    images.append(im)
+
+for i in range(0, max_radius, step):
+    im = Image.new('RGB', (width, width), color_2)
+    draw = ImageDraw.Draw(im)
+    draw.ellipse((center - i, center - i, center + i, center + i), fill=color_1)
+    images.append(im)
+
+images[0].save('llow_imagedraw.gif', save_all=True, append_images=images[1:], optimize=False, duration=40, loop=0)

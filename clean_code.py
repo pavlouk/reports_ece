@@ -52,16 +52,16 @@ readable = [readable_EXIF(rawdata) for rawdata in rawEXIF]
 # με το κεντράρισμα του ποντικιού ρίχνουμε το μέγεθος σε (240, 144)
 cutImages = [mouseImage[:, 100:260] for mouseImage in rawImages]
 
-# for cutImage, rawImage in zip(cutImages, rawImages):
-#     #-------------- Figure: 2-figure considered with the background/object segmentation --------
-#     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(8, 3))
-#     fig.suptitle('Border Removal')
-#     axs[0].imshow(rawImage, cmap=plt.cm.nipy_spectral)
-#     axs[0].axvline(x=100, c='red')
-#     axs[0].axvline(x=260, c='red')
-#     axs[1].imshow(cutImage, cmap=plt.cm.nipy_spectral)
+for cutImage, rawImage in zip(cutImages, rawImages):
+    #-------------- Figure: 2-figure about the FLIR logo removal --------
+    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(8, 3))
+    fig.suptitle('Border Removal')
+    axs[0].imshow(rawImage, cmap=plt.cm.nipy_spectral)
+    axs[0].axvline(x=100, c='red')
+    axs[0].axvline(x=260, c='red')
+    axs[1].imshow(cutImage, cmap=plt.cm.nipy_spectral)
 
-# στατιστικά εικόνας, πριν κάνουμε αλλαγές
+# Preprocessing -- στατιστικά εικόνας, πριν κάνουμε αλλαγές
 sigmaEstimatesBefore = [estimate_sigma(mouseImage) for mouseImage in cutImages]
 meanBefore = [np.mean(mouseImage) for mouseImage in cutImages]
 SNRBefore = list(map(lambda x, y: x / y, meanBefore, sigmaEstimatesBefore))
@@ -73,11 +73,11 @@ mouseImages = [downscale_local_mean(mouseImage, (2, 2)) for mouseImage in cutIma
 # or denoise_wavelet
 mouseImages = [unsharp_mask(mouseImage) for mouseImage in mouseImages]
 
-# στατιστικά εικόνας, αφού κάνουμε αλλαγές
+# Preprocessing -- στατιστικά εικόνας, αφού κάνουμε αλλαγές
 sigmaEstimatesAfter = [estimate_sigma(mouseImage) for mouseImage in mouseImages]
 meanAfter = [np.mean(mouseImage) for mouseImage in mouseImages]
 SNRAfter = list(map(lambda x, y: x / y, meanAfter, sigmaEstimatesAfter))
-
+#-------------- Figure: 1-figure with estimated SNR before and after preprocessing --------
 # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
 # fig.suptitle('Estimated SNR', fontsize='xx-large')
 # grid = fig.add_gridspec(nrows=1, ncols=1, wspace=0.1, hspace=0.1)
@@ -132,17 +132,17 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
     # We find markers of the background and the mouse body based on the extreme
     # parts of the histogram of gray values.
     # μαρκάρω == marker, πινακιδιάζω == label
-
+    
     mouseMarker[img_as_ubyte(cutImage) < markerBack] = 1
     mouseMarker[img_as_ubyte(cutImage) > markerBody] = 2
     # We use the watershed transform to fill regions of the elevation
     # map starting from the markers determined above
     # find an elevation map using the image Sobel gradient.
     elevationMap = sobel(cutImage)
-    initialMask = watershed(elevationMap, mouseMarker)
+    initialMask1 = watershed(elevationMap, mouseMarker)
 
     # This method segments and labels the mouse individually
-    initialMask = ndi.binary_fill_holes(initialMask - 1)
+    initialMask = ndi.binary_fill_holes(initialMask1 - 1)
 
     labeledMouse, _ = ndi.label(initialMask)
 
@@ -159,17 +159,17 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
     maskOrdinateX, maskOrdinateY = img_to_vectors(mouseMask)
     n_samples = maskOrdinateX.size # == maskOrdinateY.size φυσικά
 
+from functools import * 
 
     #-------------- Figure: 3-figure considered with the background/object segmentation --------
     
     fig = plt.figure(figsize=(8, 8), constrained_layout=False)
     # fig.title('histogram and entropy image')
-    grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.15, hspace=0.1)
+    grid = fig.add_gridspec(nrows=3, ncols=2, wspace=0.15, hspace=0.1)
     
     ax = fig.add_subplot(grid[0, 0])
     img1 = ax.imshow(img_as_ubyte(mouseImage), cmap=plt.cm.nipy_spectral)
     ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    ax.legend(loc='best', shadow=True, fontsize='large')
     ax.set_title('mouse')
     fig.colorbar(img1, ax=ax)
     fig.add_subplot(ax)
@@ -177,10 +177,11 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
     ax = fig.add_subplot(grid[0, 1])
     img1 = ax.imshow(entropy(img_as_ubyte(mouseImage), disk(5)), cmap=plt.cm.nipy_spectral_r)
     ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    ax.legend(loc='best', shadow=True, fontsize='large')
     ax.set_title('entropy')
     fig.colorbar(img1, ax=ax)
     fig.add_subplot(ax)
+    
+    
     
     hist, hist_centers = histogram(img_as_ubyte(mouseImage))
     ax = fig.add_subplot(grid[1, :])
@@ -274,23 +275,18 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
 
     # κατασκευή του διανύσματος feature για τον αλγόριθμο συσταδοποίησης
     # mouse intensity made into a vector of length {n_samples}
-    intensityFeature = np.zeros(n_samples, dtype='float64')
+    intensityFeature = np.zeros(n_samples, dtype='float64') 
     # mouseImage_ubyte = img_as_ubyte(mouseImage)
-    for i in range(n_samples):
-        intensityFeature[i] = mouseImage[maskOrdinateX[i], maskOrdinateY[i]]
+    # for i in range(n_samples):
+    #     intensityFeature[i] = mouseImage[maskOrdinateX[i], maskOrdinateY[i]]
+    intensityFeature = mouseImage[maskOrdinateX, maskOrdinateY]
 
     # segmentedImage: εικόνα διάστασης mouseImage με μαύρο background
     segmentedImage = np.zeros_like(mouseImage)
     for i in range(n_samples):
         segmentedImage[maskOrdinateX[i]][maskOrdinateY[i]] = intensityFeature[i]
 
-    #-------------- Figure: 2-figure considered with the background/object segmentation --------
-    hist, hist_centers = np.histogram(intensityFeature, bins=256, range=(0,255))
-    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(8, 3))
-    # fig.subtitle('Tissue Histogram')
-    axs[0].imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
-    axs[0].contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    axs[1].plot(hist_centers[1:], hist, lw=1)
+
 
     # βγάζω την εικόνα texture για να την περάσω ως feature προς τη μέθοδο συσταδοποίησης
     radius = 10
@@ -301,39 +297,41 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
 
     # mouse texture made into a vector of length {n_samples}
     textureFeature = np.zeros(n_samples)
-    for i in range(n_samples):
-        textureFeature[i] = textureImage[maskOrdinateX[i], maskOrdinateY[i]]
+    textureFeature = textureImage[maskOrdinateX, maskOrdinateY]
 
     # το αντίστροφο να φτιάξουμε μια εικόνα μέσω της μάσκας
     segmentedTexture = np.zeros_like(segmentedImage)
     for i in range(n_samples):
         segmentedTexture[maskOrdinateX[i]][maskOrdinateY[i]] = textureFeature[i]
 
-    #-------------- Figure: 2-figure considered with the background/object segmentation --------
+
+
+    #-------------- Figure: 4-figure comparing texture and intensity histogram  --------
     # textureFeature, bins=np.max(textureFeature), range=(0,255)
-    hist, hist_centers = np.histogram(segmentedTexture)
+    
     # hist, hist_centers = histogram(textureImage)
-    fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(8, 3))
-    # fig.subtitle('Texture of segmented image')
-    axs[0].imshow(segmentedTexture, cmap=plt.cm.nipy_spectral)
-    axs[1].plot(hist_centers[1:], hist, lw=1)
-    # axs[1].axvline(markerBack, color='r', linestyle='--')
-    # axs[1].axvline(markerBody, color='b')
-    axs[1].set_title('segmented Texture')
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.15, hspace=0.2)
+    
+    ax = fig.add_subplot(grid[0, 0])
+    # fig.subtitle('Tissue Histogram')
+    ax.imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
+    ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
+    ax.set_title('Feature')
+    
+    ax = fig.add_subplot(grid[0, 1])
+    histIntensity, hist_centersIntensity = np.histogram(intensityFeature)
+    ax.plot(hist_centersIntensity[1:], histIntensity, lw=1)
+    ax.set_title('Histogram')
+    
+    ax = fig.add_subplot(grid[1, 0])
+    ax.imshow(segmentedTexture, cmap=plt.cm.nipy_spectral)
+    
+    ax = fig.add_subplot(grid[1, 1])
+    histTexture, hist_centersTexture = np.histogram(textureFeature)
+    ax.plot(hist_centersTexture[1:], histTexture, lw=1)
+    
 
-    #-------------- Figure: 2-figure the used features: intensity and texture ----------------------------
-    fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(8, 4))
-    fig.suptitle('Utilized Features' + sampleHour)
-    axs[0].imshow(X=segmentedImage, cmap=plt.cm.nipy_spectral)
-    axs[0].set_title('Intensity')
-
-    axs[1].imshow(textureImage, cmap=plt.cm.gray)
-    axs[1].scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    axs[1].set_title('Texture, Skeleton')
-
-    axs[2].imshow(textureImage, cmap=plt.cm.gray)
-    axs[2].scatter(x=thinOrdinateY, y=thinOrdinateX, c='red', s=1)
-    axs[2].set_title('Texture, Thin')
 
     # ------------------ Building the feature vector X{n_samples, n_features} ----------------------
     # Σε αυτό το σημείο θα μπορούσαμε να κάνουμε feature extraction μέσα από την εικόνα
@@ -423,16 +421,19 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
     centroidRow, centroidColumn = map(list, zip(*clusterCentroids))
 
     #-------------- Figure: 2-figure of the segmented object values ----------------------------
+    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+
+    # grid = fig.add_gridspec(nrows=2, ncols=3, wspace=0.15, hspace=0.2)
     fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(8, 4))
     fig.suptitle(sampleHour)
     axs[0].imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
     axs[0].set_title('segmented mouse')
     axs[0].scatter(x=centroidColumn, y=centroidRow, c='white', s=6)
-    # label2rgb(label=labeledImage, image=segmentedImage, bg_label=0, alpha=0.5)
+ 
     axs[1].imshow(labeledImage, cmap=plt.cm.nipy_spectral)
     axs[1].scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
     axs[1].set_title('clustering + skeleton')
-    # label2rgb(label=labeledImage, image=segmentedImage, bg_label=0, alpha=0.5)
+
     axs[2].imshow(labeledImage, cmap=plt.cm.nipy_spectral)
     axs[2].scatter(x=thinOrdinateY, y=thinOrdinateX, c='white', s=1)
     axs[2].set_title('clustering + thin')
@@ -523,7 +524,6 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
     # axs[1].scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
     # axs[1].set_title('eliminate boundaries')
     
-    
     teliko = regionprops(label_image=oneLabeledImage)
     
     boundaryImage = np.logical_xor(oneLabeledImage, dilation(oneLabeledImage, square(9)))
@@ -560,6 +560,7 @@ for cutImage, sampleHour in zip(mouseImages, sampleHours):
 # x = [80, 40] y = [12, 13] z = [16, 17] άρα τα κάνω unpack με το
 silhouette, calinski, davies = map(list, zip(*clusteringScores))
 
+meanScores = list(map(np.mean, (silhouette, calinski, davies)))
 
 fig = plt.figure(figsize=(8, 8), constrained_layout=False)
 grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.15, hspace=0.1)
@@ -570,6 +571,8 @@ ax.scatter(np.arange(0, 9, 1), silhouette, c='black', s=10)
 ax.legend(loc='best', shadow=True, fontsize='large')
 ax.set_xticks(np.arange(0, 9, 1))
 ax.set_xticklabels(sampleHours)
+ax.set_ylabel('mean silhouette')
+ax.axhline(meanScores[0], color='r', linestyle='--')
 fig.add_subplot(ax)
 
 ax = fig.add_subplot(grid[0, 1])
@@ -578,12 +581,17 @@ ax.scatter(np.arange(0, 9, 1), davies, c='black', s=10)
 ax.legend(loc='best', shadow=True, fontsize='large')
 ax.set_xticks(np.arange(0, 9, 1))
 ax.set_xticklabels(sampleHours)
+ax.set_ylabel('mean davies')
+ax.axhline(meanScores[2], color='r', linestyle='--')
 fig.add_subplot(ax)
 
 ax = fig.add_subplot(grid[1, :])
 ax.plot(np.arange(0, 9, 1), calinski, 'k', label='calinski')
 ax.scatter(np.arange(0, 9, 1), calinski, c='black', s=10)
-ax.legend(loc='best', shadow=True, fontsize='large')
+
 ax.set_xticks(np.arange(0, 9, 1))
 ax.set_xticklabels(sampleHours)
+ax.set_ylabel('mean calinski')
+ax.axhline(meanScores[1], color='r', linestyle='--', label='mean')
+ax.legend(loc='best', shadow=True, fontsize='large')
 fig.add_subplot(ax)
