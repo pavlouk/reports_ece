@@ -9,7 +9,6 @@ from skimage.io import imread
 from PIL import Image
 from PIL.ExifTags import TAGS
 import os
-
 def _readable_EXIF(exifdata):
     exifList = []
     try:
@@ -65,6 +64,7 @@ EXIF_data : list (bytes)
         
         EXIF_data = [_readable_EXIF(rawdata) for rawdata in EXIF_bytes]
         return loaded_images, EXIF_bytes
+    
     imageFiles = sorted(glob(CWD + '/dataset/BAT/IR_*.jpg'))
     [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
     [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]

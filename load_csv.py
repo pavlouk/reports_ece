@@ -2,7 +2,7 @@
 from glob import glob 
 import pandas as pd
 import numpy as np
-
+import os 
 # df = pd.read_csv(filepath_or_buffer='~/Adiposer/dataset/BAT/CSV_2509.csv', 
 #                  sep=',', engine='python', 
 #                  skip_blank_lines=True, skipinitialspace=True, skiprows=[0, 1])
@@ -33,22 +33,45 @@ def _data_fixer(fname):
     
 
 def load_csv(hours, name='BAT'):
-    """
-    ας επιστρέψω για αρχή λεξικό γιατί έχω καθυστερήσει
-    μετά να το κάνω να επιστρέφει λίστα από λεξικά 
+    """ 
+=======
+load_csv
+=======
+
+Definition: load_csv(hours, name='BAT')
+
+Image loader from the dataset directory 
+
+Obtain all FLIR image metadata
+
+Parameters
+----------
+hours : list[string] 
+     Sampled Hours of data
+
+name : string {'WAT' or 'BAT'} (default 'BAT')
+    Obtain appropriate data.
+
+Returns
+-------
+loaded_images : list (np.array)
+    Loaded image sequence. 
     
-    
+EXIF_bytes : list (bytes)
+    image metadata     
+        
     """
     data_dictionary = dict.fromkeys(hours)
+    CWD = os.getcwd()
     if name == 'WAT':
-        csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/WAT/CSV_*.csv'))
+        csvFiles = sorted(glob(CWD + '/dataset/WAT/CSV_*.csv'))
         
         for sampleHour, file in zip(hours, csvFiles):
             data_dictionary[sampleHour] = _data_fixer(file)
             
         return pd.DataFrame(data_dictionary)
     
-    csvFiles = sorted(glob('C:/Users/plouk/Adiposer/dataset/BAT/CSV_*.csv'))
+    csvFiles = sorted(glob(CWD + '/dataset/BAT/CSV_*.csv'))
 
     for sampleHour, file in zip(hours, csvFiles):
         data_dictionary[sampleHour] = _data_fixer(file)

@@ -50,7 +50,7 @@ loaded_images : list (np.array) -> 45 images = 9 images / mouse * 5 mice
     Loaded image sequence. 
     
 EXIF_data : list (strings) -> 45 metadata = 9 metadata / mouse * 5 mice 
-    Image metadata     
+    Image metadata: list of 22 strings 
         
     """
     

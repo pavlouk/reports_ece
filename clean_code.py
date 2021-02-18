@@ -33,7 +33,6 @@ from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bo
 from scipy import ndimage as ndi
 
 from load_images import load_images
-from readable_EXIF import readable_EXIF
 from img_to_vectors import img_to_vectors
 from load_csv import load_csv
 from gif_maker import gif_maker
@@ -45,9 +44,8 @@ sampleHours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
 markerBack, markerBody = 70, 150
 # import image sequence with immediate grayscale conversion
 # η αρχική ανάλυση της εικόνας είναι (240, 320)
-rawImages, rawEXIF = load_images(name='BAT')
-# sensorData = load_csv(sampleHours, name='BAT')
-readable = [readable_EXIF(rawdata) for rawdata in rawEXIF]
+rawImages, readable_EXIF = load_images(name='BAT')
+sensorData = load_csv(sampleHours, name='BAT')
 
 # Display purposes: clear the FLIR logo and the pseudo-color scale
 # με το κεντράρισμα του ποντικιού ρίχνουμε το μέγεθος σε (240, 144)
@@ -106,22 +104,26 @@ sigmaEstimatesAfter = [estimate_sigma(mouseImage) for mouseImage in mouseImages]
 meanAfter = [np.mean(mouseImage) for mouseImage in mouseImages]
 SNRAfter = list(map(lambda x, y: x / y, meanAfter, sigmaEstimatesAfter))
 #-------------- Figure: 1-figure with estimated SNR before and after preprocessing --------
-# fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-# fig.suptitle('Estimated SNR', fontsize='xx-large')
-# grid = fig.add_gridspec(nrows=1, ncols=1, wspace=0.1, hspace=0.1)
-# ax = fig.add_subplot(grid[0, 0])
-# ax.set_xticks(ticks=np.arange(0, 9, 1))
-# ax.set_xticklabels(labels=sampleHours)
-# ax.set_xlabel('Sample Hours')
+fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+fig.suptitle('Estimated SNR', fontsize='xx-large')
+grid = fig.add_gridspec(nrows=1, ncols=1, wspace=0.1, hspace=0.1)
 
-# ax.plot(np.arange(0, 9, 1), SNRBefore, 'k--', label='Cut Images')
-# ax.scatter(np.arange(0, 9, 1), SNRBefore, c='black', s=10)
-# ax.legend(loc='best', shadow=True, fontsize='x-large')
+ax = fig.add_subplot(grid[0, 0])
+ax.grid(True)
+ax.set_xticks(ticks=np.arange(0, 9, 1))
+ax.set_xticklabels(labels=sampleHours)
+ax.set_xlabel(xlabel='Sample Hours')
 
-# ax.plot(np.arange(0, 9, 1), SNRAfter, 'k', label='Downscale \n + Denoise')
-# ax.scatter(np.arange(0, 9, 1), SNRAfter, c='black', s=10)
-# ax.legend(loc='best', shadow=True, fontsize='x-large')
-# fig.add_subplot(ax)
+ax.plot(np.arange(0, 9, 1), SNRBefore, 'k--', 
+        label='Cut Images')
+ax.scatter(np.arange(0, 9, 1), SNRBefore, c='black', s=10)
+ax.legend(loc='best', shadow=True, fontsize='x-large')
+
+ax.plot(np.arange(0, 9, 1), SNRAfter, 'k', 
+        label='Downscale \n + Denoise')
+ax.scatter(np.arange(0, 9, 1), SNRAfter, c='black', s=10)
+ax.legend(loc='best', shadow=True, fontsize='x-large')
+fig.add_subplot(ax)
 
 
 minMouseImages, mouseMasks = 9*[], 9*[]
@@ -635,6 +637,7 @@ ax.set_xticklabels(labels=[])
 ax.axhline(y=meanScores[2], color='r', linestyle='--', 
            label='Mean '+"{:.2f}".format(meanScores[2]))
 ax.legend(loc='best', shadow=True, fontsize='large')
+
 fig.add_subplot(ax)
 
 ax = fig.add_subplot(grid[2])
@@ -657,4 +660,5 @@ ax.set_xticklabels(labels=sampleHours)
 ax.axhline(y=meanScores[3], color='r', linestyle='--', 
             label='Mean '+"{:.2f}".format(meanScores[3]))
 ax.legend(loc='best', shadow=True, fontsize='large')
+ax.set_xlabel(xlabel='Sample Hours')
 fig.add_subplot(ax)
