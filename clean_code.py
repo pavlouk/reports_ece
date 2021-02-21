@@ -17,8 +17,7 @@ from skimage.util import img_as_ubyte
 from skimage.restoration import estimate_sigma, denoise_wavelet
 from skimage.filters import sobel, unsharp_mask
 from skimage.exposure import histogram
-from skimage.segmentation import watershed
-from skimage.segmentation import random_walker
+from skimage.segmentation import watershed, random_walker
 from skimage.measure import regionprops, regionprops_table, find_contours
 from skimage.transform import downscale_local_mean
 from skimage.draw import rectangle, rectangle_perimeter, circle, circle_perimeter
@@ -26,10 +25,10 @@ from skimage.filters.rank import entropy
 from skimage.morphology import disk, square, skeletonize, thin, dilation
 from skimage.feature import greycomatrix, greycoprops, local_binary_pattern
 
-from sklearn.feature_extraction import img_to_graph, grid_to_graph
 from sklearn import cluster
 from sklearn import preprocessing
 from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
+from sklearn.feature_extraction import img_to_graph, grid_to_graph
 from scipy import ndimage as ndi
 
 from load_images import load_images
@@ -56,7 +55,7 @@ gif_maker(rawImages, cutImages)
 for cutImage, rawImage in zip(cutImages, rawImages):
     # -------------- Figure: 2-figure about the FLIR logo removal --------
     fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    fig.suptitle('Border Removal', fontsize='xx-large')
+    fig.suptitle(t='Border Removal', fontsize='xx-large')
     grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.2, hspace=0.2)
     
     ax = fig.add_subplot(grid[0, 0])
@@ -64,7 +63,7 @@ for cutImage, rawImage in zip(cutImages, rawImages):
     ax.axvline(x=100, c='red')
     ax.axvline(x=260, c='red')
     ax.set_title(label='Image')
-    ax.set_ylabel('Raw Image')
+    ax.set_ylabel(ylabel='Raw Image')
     fig.add_subplot(ax)
     
     ax = fig.add_subplot(grid[0, 1])
@@ -75,7 +74,7 @@ for cutImage, rawImage in zip(cutImages, rawImages):
     
     ax = fig.add_subplot(grid[1, 0])
     ax.imshow(X=cutImage, cmap=plt.cm.nipy_spectral)
-    ax.set_ylabel('Cut Image')
+    ax.set_ylabel(ylabel='Cut Image')
     fig.add_subplot(ax)
 
     ax = fig.add_subplot(grid[1, 1])
@@ -105,7 +104,7 @@ meanAfter = [np.mean(mouseImage) for mouseImage in mouseImages]
 SNRAfter = list(map(lambda x, y: x / y, meanAfter, sigmaEstimatesAfter))
 #-------------- Figure: 1-figure with estimated SNR before and after preprocessing --------
 fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-fig.suptitle('Estimated SNR', fontsize='xx-large')
+fig.suptitle(t='Estimated SNR', fontsize='xx-large')
 grid = fig.add_gridspec(nrows=1, ncols=1, wspace=0.1, hspace=0.1)
 
 ax = fig.add_subplot(grid[0, 0])
@@ -158,33 +157,33 @@ for index, (cutImage, sampleHour) in enumerate(zip(mouseImages, sampleHours)):
     # είναι σαν generator range object, με διάφορα attributes / methods
     mouseLocation = ndi.find_objects(labeledMouse)[0]
 
-    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    fig.suptitle('Background Segmentation / Binary Mask', fontsize='xx-large')
-    grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.2, hspace=0.25)
+    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    # fig.suptitle(t='Background Segmentation / Binary Mask', fontsize='xx-large')
+    # grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.2, hspace=0.25)
     
-    ax = fig.add_subplot(grid[0, 0])
-    ax.imshow(X=markerImage, cmap=plt.cm.nipy_spectral)
-    ax.set_title(label='1. Hist. Marking')
-    fig.add_subplot(ax)
+    # ax = fig.add_subplot(grid[0, 0])
+    # ax.imshow(X=markerImage, cmap=plt.cm.nipy_spectral)
+    # ax.set_title(label='1. Hist. Marking')
+    # fig.add_subplot(ax)
     
-    ax = fig.add_subplot(grid[0, 1])
-    ax.imshow(X=elevationMap)
-    ax.set_title(label='2. Elevation Map')
-    fig.add_subplot(ax)
+    # ax = fig.add_subplot(grid[0, 1])
+    # ax.imshow(X=elevationMap)
+    # ax.set_title(label='2. Elevation Map')
+    # fig.add_subplot(ax)
     
-    ax = fig.add_subplot(grid[1, 0])
-    ax.imshow(X=initialMaskTemp, cmap=plt.cm.nipy_spectral)
-    ax.set_title(label='3. Watershed Segmentation')
-    fig.add_subplot(ax)
+    # ax = fig.add_subplot(grid[1, 0])
+    # ax.imshow(X=initialMaskTemp, cmap=plt.cm.nipy_spectral)
+    # ax.set_title(label='3. Watershed Segmentation')
+    # fig.add_subplot(ax)
 
-    ax = fig.add_subplot(grid[1, 1])
-    ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
-                                 end=(mouseLocation[0].stop, mouseLocation[1].stop),
-                                 shape=cutImage.shape)
-    initialMask[ro, co] = True
-    ax.imshow(X=initialMask)
-    ax.set_title(label='4. Binary Fill \n + BBox')
-    fig.add_subplot(ax)
+    # ax = fig.add_subplot(grid[1, 1])
+    # ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
+    #                              end=(mouseLocation[0].stop, mouseLocation[1].stop),
+    #                              shape=cutImage.shape)
+    # initialMask[ro, co] = True
+    # ax.imshow(X=initialMask)
+    # ax.set_title(label='4. Binary Fill \n + BBox')
+    # fig.add_subplot(ax)
 
     # Μειώνουμε και άλλο την εικονα στο ακριβες κουτι του ποντικιου
     mouseImage = cutImage[mouseLocation]
@@ -201,6 +200,7 @@ CENTROIDS = 'k-means++'
 # για την παράμετρο της μεθόδου της υφής
 METHOD = ('uniform', 'default', 'ror', 'var')
 clusteringScores, n_samplesList = [], []
+
 for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages)):
     
     # μάσκα ποντικιού και ανάλυση σε διανύσματα συντεταγμένων
@@ -231,7 +231,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
 
     #-------------- Figure: 5-figure 1. elevation map 2. markers 3. mask 4. skeleton 5. thin --------
     # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(sampleHour + 'samples/mouseArea')
+    # fig.suptitle(t=sampleHour + 'samples/mouseArea')
     # grid = fig.add_gridspec(nrows=2, ncols=3, wspace=0.15, hspace=0.2)
     # ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
     #                         end=(mouseLocation[0].stop, mouseLocation[1].stop),
@@ -271,7 +271,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     # #-------------- Figure: 3-figure considered with the background/object segmentation --------
     
     # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle('Histogram and Entropy')
+    # fig.suptitle(t='Histogram and Entropy')
     # grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.25, hspace=0.25)
     
     # ax = fig.add_subplot(grid[0, 0])
@@ -334,7 +334,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     # textureFeature, bins=np.max(textureFeature), range=(0,255)
     
     fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    fig.suptitle('Pre Scaled Features')
+    fig.suptitle(t='Pre Scaled Features')
     grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.15, hspace=0.2)
     
     ax = fig.add_subplot(grid[0, 0])
@@ -342,7 +342,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
     fig.colorbar(img1, ax=ax)
     ax.set_title(label='Feature')
-    ax.set_ylabel('Intensity')
+    ax.set_ylabel(ylabel='Intensity')
     
     ax = fig.add_subplot(grid[0, 1])
     histIntensity, hist_centersIntensity = histogram(img_as_ubyte(mouseImage) * mouseMask)
@@ -352,7 +352,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     ax = fig.add_subplot(grid[1, 0])
     img1 = ax.imshow(X=segmentedTexture, cmap=plt.cm.nipy_spectral)
     fig.colorbar(img1, ax=ax)
-    ax.set_ylabel('Texture')
+    ax.set_ylabel(ylabel='Texture')
     
     ax = fig.add_subplot(grid[1, 1])
     histTexture, hist_centersTexture = histogram(textureImage * mouseMask)
@@ -479,7 +479,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     # tissueBAT = segmentedImage * maskBAT
 
     # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(sampleHour)
+    # fig.suptitle(t=sampleHour)
     # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
     
     # ax = fig.add_subplot(grid[0, 0])
@@ -516,7 +516,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     
     # #-------------- Figure: 3-figure of seed points, seed image and result ----------------------------
     # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(sampleHour)
+    # fig.suptitle(t=sampleHour)
     # grid = fig.add_gridspec(nrows=1, ncols=4, wspace=0.15, hspace=0.2)
     
     # ax = fig.add_subplot(grid[0, 0])
@@ -586,7 +586,7 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     # ax.set_title(label='Eliminate Boundaries')
     
     # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(sampleHour)
+    # fig.suptitle(t=sampleHour)
     # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
     
     # ax = fig.add_subplot(grid[0, 0])
@@ -614,7 +614,7 @@ meanScores = list(map(np.mean, (silhouette, calinski, davies, n_samplesList)))
 #-------------- Figure: 1-figure comparing the clustering scores with their mean values  --------
 fig = plt.figure(figsize=(8, 8), constrained_layout=False)
 
-fig.suptitle(f'Utilized {n_features} features \n and {n_clusters} clusters')
+fig.suptitle(t=f'Utilized {n_features} features \n and {n_clusters} clusters')
 grid = fig.add_gridspec(nrows=4, ncols=1, wspace=0.25, hspace=0.1)
 
 ax = fig.add_subplot(grid[0])
