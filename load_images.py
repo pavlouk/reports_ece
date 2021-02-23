@@ -9,6 +9,7 @@ from skimage.io import imread
 from PIL import Image
 from PIL.ExifTags import TAGS
 import os
+
 def _readable_EXIF(exifdata):
     exifList = []
     try:
@@ -45,10 +46,10 @@ name : string {'WAT' or 'BAT'} (default 'BAT')
 
 Returns
 -------
-loaded_images : list (np.array)
+loaded_images : list of np.array
     Loaded image sequence. 
     
-EXIF_data : list (bytes)
+EXIF_data : list of strings 
     image metadata     
         
     """

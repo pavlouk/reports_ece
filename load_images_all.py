@@ -30,7 +30,7 @@ def _readable_EXIF(exifdata):
 def load_images_all(name='BAT'):
     """ 
 =======
-load_images
+load_images_all
 =======
 
 Definition: load_images_all(name='BAT')

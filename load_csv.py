@@ -29,6 +29,7 @@ def _data_fixer(fname):
     for i in range(1, dataF.shape[0]):
         dataStringLine = dataColumn[i]
         rawData = np.vstack((rawData, np.fromstring(dataStringLine[1:], dtype=float, sep=',')))
+        
     return rawData
     
 
@@ -54,26 +55,26 @@ name : string {'WAT' or 'BAT'} (default 'BAT')
 
 Returns
 -------
-loaded_images : list (np.array)
-    Loaded image sequence. 
-    
-EXIF_bytes : list (bytes)
-    image metadata     
+data_dictionary : dictionary (hour_string : np.array)
+    Loaded sensor data.    
         
     """
     data_dictionary = dict.fromkeys(hours)
     CWD = os.getcwd()
+    
     if name == 'WAT':
         csvFiles = sorted(glob(CWD + '/dataset/WAT/CSV_*.csv'))
         
         for sampleHour, file in zip(hours, csvFiles):
             data_dictionary[sampleHour] = _data_fixer(file)
             
-        return pd.DataFrame(data_dictionary)
+        # return pd.DataFrame(data_dictionary)
+        return data_dictionary
     
     csvFiles = sorted(glob(CWD + '/dataset/BAT/CSV_*.csv'))
 
     for sampleHour, file in zip(hours, csvFiles):
         data_dictionary[sampleHour] = _data_fixer(file)
         
-    return pd.DataFrame(data_dictionary)
+    # return pd.DataFrame(data_dictionary)
+    return data_dictionary
