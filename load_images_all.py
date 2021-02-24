@@ -26,6 +26,11 @@ def _readable_EXIF(exifdata):
         return exifList
     return exifList
 
+def _edit_dc_image(image): 
+    
+    return image
+
+
 
 def load_images_all(name='BAT'):
     """ 
@@ -46,7 +51,7 @@ name : string {'WAT' or 'BAT'} (default 'BAT')
 
 Returns
 -------
-loaded_images : list (np.array) -> 45 images = 9 images / mouse * 5 mice 
+loaded_IR : list (np.array) -> 45 images = 9 images / mouse * 5 mice 
     Loaded image sequence. 
     
 EXIF_data : list (strings) -> 45 metadata = 9 metadata / mouse * 5 mice 
@@ -54,53 +59,82 @@ EXIF_data : list (strings) -> 45 metadata = 9 metadata / mouse * 5 mice
         
     """
     
-    loaded_images = []
+    loaded_IR = []
+    loaded_DC = []
     EXIF_bytes = []
     EXIF_data = []
     CWD = os.getcwd()
     if name == 'WAT':        
-        imageFiles = sorted(glob(CWD + '/dataset/WAT/Mouse_1/IR_*.jpg'))
-        [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+        IRFiles = sorted(glob(CWD + '/dataset/WAT/Mouse1/IR_*.jpg'))
+        [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
         
-        imageFiles = sorted(glob(CWD + '/dataset/WAT/Mouse_2/IR_*.jpg'))
-        [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+        DCFiles = sorted(glob(CWD + '/dataset/WAT/Mouse1/DC_*.jpg'))
+        [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in DCFiles]
         
-        imageFiles = sorted(glob(CWD + '/dataset/WAT/Mouse_3/IR_*.jpg'))
-        [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
         
-        imageFiles = sorted(glob(CWD + '/dataset/WAT/Mouse_3/IR_*.jpg'))
-        [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+        IRFiles = sorted(glob(CWD + '/dataset/WAT/Mouse2/IR_*.jpg'))
+        [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
         
-        imageFiles = sorted(glob(CWD + '/dataset/WAT/Mouse_5/IR_*.jpg'))
-        [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+        DCFiles = sorted(glob(CWD + '/dataset/WAT/Mouse2/DC_*.jpg'))
+        [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in DCFiles]
+        
+        
+        IRFiles = sorted(glob(CWD + '/dataset/WAT/Mouse3/IR_*.jpg'))
+        [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+        
+        DCFiles = sorted(glob(CWD + '/dataset/WAT/Mouse3/DC_*.jpg'))
+        [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in DCFiles]
+        
+        
+        IRFiles = sorted(glob(CWD + '/dataset/WAT/Mouse4/IR_*.jpg'))
+        [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+        
+        DCFiles = sorted(glob(CWD + '/dataset/WAT/Mouse4/DC_*.jpg'))
+        [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in DCFiles]
+        
+        
+        IRFiles = sorted(glob(CWD + '/dataset/WAT/Mouse5/IR_*.jpg'))
+        [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+        [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+        
+        DCFiles = sorted(glob(CWD + '/dataset/WAT/Mouse5/DC_*.jpg'))
+        [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in DCFiles]
         
         EXIF_data = [_readable_EXIF(rawdata) for rawdata in EXIF_bytes]
-        return loaded_images, EXIF_bytes
-    imageFiles = sorted(glob(CWD + '/dataset/BAT/Mouse_1/IR_*.jpg'))
-    [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+        DC_loaded = [_edit_dc_image(rawDC) for rawDC in loaded_DC]
+        return loaded_IR, DC_loaded, EXIF_bytes
     
-    imageFiles = sorted(glob(CWD + '/dataset/BAT/Mouse_2/IR_*.jpg'))
-    [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
     
-    imageFiles = sorted(glob(CWD + 'dataset/BAT/Mouse_3/IR_*.jpg'))
-    [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
     
-    imageFiles = sorted(glob(CWD + '/dataset/BAT/Mouse_4/IR_*.jpg'))
-    [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+    IRFiles = sorted(glob(CWD + '/dataset/BAT/Mouse1/IR_*.jpg'))
+    [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
     
-    imageFiles = sorted(glob(CWD + '/dataset/BAT/Mouse_5/IR_*.jpg'))
-    [loaded_images.append(imread(imagePath, as_gray=True)) for imagePath in imageFiles]
-    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in imageFiles]
+    IRFiles = sorted(glob(CWD + '/dataset/BAT/Mouse2/IR_*.jpg'))
+    [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+    
+    IRFiles = sorted(glob(CWD + 'dataset/BAT/Mouse3/IR_*.jpg'))
+    [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+    
+    IRFiles = sorted(glob(CWD + '/dataset/BAT/Mouse4/IR_*.jpg'))
+    [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
+    
+    IRFiles = sorted(glob(CWD + '/dataset/BAT/Mouse5/IR_*.jpg'))
+    [loaded_IR.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [loaded_DC.append(imread(imagePath, as_gray=True)) for imagePath in IRFiles]
+    [EXIF_bytes.append(Image.open(imagePath).getexif()) for imagePath in IRFiles]
 
     EXIF_data = [_readable_EXIF(rawdata) for rawdata in EXIF_bytes]
-    return loaded_images, EXIF_data
+    return loaded_IR, EXIF_data
     

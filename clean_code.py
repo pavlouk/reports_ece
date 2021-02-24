@@ -158,33 +158,33 @@ for index, (cutImage, sampleHour) in enumerate(zip(mouseImages, sampleHours)):
     # είναι σαν generator range object, με διάφορα attributes / methods
     mouseLocation = ndi.find_objects(labeledMouse)[0]
 
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t='Background Segmentation / Binary Mask', fontsize='xx-large')
-    # grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.2, hspace=0.25)
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t='Background Segmentation / Binary Mask', fontsize='xx-large')
+    grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.2, hspace=0.25)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(X=markerImage, cmap=plt.cm.nipy_spectral)
-    # ax.set_title(label='1. Hist. Marking')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(X=markerImage, cmap=plt.cm.nipy_spectral)
+    ax.set_title(label='1. Hist. Marking')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(X=elevationMap)
-    # ax.set_title(label='2. Elevation Map')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(X=elevationMap)
+    ax.set_title(label='2. Elevation Map')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[1, 0])
-    # ax.imshow(X=initialMaskTemp, cmap=plt.cm.nipy_spectral)
-    # ax.set_title(label='3. Watershed Segmentation')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[1, 0])
+    ax.imshow(X=initialMaskTemp, cmap=plt.cm.nipy_spectral)
+    ax.set_title(label='3. Watershed Segmentation')
+    fig.add_subplot(ax)
 
-    # ax = fig.add_subplot(grid[1, 1])
-    # ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
-    #                              end=(mouseLocation[0].stop, mouseLocation[1].stop),
-    #                              shape=cutImage.shape)
-    # initialMask[ro, co] = True
-    # ax.imshow(X=initialMask)
-    # ax.set_title(label='4. Binary Fill \n + BBox')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[1, 1])
+    ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
+                                  end=(mouseLocation[0].stop, mouseLocation[1].stop),
+                                  shape=cutImage.shape)
+    initialMask[ro, co] = True
+    ax.imshow(X=initialMask)
+    ax.set_title(label='4. Binary Fill \n + BBox')
+    fig.add_subplot(ax)
 
     # Μειώνουμε και άλλο την εικονα στο ακριβες κουτι του ποντικιου
     mouseImage = cutImage[mouseLocation]
@@ -231,71 +231,71 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
     # print(sum(mouseMask, axis=0))
 
     #-------------- Figure: 5-figure 1. elevation map 2. markers 3. mask 4. skeleton 5. thin --------
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t=sampleHour + 'samples/mouseArea')
-    # grid = fig.add_gridspec(nrows=2, ncols=3, wspace=0.15, hspace=0.2)
-    # ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
-    #                         end=(mouseLocation[0].stop, mouseLocation[1].stop),
-    #                         shape=cutImage.shape)
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t=sampleHour + 'samples/mouseArea')
+    grid = fig.add_gridspec(nrows=2, ncols=3, wspace=0.15, hspace=0.2)
+    ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start),
+                            end=(mouseLocation[0].stop, mouseLocation[1].stop),
+                            shape=cutImage.shape)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # elevationMap[ro, co] = 1.0
-    # ax.imshow(X=elevationMap, cmap=plt.cm.gray)
-    # ax.set_title(label='Elevation Map')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, 0])
+    elevationMap[ro, co] = 1.0
+    ax.imshow(X=elevationMap, cmap=plt.cm.gray)
+    ax.set_title(label='Elevation Map')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[0, -1])
-    # ax.imshow(X=markerImage, cmap=plt.cm.gray)
-    # ax.set_title(label='Hist. Markers')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, -1])
+    ax.imshow(X=markerImage, cmap=plt.cm.gray)
+    ax.set_title(label='Hist. Markers')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[1, 0])
-    # ax.imshow(X=mouseMask, cmap=plt.cm.gray)
-    # ax.scatter(x=maskInfo[0].centroid[1], y=maskInfo[0].centroid[0], c='red', s=3)
-    # ax.set_title(label='Mask Image')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[1, 0])
+    ax.imshow(X=mouseMask, cmap=plt.cm.gray)
+    ax.scatter(x=maskInfo[0].centroid[1], y=maskInfo[0].centroid[0], c='red', s=3)
+    ax.set_title(label='Mask Image')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[1, 1])
-    # ax.imshow(X=skeletonImage, cmap=plt.cm.gray)
-    # ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    # # ax.xticks([])
-    # ax.set_title(label='Skeleton over Mask')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[1, 1])
+    ax.imshow(X=skeletonImage, cmap=plt.cm.gray)
+    ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
+    # ax.xticks([])
+    ax.set_title(label='Skeleton over Mask')
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[1, 2])
-    # ax.imshow(X=thinImage, cmap=plt.cm.gray)
-    # ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    # # ax.xticks([])
-    # ax.set_title(label='Thin over Mask')
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[1, 2])
+    ax.imshow(X=thinImage, cmap=plt.cm.gray)
+    ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
+    # ax.xticks([])
+    ax.set_title(label='Thin over Mask')
+    fig.add_subplot(ax)
 
-    # #-------------- Figure: 3-figure considered with the background/object segmentation --------
+    #-------------- Figure: 3-figure considered with the background/object segmentation --------
     
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t='Histogram and Entropy')
-    # grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.25, hspace=0.25)
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t='Histogram and Entropy')
+    grid = fig.add_gridspec(nrows=2, ncols=2, wspace=0.25, hspace=0.25)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # img1 = ax.imshow(X=img_as_ubyte(mouseImage), cmap=plt.cm.nipy_spectral)
-    # ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    # ax.set_title(label='Bounded Image')
-    # fig.colorbar(img1, ax=ax)
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, 0])
+    img1 = ax.imshow(X=img_as_ubyte(mouseImage), cmap=plt.cm.nipy_spectral)
+    ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
+    ax.set_title(label='Bounded Image')
+    fig.colorbar(img1, ax=ax)
+    fig.add_subplot(ax)
     
-    # ax = fig.add_subplot(grid[0, 1])
-    # img1 = ax.imshow(X=entropy(image=img_as_ubyte(mouseImage), selem=disk(5), mask=mouseMask),
-    #                  cmap=plt.cm.nipy_spectral_r)
-    # ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
-    # ax.set_title(label='Entropy')
-    # fig.colorbar(img1, ax=ax)
-    # fig.add_subplot(ax)
+    ax = fig.add_subplot(grid[0, 1])
+    img1 = ax.imshow(X=entropy(image=img_as_ubyte(mouseImage), selem=disk(5), mask=mouseMask),
+                      cmap=plt.cm.nipy_spectral_r)
+    ax.contour(mouseMask, [0.5], linewidths=1.2, colors='w')
+    ax.set_title(label='Entropy')
+    fig.colorbar(img1, ax=ax)
+    fig.add_subplot(ax)
     
-    # hist, hist_centers = histogram(img_as_ubyte(mouseImage) * mouseMask)
-    # ax = fig.add_subplot(grid[1, :])
-    # ax.plot(hist_centers[1:], hist[1:], lw=1)
-    # ax.set_title(label='Image histogram')
-    # ax.set_xticks(ticks=np.arange(0, 255, 20))
-    # fig.add_subplot(ax)
+    hist, hist_centers = histogram(img_as_ubyte(mouseImage) * mouseMask)
+    ax = fig.add_subplot(grid[1, :])
+    ax.plot(hist_centers[1:], hist[1:], lw=1)
+    ax.set_title(label='Image histogram')
+    ax.set_xticks(ticks=np.arange(0, 255, 20))
+    fig.add_subplot(ax)
 
     # ===================== 2. Body-Tissue Clustering Stage ========================================
     #-------------- Creating / Selecting clustering Features  ----------------------------
@@ -424,183 +424,183 @@ for index, (mouseMask, mouseImage) in enumerate(zip(mouseMasks, minMouseImages))
              davies_bouldin_score(X, labels))
     clusteringScores.append(score)
 
-    # # original-sized image, with the labels + 1 given by the clustering algorithms
-    # labeledImage = np.zeros_like(mouseImage, dtype='int')
-    # for i in range(n_samples):
-    #     labeledImage[maskOrdinateX[i]][maskOrdinateY[i]] = labels[i] + 1
+    # original-sized image, with the labels + 1 given by the clustering algorithms
+    labeledImage = np.zeros_like(mouseImage, dtype='int')
+    for i in range(n_samples):
+        labeledImage[maskOrdinateX[i]][maskOrdinateY[i]] = labels[i] + 1
 
-    # # η παρακάτω λίστα είναι σε μήκος όση και τα n_cluster (== label number),
-    # # δίνει πληροφορίες για κάθε περιοχή όσον αφορά σε σχήματα από κουτιά,
-    # # ειδικά για τις συντεταγμένες τους, τα εμβαδά τους και τα μήκη των καμπυλών
-    # clustersInfo = regionprops(label_image=labeledImage, intensity_image=segmentedImage)
+    # η παρακάτω λίστα είναι σε μήκος όση και τα n_cluster (== label number),
+    # δίνει πληροφορίες για κάθε περιοχή όσον αφορά σε σχήματα από κουτιά,
+    # ειδικά για τις συντεταγμένες τους, τα εμβαδά τους και τα μήκη των καμπυλών
+    clustersInfo = regionprops(label_image=labeledImage, intensity_image=segmentedImage)
     
-    # clustersTable = regionprops_table(label_image=labeledImage, intensity_image=segmentedImage)
-    # dataframe = pd.DataFrame(clustersTable)
-    # # λίστα από δι-tuples με μήκος n_clusters πχ [(80, 12), (40, 13)]
-    # # γενικά: info_list = [info.attribute for info in clustersInfo]
-    # clusterCentroids = [clusterElement.centroid for clusterElement in clustersInfo]
-    # # θα τα κανω scatter plot οπότε σημαίνει δύο λίστες x = [80, 40] y = [12, 13]
-    # # άρα τα κάνω unpack με το
-    # centroidRow, centroidColumn = map(list, zip(*clusterCentroids))
+    clustersTable = regionprops_table(label_image=labeledImage, intensity_image=segmentedImage)
+    dataframe = pd.DataFrame(clustersTable)
+    # λίστα από δι-tuples με μήκος n_clusters πχ [(80, 12), (40, 13)]
+    # γενικά: info_list = [info.attribute for info in clustersInfo]
+    clusterCentroids = [clusterElement.centroid for clusterElement in clustersInfo]
+    # θα τα κανω scatter plot οπότε σημαίνει δύο λίστες x = [80, 40] y = [12, 13]
+    # άρα τα κάνω unpack με το
+    centroidRow, centroidColumn = map(list, zip(*clusterCentroids))
 
-    # #-------------- Figure: 2-figure of the segmented object values ----------------------------
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # grid = fig.add_gridspec(nrows=1, ncols=3, wspace=0.15, hspace=0.2)
+    #-------------- Figure: 2-figure of the segmented object values ----------------------------
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    grid = fig.add_gridspec(nrows=1, ncols=3, wspace=0.15, hspace=0.2)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(X=segmentedImage, cmap=plt.cm.nipy_spectral)
-    # ax.set_title(label='Segmented Image')
-    # ax.scatter(x=centroidColumn, y=centroidRow, c='white', s=6)
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(X=segmentedImage, cmap=plt.cm.nipy_spectral)
+    ax.set_title(label='Segmented Image')
+    ax.scatter(x=centroidColumn, y=centroidRow, c='white', s=6)
     
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(X=labeledImage, cmap=plt.cm.nipy_spectral)
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
-    # ax.set_title(label='Clustered Skeleton')
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(X=labeledImage, cmap=plt.cm.nipy_spectral)
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
+    ax.set_title(label='Clustered Skeleton')
     
-    # ax = fig.add_subplot(grid[0, 2])
-    # ax.imshow(X=labeledImage, cmap=plt.cm.nipy_spectral)
-    # ax.scatter(x=thinOrdinateY, y=thinOrdinateX, c='white', s=1)
-    # ax.set_title(label='Clustered Thin')
+    ax = fig.add_subplot(grid[0, 2])
+    ax.imshow(X=labeledImage, cmap=plt.cm.nipy_spectral)
+    ax.scatter(x=thinOrdinateY, y=thinOrdinateX, c='white', s=1)
+    ax.set_title(label='Clustered Thin')
 
-    # #================= 3 BAT extraction from the ROI ===============================
+    #================= 3 BAT extraction from the ROI ===============================
 
-    # # ROI contains multiple labels, how do we deal with the exact roi location?
-    # # θα κανουμε μια προσεγγιση με το σκελετο ως ραγα για τις περιοχές όπου θα
-    # # περάσει το παραθυρο αναζητησης
-    # # το παραθυρο αναζητησης εχει ενα σχημα και συγκεντρωνει τα labels φτιαχνοντας ενα ιστογραμμα
-    # # σειριακα συγκρινουμε τα ιστογραμματα ως πυκνοτητα πιθανοτητας και βρισκουμε την εντροπια
-    # # ή την κοινη πληροφορια τους ως μέτρο σφαλματος
-    # # μεχρι να μην ξεπερασουμε τα γεωμετρικά όρια του αυχένα / ωμοπλάτης
-    # sample = 70
-    # r, c = skeletonOrdinateX[sample], skeletonOrdinateY[sample]
-    # rr, cc = rectangle(start=(r, c), extent=(-10, 10), shape=mouseImage.shape)
+    # ROI contains multiple labels, how do we deal with the exact roi location?
+    # θα κανουμε μια προσεγγιση με το σκελετο ως ραγα για τις περιοχές όπου θα
+    # περάσει το παραθυρο αναζητησης
+    # το παραθυρο αναζητησης εχει ενα σχημα και συγκεντρωνει τα labels φτιαχνοντας ενα ιστογραμμα
+    # σειριακα συγκρινουμε τα ιστογραμματα ως πυκνοτητα πιθανοτητας και βρισκουμε την εντροπια
+    # ή την κοινη πληροφορια τους ως μέτρο σφαλματος
+    # μεχρι να μην ξεπερασουμε τα γεωμετρικά όρια του αυχένα / ωμοπλάτης
+    sample = 70
+    r, c = skeletonOrdinateX[sample], skeletonOrdinateY[sample]
+    rr, cc = rectangle(start=(r, c), extent=(-10, 10), shape=mouseImage.shape)
 
-    # maskBAT = np.zeros_like(segmentedImage)
-    # maskBAT[rr, cc] = 1
-    # tissueBAT = segmentedImage * maskBAT
+    maskBAT = np.zeros_like(segmentedImage)
+    maskBAT[rr, cc] = 1
+    tissueBAT = segmentedImage * maskBAT
 
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t=sampleHour)
-    # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t=sampleHour)
+    grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
-    # ax.contour(maskBAT)
-    # ax.set_title('Seed points')
-    # ax.scatter(x=centroidColumn, y=centroidRow, c='white', s=6)
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(tissueBAT, cmap=plt.cm.gray)
-    # ax.set_title('Seed image')
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
+    ax.contour(maskBAT)
+    ax.set_title('Seed points')
+    ax.scatter(x=centroidColumn, y=centroidRow, c='white', s=6)
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(tissueBAT, cmap=plt.cm.gray)
+    ax.set_title('Seed image')
 
-    # centroidColumn, centroidRow = list(map(int, centroidColumn)), list(map(int, centroidRow))
-    # # filter()
-    # seedImage = np.zeros_like(segmentedImage)
+    centroidColumn, centroidRow = list(map(int, centroidColumn)), list(map(int, centroidRow))
+    # filter()
+    seedImage = np.zeros_like(segmentedImage)
 
-    # seedImage[centroidRow[1]:centroidRow[1] + 6, centroidColumn[1]:centroidColumn[1] + 6] = 2
-    # seedImage[centroidRow[2]:centroidRow[2] + 6, centroidColumn[2]:centroidColumn[2] + 6] = 1
+    seedImage[centroidRow[1]:centroidRow[1] + 6, centroidColumn[1]:centroidColumn[1] + 6] = 2
+    seedImage[centroidRow[2]:centroidRow[2] + 6, centroidColumn[2]:centroidColumn[2] + 6] = 1
 
-    # seedImage[skeletonOrdinateX[slice(None, skeletonOrdinateX.size // 4)], skeletonOrdinateY[slice(None, skeletonOrdinateY.size // 4)]] = 2
-    # seedImage[thinImage] = 1
-    # # άμα έχει μέχρι δύο label τότε επιστρέφει για κάθε ένα ξεχωριστό πίνακα με το return_full_prob=True
+    seedImage[skeletonOrdinateX[slice(None, skeletonOrdinateX.size // 4)], skeletonOrdinateY[slice(None, skeletonOrdinateY.size // 4)]] = 2
+    seedImage[thinImage] = 1
+    # άμα έχει μέχρι δύο label τότε επιστρέφει για κάθε ένα ξεχωριστό πίνακα με το return_full_prob=True
 
-    # rrr1, ccc1 = rectangle_perimeter(start=(r, c), extent=(-10, -10), shape=seedImage.shape)
-    # rrr1, ccc1 = circle_perimeter(r, c, radius=9, shape=seedImage.shape)
-    # seedImage[rrr1, ccc1] = 1
-    # rrr2, ccc2 = rectangle_perimeter(start=(r, c), extent=(-15, -15), shape=seedImage.shape)
-    # rrr2, ccc2 = circle_perimeter(r, c, radius=5, shape=seedImage.shape)
-    # seedImage[rrr2, ccc2] = 2
+    rrr1, ccc1 = rectangle_perimeter(start=(r, c), extent=(-10, -10), shape=seedImage.shape)
+    rrr1, ccc1 = circle_perimeter(r, c, radius=9, shape=seedImage.shape)
+    seedImage[rrr1, ccc1] = 1
+    rrr2, ccc2 = rectangle_perimeter(start=(r, c), extent=(-15, -15), shape=seedImage.shape)
+    rrr2, ccc2 = circle_perimeter(r, c, radius=5, shape=seedImage.shape)
+    seedImage[rrr2, ccc2] = 2
 
-    # # Δοκιμές με τι δεδομένα να κάνουμε την αποκοπή
-    # outputIntensity = random_walker(data=segmentedImage, labels=seedImage, beta=80, return_full_prob=False)
-    # outputTexture = random_walker(data=textureImage, labels=seedImage, beta=80, return_full_prob=False)
-    # outputLabeled = random_walker(data=segmentedImage, labels=labeledImage, beta=80, return_full_prob=False)
+    # Δοκιμές με τι δεδομένα να κάνουμε την αποκοπή
+    outputIntensity = random_walker(data=segmentedImage, labels=seedImage, beta=80, return_full_prob=False)
+    outputTexture = random_walker(data=textureImage, labels=seedImage, beta=80, return_full_prob=False)
+    outputLabeled = random_walker(data=segmentedImage, labels=labeledImage, beta=80, return_full_prob=False)
     
-    # #-------------- Figure: 3-figure of seed points, seed image and result ----------------------------
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t=sampleHour)
-    # grid = fig.add_gridspec(nrows=1, ncols=4, wspace=0.15, hspace=0.2)
+    #-------------- Figure: 3-figure of seed points, seed image and result ----------------------------
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t=sampleHour)
+    grid = fig.add_gridspec(nrows=1, ncols=4, wspace=0.15, hspace=0.2)
     
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(labeledImage, cmap=plt.cm.nipy_spectral)
-    # ax.set_title('MouseImage')
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(labeledImage, cmap=plt.cm.nipy_spectral)
+    ax.set_title('MouseImage')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
     
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(outputLabeled, cmap=plt.cm.nipy_spectral)
-    # # ax.contour(outputImage)
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(outputLabeled, cmap=plt.cm.nipy_spectral)
+    # ax.contour(outputImage)
+    ax.scatter(x=c, y=r, c='white', s=16)
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
+    ax.set_title('BAT labeled')
+    
+    ax = fig.add_subplot(grid[0, 2])
+    ax.imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
+    ax.contour(outputIntensity, [0.5], linewidths=1.2, colors='w')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
+    ax.set_title('BAT intensity')
+    
+    ax = fig.add_subplot(grid[0, 3])
+    ax.imshow(textureImage, cmap=plt.cm.gray)
+    ax.contour(outputTexture, [0.5], linewidths=1.2, colors='w')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
+    ax.set_title('BAT texture')
+    
+    # παμε να δοκιμασουμε τελείως morphological επεξεργασία και 
+    oneLabeledImage = np.where(labeledImage == (n_clusters - 1), 0, 1)
+    contours = find_contours(oneLabeledImage, level=0)
+    megalo = contours[0].astype(int)
+    
+    eikonamegalo = np.zeros(shape=oneLabeledImage.shape, dtype=bool)
+    eikonamegalo[megalo[:, 0]][megalo[:, 1]] = True
+    
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
+    
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(eikonamegalo, cmap=plt.cm.gray)
+    ax.set_title('one label')
+    ax.scatter(x=megalo[:, 1], y=megalo[:, 0], c='red', s=1)
+    
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(oneLabeledImage, cmap=plt.cm.gray)
+    # ax.contour(outputImage)
+    ax.scatter(x=c, y=r, c='white', s=16)
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
+    ax.set_title('eliminate boundaries')
+    
+    teliko = regionprops(label_image=oneLabeledImage)
+    
+    boundaryImage = np.logical_xor(oneLabeledImage, dilation(oneLabeledImage, square(9)))
+    
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
+    
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(X=oneLabeledImage, cmap=plt.cm.gray)
+    ax.set_title(label='one label')
+    ax.scatter(x=megalo[:, 1], y=megalo[:, 0], c='red', s=1)
+    
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(X=boundaryImage, cmap=plt.cm.gray)
+    # ax.contour(outputImage)
     # ax.scatter(x=c, y=r, c='white', s=16)
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
-    # ax.set_title('BAT labeled')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
+    ax.set_title(label='Eliminate Boundaries')
     
-    # ax = fig.add_subplot(grid[0, 2])
-    # ax.imshow(segmentedImage, cmap=plt.cm.nipy_spectral)
-    # ax.contour(outputIntensity, [0.5], linewidths=1.2, colors='w')
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='white', s=1)
-    # ax.set_title('BAT intensity')
+    fig = plt.figure(figsize=(8, 8), constrained_layout=False)
+    fig.suptitle(t=sampleHour)
+    grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
     
-    # ax = fig.add_subplot(grid[0, 3])
-    # ax.imshow(textureImage, cmap=plt.cm.gray)
-    # ax.contour(outputTexture, [0.5], linewidths=1.2, colors='w')
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    # ax.set_title('BAT texture')
+    ax = fig.add_subplot(grid[0, 0])
+    ax.imshow(X=oneLabeledImage, cmap=plt.cm.gray)
+    ax.set_title(label='one label')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
     
-    # # παμε να δοκιμασουμε τελείως morphological επεξεργασία και 
-    # oneLabeledImage = np.where(labeledImage == (n_clusters - 1), 0, 1)
-    # contours = find_contours(oneLabeledImage, level=0)
-    # megalo = contours[0].astype(int)
-    
-    # eikonamegalo = np.zeros(shape=oneLabeledImage.shape, dtype=bool)
-    # eikonamegalo[megalo[:, 0]][megalo[:, 1]] = True
-    
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
-    
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(eikonamegalo, cmap=plt.cm.gray)
-    # ax.set_title('one label')
-    # ax.scatter(x=megalo[:, 1], y=megalo[:, 0], c='red', s=1)
-    
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(oneLabeledImage, cmap=plt.cm.gray)
-    # # ax.contour(outputImage)
+    ax = fig.add_subplot(grid[0, 1])
+    ax.imshow(X=boundaryImage, cmap=plt.cm.gray)
+    # ax.contour(outputImage)
     # ax.scatter(x=c, y=r, c='white', s=16)
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    # ax.set_title('eliminate boundaries')
-    
-    # teliko = regionprops(label_image=oneLabeledImage)
-    
-    # boundaryImage = np.logical_xor(oneLabeledImage, dilation(oneLabeledImage, square(9)))
-    
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
-    
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(X=oneLabeledImage, cmap=plt.cm.gray)
-    # ax.set_title(label='one label')
-    # ax.scatter(x=megalo[:, 1], y=megalo[:, 0], c='red', s=1)
-    
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(X=boundaryImage, cmap=plt.cm.gray)
-    # # ax.contour(outputImage)
-    # # ax.scatter(x=c, y=r, c='white', s=16)
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    # ax.set_title(label='Eliminate Boundaries')
-    
-    # fig = plt.figure(figsize=(8, 8), constrained_layout=False)
-    # fig.suptitle(t=sampleHour)
-    # grid = fig.add_gridspec(nrows=1, ncols=2, wspace=0.15, hspace=0.2)
-    
-    # ax = fig.add_subplot(grid[0, 0])
-    # ax.imshow(X=oneLabeledImage, cmap=plt.cm.gray)
-    # ax.set_title(label='one label')
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    
-    # ax = fig.add_subplot(grid[0, 1])
-    # ax.imshow(X=boundaryImage, cmap=plt.cm.gray)
-    # # ax.contour(outputImage)
-    # # ax.scatter(x=c, y=r, c='white', s=16)
-    # ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
-    # ax.set_title(label='Eliminate Boundaries')
+    ax.scatter(x=skeletonOrdinateY, y=skeletonOrdinateX, c='red', s=1)
+    ax.set_title(label='Eliminate Boundaries')
     
     
 
