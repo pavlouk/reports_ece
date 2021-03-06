@@ -40,10 +40,22 @@ from gif_maker import gif_maker
 # Ποντίκια Άκης Γάκης Δάκης Λάκης Μάκης
 # basically we are building a data frame with all the columns made into a feature vector
 # and the rows are going to be samples of the experiment
+
+
 sampleHours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
 markerBack, markerBody = 70, 150
 # import image sequence with immediate grayscale conversion
 # η αρχική ανάλυση της εικόνας είναι (240, 320)
+
+ιδεες για cookiecutter refactoring 
+    ειναι καποια πραγματα που μπορουν να γίνουν μια φορα μονο στο κομματι των δεδομενων
+        διαλεγω τα δεδομενα μου απο το αρχικο dataset
+            IR, CSV, DC.size(IR)
+        βεβαια πώς παρουσιαζω τα δεδομενα;
+        
+    
+    
+
 rawImages, readable_EXIF = load_images(name='BAT')
 sensorData = load_csv(sampleHours, name='BAT')
 
@@ -663,3 +675,7 @@ ax.axhline(y=meanScores[3], color='r', linestyle='--',
 ax.legend(loc='best', shadow=True, fontsize='large')
 ax.set_xlabel(xlabel='Sample Hours')
 fig.add_subplot(ax)
+
+import os 
+os.path.dirname
+os.walk
