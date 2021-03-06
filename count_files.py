@@ -5,7 +5,7 @@ Created on Wed Mar  3 21:46:04 2021
 @author: plouk
 """
 import os 
-import sys
+
 
 def count_py_files_in_repos(dirname):
     if os.path.exists(os.path.join(dirname, '.git')):
