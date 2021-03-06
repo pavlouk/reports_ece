@@ -3,5 +3,7 @@ __pycache__/
 code samples/
 plano_diplomatiki.txt
 .gitignore
-
+tutorials_matplotlib
+plano_diplomatiki.txt
+data/
 
