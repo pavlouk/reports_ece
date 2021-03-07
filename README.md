@@ -1,3 +1,56 @@
+### Το directory structure
+------------
+
+The directory structure of your new project looks like this: 
+
+```
+├── LICENSE
+├── Makefile           <- Makefile με εντολές πχ `make data` or `make train`
+├── README.md          <- Tο README για developers του project και για πληροφορίες.
+├── data
+│   ├── external       <- Data από third party sources.
+│   ├── interim        <- Intermediate δεδομένα που έχουν κάποιο transform.
+│   ├── processed      <- The final, canonical data sets for modeling.
+│   └── raw            <- Τα original, immutable data dump.
+│
+├── docs               <- Κείμενα, θεωρητικά και οργανωτικά σημεία 
+│
+├── models             <- Trained and serialized models, model predictions, or model summaries
+│
+├── notebooks          <- Jupyter notebooks. Για το naming: αριθμός (για ordering),
+│                         και ένα μικρό χωρισμένο με `-` description, e.g.
+│                         `1.0-initial-data-exploration`.
+│
+├── references         <- Κ΄ώδικας και παραδείγματα που έχω κατεβάσει
+│                         Data dictionaries, manuals, and all other explanatory materials.
+│
+├── reports            <- Generated αναλύσεις ως HTML, PDF, LaTeX, etc.
+│   └── figures        <- Generated γραφικά και figures για χρήση στο reporting
+│
+├── requirements.txt   <- Το requirements αρχείο για reproducing του analysis environment, e.g.
+│                         generated με `pip freeze > requirements.txt`
+│
+├── setup.py           <- Κάνει το project pip installable (pip install -e .) ώστε src να είναι imported
+├── src                <- Source code for use in this project.
+│   ├── __init__.py    <- Makes src a Python module
+│   │
+│   ├── data           <- Scripts to download or generate data
+│   │   └── make_dataset.py
+│   │
+│   ├── features       <- Scripts to turn raw data into features for modeling
+│   │   └── build_features.py
+│   │
+│   ├── models         <- Scripts to train models and then use trained models to make
+│   │   │                 predictions
+│   │   ├── predict_model.py
+│   │   └── train_model.py
+│   │
+│   └── visualization  <- Scripts to create exploratory and results oriented visualizations
+│       └── visualize.py
+│
+└── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+```
+
 ### The resulting directory structure
 ------------
 
@@ -48,3 +101,4 @@ The directory structure of your new project looks like this:
 │       └── visualize.py
 │
 └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+```
