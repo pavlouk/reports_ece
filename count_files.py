@@ -8,11 +8,16 @@ import os
 
 
 def count_py_files_in_repos(dirname):
+    # --παιζει αναδρομικα--
+    # δεχεται μορφή dirname 'C:/Users/plouk/Adiposer'
+    # λουπα για το παρών dirname
+    # αναδρομική κληση σε λουπα για 
     if os.path.exists(os.path.join(dirname, '.git')):
         count = 0
         for root, dirs, files in os.walk(dirname):
             count += len([f for f in files if f.endswith('.py')])
         print('{} has {} Python files'.format(dirname, count))
+        
     for name in os.listdir(dirname):
         path = os.path.join(dirname, name)
         
