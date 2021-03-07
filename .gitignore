@@ -1,9 +1,6 @@
 __pycache__/
 .spyproject/config/
-code samples/
-plano_diplomatiki.txt
+.pylint.d/
 .gitignore
-tutorials_matplotlib
-plano_diplomatiki.txt
 data/
 
