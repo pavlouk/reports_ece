@@ -47,11 +47,11 @@ markerBack, markerBody = 70, 150
 # import image sequence with immediate grayscale conversion
 # η αρχική ανάλυση της εικόνας είναι (240, 320)
 
-ιδεες για cookiecutter refactoring 
-    ειναι καποια πραγματα που μπορουν να γίνουν μια φορα μονο στο κομματι των δεδομενων
-        διαλεγω τα δεδομενα μου απο το αρχικο dataset
-            IR, CSV, DC.size(IR)
-        βεβαια πώς παρουσιαζω τα δεδομενα;
+# ιδεες για cookiecutter refactoring 
+#     ειναι καποια πραγματα που μπορουν να γίνουν μια φορα μονο στο κομματι των δεδομενων
+#         διαλεγω τα δεδομενα μου απο το αρχικο dataset
+#             IR, CSV, DC.size(IR)
+#         βεβαια πώς παρουσιαζω τα δεδομενα;
         
     
     
@@ -675,7 +675,3 @@ ax.axhline(y=meanScores[3], color='r', linestyle='--',
 ax.legend(loc='best', shadow=True, fontsize='large')
 ax.set_xlabel(xlabel='Sample Hours')
 fig.add_subplot(ax)
-
-import os 
-os.path.dirname
-os.walk

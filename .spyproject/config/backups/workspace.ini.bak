@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['clean_code.py', 'load_csv.py', 'load_csv_all.py', 'load_images.py', 'load_images_all.py', 'gif_maker.py', '..\\anaconda3\\lib\\site-packages\\skimage\\filters\\__init__.py', '.gitignore', 'src\\data\\initial_data_pick.py', 'count_files.py']
+recent_files = ['clean_code.py', 'load_csv.py', 'load_csv_all.py', 'load_images.py', 'load_images_all.py', 'gif_maker.py', '.gitignore', 'src\\data\\initial_data_pick.py', 'count_files.py']
 

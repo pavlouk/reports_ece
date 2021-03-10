@@ -70,14 +70,14 @@ target/
 .vscode/
 
 # Spyder
-.spyproject/
+.spyproject/config/
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
 # exclude data from source control by default
 /data/
-
+/references/
 # Mac OS-specific storage files
 .DS_Store
 
