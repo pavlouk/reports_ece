@@ -8,7 +8,6 @@ Created on Sat Nov 14 12:41:50 2020 @author: plouk
 keywords: subcutaneous -- υποδόριος/υποδερμικό
           intrascapular -- δια-ωμοπλατιαίος
 """
-print(__doc__)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
