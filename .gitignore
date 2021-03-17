@@ -87,3 +87,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
+README.md
+.spyproject/config/workspace.ini
+.spyproject/config/backups/workspace.ini.bak
+.gitignore
