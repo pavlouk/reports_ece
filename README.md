@@ -1,7 +1,7 @@
-### Το directory structure
+# Το directory structure
 ------------
 
-Η δομή του directory για το project είναι η εξής: 
+## Η δενδρική δομή του directory για το project αναλύεται ως: 
 
 ```
 ├── LICENSE
@@ -33,21 +33,20 @@
 ├── src                <- Όλος ο κώδικας που χρησιμοποιείται στο project.
 │   ├── __init__.py    <- Κάνει το src ένα Python module.
 │   │
-│   ├── data           <- Scripts για download ή generate στα δεδομένα
+│   ├── data           <- Script για download ή generate στα δεδομένα
 │   │   └── make_dataset.py
 │   │
-│   ├── features       <- Scripts που μετατρέπει raw δεδομένα σε features για modeling.
+│   ├── features       <- Script που μετατρέπει raw δεδομένα σε features για modeling.
 │   │   └── build_features.py
 │   │
-│   ├── models         <- Scripts to train models and then use trained models to make.
-│   │   │                 predictions
+│   ├── models         <- Script για την εκτέλεση των model και τη χρήση των models.
 │   │   ├── predict_model.py
 │   │   └── train_model.py
 │   │
-│   └── visualization  <- Scripts to create exploratory and results oriented visualizations.
+│   └── visualization  <- Script για τη δημιουργία exploratory και results-oriented visualizations.
 │       └── visualize.py
 │
-└── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+└── tox.ini            <- tox αρχείο με ρυθμίσεις για το tox; see tox.readthedocs.io
 ```
 
 ### The resulting directory structure
