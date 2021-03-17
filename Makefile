@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3 kati
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -33,6 +33,10 @@ data: requirements
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
+
+## Clean PROJECT_DIR/data/interim directory
+clean_interim:
+	rm -rf data/interim; mkdir data/interim
 
 ## Lint using flake8
 lint:
