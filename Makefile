@@ -34,9 +34,13 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
-## Clean PROJECT_DIR/data/interim directory
+## Clean /data/interim directory
 clean_interim:
 	rm -rf data/interim; mkdir data/interim
+
+## Contents of /data/interim directory
+show_interim:
+	[ "$(ls -A /data/interim)" ] && echo "Not Empty" || echo "Empty"
 
 ## Lint using flake8
 lint:

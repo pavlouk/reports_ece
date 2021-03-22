@@ -7,6 +7,7 @@ Created on Sat Nov 14 12:41:50 2020 @author: plouk
 # ===================== 3. BAT/WAT ROI ανίχνευση με density-based παράθυρο =================
 keywords: subcutaneous -- υποδόριος/υποδερμικό
           intrascapular -- δια-ωμοπλατιαίος
+          interscapular -- μεσοπλάτιος
 """
 import numpy as np
 import pandas as pd
@@ -30,16 +31,10 @@ from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bo
 from sklearn.feature_extraction import img_to_graph, grid_to_graph
 from scipy import ndimage as ndi
 
-from load_images import load_images
-from img_to_vectors import img_to_vectors
-from load_csv import load_csv
-from load_csv_all import load_csv_all
-from gif_maker import gif_maker
 # Επεξεργασία του ποντικιού Άκης, επιλέγοντας τις καλύτερες —κατ'εμέ— εικόνες
 # Ποντίκια Άκης Γάκης Δάκης Λάκης Μάκης
 # basically we are building a data frame with all the columns made into a feature vector
 # and the rows are going to be samples of the experiment
-
 
 sampleHours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
 markerBack, markerBody = 70, 150
@@ -51,9 +46,6 @@ markerBack, markerBody = 70, 150
 #         διαλεγω τα δεδομενα μου απο το αρχικο dataset
 #             IR, CSV, DC.size(IR)
 #         βεβαια πώς παρουσιαζω τα δεδομενα;
-        
-    
-    
 
 rawImages, readable_EXIF = load_images(name='BAT')
 sensorData = load_csv(sampleHours, name='BAT')
