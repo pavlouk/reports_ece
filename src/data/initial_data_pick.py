@@ -5,42 +5,33 @@ import numpy as np
 from skimage.io import imread
 from PIL import Image
 from PIL.ExifTags import TAGS
+import re 
 # =============================================================================
 # αυτός ο κώδικας μεταφέρει όλα τα δεδομένα data/raw στο φάκελο data/interim
-# με τις επεξεργασίες τους να είναι:
+# με τις επεξεργασίες τους να είναι: (240, 160)
 #     IR_*.jpg    --> IR_ = cut IR_*[:, 100:260]
 #     CSV_*.csv   --> fix --> cut [:, 100:260]
 #     DC_*.jpg    --> cut centered[IR_]
 
-# Στάδια που δουλεύει:
+# Στάδια: τι συμβαίνει μέσα σε ένα os.walk
 # 1. Αρχικοποίηση: 
 #     iteration  0
 #     Root: C:\Users\plouk\Adiposer\data\raw
-#     DIRs: ['0h', '120h', '144h', '192h', '240h', '24h', '48h', '72h', '96h']
+#     DIRs: ['0h', '120h', '144h', '192h', '240h', '24h', '48h', '72h', '96h'] => len = 9
 #     
 #     Action: πήγαινε στο INTERIM_DIR και os.mkdir(DIRs)
 #     
-# 2. Ορισμός Ποντικίων για εκείνη την ώρα
+# 2. Ορισμός directories για εκείνη την ώρα:
 #     iteration  1
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h
-#     DIRs: ['Mouse1', 'Mouse2', 'Mouse3', 'Mouse4', 'Mouse5']
+#     Root: C:\Users\plouk\Adiposer\data\raw\0h                                 parent = raw, os.dirname(root) = '0h'
+#     DIRs: ['Mouse1', 'Mouse2', 'Mouse3', 'Mouse4', 'Mouse5']                 => len = 5 
 #     
+#     Action: πήγαινε στο INTERIM_DIR / "0h" και os.mkdir(DIRs)
+
 # 3. Πέντε Ποντίκια
-#     iteration  2
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse1
-#     DIRs: []
-#     iteration  3
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse2
-#     DIRs: []
-#     iteration  4
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse3
-#     DIRs: []
-#     iteration  5
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse4
-#     DIRs: []
-#     iteration  6
-#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse5
-#     DIRs: []
+#     iteration  2, 3, 4, 5 
+#     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse1, 2, 3, 4, 5
+#     DIRs: []                                                                 => len = 0
 # =============================================================================
 
 
@@ -62,10 +53,10 @@ def _readable_EXIF(exifdata):
 
 def _IR_fixer(fpath, fname):
 # =============================================================================
-#     fname: δέχεται το path του csv 
-#     επιστρέφει τα δεδομένα σειριακά
+#     fname: δέχεται το path της jpeg εικόνας ΙR
+#     επιστρέφει τα δεδομένα σειριακά δεδομένα εικόνας (240, 160) = 38.400
 # =============================================================================
-    print(f'IR fixer ---------- accessing {fname} -------------')
+    # print(f'IR fixer ---------- accessing {fname} -------------')
     image = imread(fpath, as_gray=True)
     exif = _readable_EXIF(Image.open(fpath).getexif())
     return image[:, 100:260].flatten(), exif
@@ -73,19 +64,18 @@ def _IR_fixer(fpath, fname):
 def _DC_fixer(fpath, fname):
 # =============================================================================
 #     fname: δέχεται το path της jpeg εικόνας DC
-#     επιστρέφει τα δεδομένα σειριακά σε συμφωνία με την infrared 
+#     επιστρέφει τα δεδομένα σειριακά σε συμφωνία με την infrared (240, 160) = 38.400
 # =============================================================================
-    print(f'DC fixer ---------- accessing {fname} -------------')
+    # print(f'DC fixer ---------- accessing {fname} -------------')
     image = imread(fpath, as_gray=True)
     image.shape
-    # Image.open(imagePath).getexif())
     
 def _CSV_fixer(fpath, fname):
 # =============================================================================
 #     fname: δέχεται το path του csv με τις θερμοκρασίες 
-#     επιστρέφει στήλη «actual» με μέγεθος 
+#     επιστρέφει σειριακά δεδομένα θερμοκρασιών μεγέθους (240, 160) = 38.400
 # =============================================================================
-    print(f'CSV fixer ---------- accessing {fname} -------------')
+    # print(f'CSV fixer ---------- accessing {fname} -------------')
 #     άμα sep = 'κενό,' τότε φτιάνει δίστηλο frame
 #     άμα sep = 'κενό' τότε φτιάνει τετράστηλο  frame
     dataF = pd.read_csv(filepath_or_buffer=fpath, sep=' ,', engine='python')
@@ -100,73 +90,74 @@ def _CSV_fixer(fpath, fname):
     for i in range(1, dataF.shape[0]):
         dataStringLine = dataColumn[i]
         rawData = np.vstack((rawData, np.fromstring(dataStringLine[1:], dtype=float, sep=',')))
-    """ sensor_data = dict.fromkeys(['Mouse1', 'Mouse2', 'Mouse3', 'Mouse4', 'Mouse5'])
-        csv_files = sorted(glob(CWD + '/dataset/WAT/Mouse1/CSV_*.csv'))
-        for sampleHour, file in zip(hours, csv_files):
-            data_dictionary[sampleHour] = _data_fixer(file)
-        sensor_data['Mouse1'] = data_dictionary """
+        
     return rawData[:, 100:260].flatten() 
     
 
 def process_targets(target_file_list, raw_files):
     # τελικό σχήμα (240, 160) = 38.400 flattened δείγματα 
     # δημιουργία τρίστηλου CSV: infrared, optical και actual
-
+    # βγάζω τα unique ids από τη λίστα raw_files
+    pattern = re.compile("[0-9][0-9][0-9][0-9]")
+    ids = [pattern.findall(content) for content in raw_files]
+    
     count = 0
-    print('******** Processing Targets **************')
+    print(f'******** Processing {len(raw_files)} Targets **************')
+    # τα targets έχουν τις μορφές: 
+    # IR_{id}.jpg, CSV_{id}.csv και DC_{id + 1}.jpg
+    # φτιάχνουμε αρχεία της μορφής sample_{id}.csv
     for (file, path) in zip(raw_files, target_file_list):
         if file.startswith('IR_'):
-            if os.path.isfile(path):
-                print('Processing ' + file)
-                result = _IR_fixer(path, file)
-                count += 1
+            # print('Processing ' + file)
+            result = _IR_fixer(path, file)
+            count += 1
         if file.startswith('DC_'):
-            if os.path.isfile(path):
-                print('Processing ' + file)
-                result = _DC_fixer(path, file)
-                count += 1
+            # print('Processing ' + file)
+            result = _DC_fixer(path, file)
+            count += 1
         if file.startswith('CSV_'):
-            if os.path.isfile(path):
-                print('Processing ' + file)
-                result = _CSV_fixer(path, file)
-
-                count += 1
+            # print('Processing ' + file)
+            result = _CSV_fixer(path, file)
+            count += 1
     print(f'***** Finished Processing {count} Targets **********')
+    return count 
 
-HERE = Path(__file__)
+HERE = Path(__file__)           # /src/data/file.py
 SRC_DIR = HERE.parent.parent
 PROJECT_DIR = SRC_DIR.parent
 RAW_DIR = PROJECT_DIR / "data" / "raw"
 INTERIM_DIR = PROJECT_DIR / "data" / "interim"
 mode = 0o755
-
+import re 
+pattern = re.compile("[0-9][0-9][0-9][0-9]")
+ids = [int(pattern.findall(content).pop()) for content in raw_files]
+unique_ids = list(set(ids))
+unique_ids.sort()
+for u_id in unique_ids
 if os.path.exists(RAW_DIR):
     # raw_root : string of a POSIX-style directory
     # raw_dirs : list of subdirectories 
     # raw_files: list of filenames in the directory
     processed_files = 0
-
+    
     for i, (raw_root, raw_dirs, raw_files) in enumerate(os.walk(RAW_DIR)):
-        print('iteration #', i)
-        print('Root: ' + raw_root)
-        print('DIRs: ' + str(raw_dirs))
+        print(f'iteration #{i}')
+        print(f'             Root dir: {os.path.basename(raw_root)}')
+        print(f'             DIR list: {str(raw_dirs)}')
         
-        # 1. Αρχικοποίηση:
-        if i == 0:
-            print('******** Initialized data/interim directory **************')
-            [os.mkdir(INTERIM_DIR / directory, mode) for directory in raw_dirs]
-        elif len(raw_dirs) == 0: # 3. Πέντε Ποντίκια
-            print('========> {} Files Found at {} '.format(str(len(raw_files)), raw_root))
+        if len(raw_dirs) == 9: # 1. Αρχικοποίηση:
+            print('******** Initialized /data/interim/[sample_hours] directories **************')
+            [os.mkdir(INTERIM_DIR / directory, mode) for directory in raw_dirs]  # raw_dirs = ['0h', '120h', '144h', '192h', '240h', '24h', '48h', '72h', '96h']
+        elif len(raw_dirs) == 5: # 2. Ορισμός 5 directories για εκείνη την ώρα:
+            print('******** Creating /data/interim/[sample_hours]/[mouse_ids] directories **************')
+            sample_name = os.path.basename(raw_root)
+            [os.mkdir(INTERIM_DIR / sample_name / mouse_name) for mouse_name in ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5']]
+        elif len(raw_dirs) == 0: # 3. Δεδομένα εικόνων 
+            print(f'========> {len(raw_files)} Files Found at {raw_root}')
             full_path_target = [raw_root + '/' + raw_file for raw_file in raw_files]
-            process_targets(full_path_target, raw_files)
+            processed_files += process_targets(full_path_target, raw_files)
             
-        raw_root_path = Path(raw_root)
-        data_path = raw_root_path.parent
-        # if str(data_path).endswith('raw'):
-        #   os.mkdir(path, mode)
-            
-        # print('making dir at interim ' + str(raw_root_path.parent))
-        # dirs_path = Path(dirs)
+        print(f'------------ Total Processed Files {processed_files} ------------------')
 else:
-    ValueError("Raw dataset doesn't exist")
+    ValueError("No dataset exists!!!")
         
