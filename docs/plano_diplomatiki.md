@@ -9,7 +9,7 @@
 	- Σημασία της Μελέτης // importance
 	- Πρόταση Επίλυσης // proposed solution
 	
-	* Σκοπός της Διπλωματικής thesis statement 
+	* Σκοπός της Διπλωματικής // thesis statement 
 	* Ερευνητικό Ερώτημα
 	* Υπόθεση Έρευνας // research hypothesis---ρητές
 	* Στόχοι Έρευνας
