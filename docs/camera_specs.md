@@ -1,3 +1,5 @@
+# FLIR 
+## FLIR E60 (incl. Wi-Fi)
 | Imaging and optical data | |
 | --- | --- |
 | IR resolution | 320 × 240 pixels | 
