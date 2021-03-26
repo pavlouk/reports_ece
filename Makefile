@@ -40,7 +40,7 @@ clean_interim:
 
 ## Contents of /data/interim directory
 show_interim:
-	[ "$(ls -A /data/interim)" ] && echo "Not Empty" || echo "Empty"
+	@[ "$(ls -A /data/interim)" ] && echo "data/interim is not empty" || echo "data/interim is empty"
 
 ## Lint using flake8
 lint:
