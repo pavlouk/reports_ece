@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"jupyter.jupyterServerType": "local"
+		"jupyter.jupyterServerType": "local",
+		"python.pythonPath": "C:\\Users\\plouk\\anaconda3\\python.exe"
 	}
 }
