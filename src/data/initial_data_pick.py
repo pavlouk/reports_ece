@@ -19,7 +19,6 @@ import shutil
 #     DIRs: []
 # =============================================================================
 
-
 def _readable_EXIF(exifdata):
     exifList = []
     try:
