@@ -89,3 +89,7 @@ target/
 .mypy_cache/
 README.md
 ADIPOSER.code-workspace
+notebooks/img/*
+# αρχεία temp από το word 
+~*
+workspace.ini*
