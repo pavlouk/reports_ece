@@ -1,12 +1,12 @@
-# Το directory structure
+# Adipose Tissue Detector directory structure
 ------------
 
-## Η δενδρική δομή του directory για το project αναλύεται ως: 
+## Η δομή του project directory περιλαμβάνει: 
 
 ```
 ├── LICENSE
 ├── Makefile           <- Makefile με εντολές πχ `make data` or `make train`
-├── README.md          <- Tο README για developers του project και για πληροφορίες.
+├── README.md          <- Tο παρών README για developers του project και για πληροφορίες.
 ├── data
 │   ├── external       <- Data από third party sources.
 │   ├── interim        <- Μεσαία δεδομένα που έχουν δομηθεί και επεξεργαστεί από το raw.
