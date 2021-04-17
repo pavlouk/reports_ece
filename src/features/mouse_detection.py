@@ -3,10 +3,11 @@ from skimage.util import img_as_ubyte
 from skimage.segmentation import watershed
 from skimage.filters import sobel
 from skimage.draw import rectangle_perimeter
+from skimage.io import imread
 
 from scipy import ndimage as ndi
 
-def mouse_detection(mouse_images):
+def mouse_detection(mouse_images, markerBack=70, markerBody=120):
     object_images = []
     for original in mouse_images:
         bordered = original[:, 100:260]
@@ -14,7 +15,7 @@ def mouse_detection(mouse_images):
         markerImage = np.zeros_like(bordered)
         # We find markers of the background and the mouse body based on the extreme
         # parts of the histogram of gray values.  μαρκάρω == marker, πινακιδιάζω == label
-        markerBack, markerBody = 70, 150
+        
         markerImage[img_as_ubyte(bordered) < markerBack] = 1
         markerImage[img_as_ubyte(bordered) > markerBody] = 2
         elevationMap = sobel(bordered)
@@ -33,3 +34,9 @@ def mouse_detection(mouse_images):
         cleanMouse = mouseImage * mouseMask
         object_images.append(cleanMouse)
     return object_images
+
+# image = imread('C:\\Users\\plouk\\Adiposer/data/raw/0h/Mouse1\\IR_2066.jpg')
+# uuu = [image]
+# new = mouse_detection(uuu)
+
+# from IPython.display import HTML 
