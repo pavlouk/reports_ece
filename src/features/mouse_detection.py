@@ -9,6 +9,7 @@ from scipy import ndimage as ndi
 
 def mouse_detection(mouse_images, markerBack=70, markerBody=120):
     object_images = []
+    object_masks = []
     for original in mouse_images:
         bordered = original[:, 100:260]
         # We create markers indicating the segmentation through histogram values
@@ -32,8 +33,9 @@ def mouse_detection(mouse_images, markerBack=70, markerBody=120):
         mouseMask = initialMask[mouseLocation]
         mouseImage = bordered[mouseLocation]
         cleanMouse = mouseImage * mouseMask
+        object_masks.append(mouseMask)
         object_images.append(cleanMouse)
-    return object_images
+    return object_images, object_masks
 
 # image = imread('C:\\Users\\plouk\\Adiposer/data/raw/0h/Mouse1\\IR_2066.jpg')
 # uuu = [image]
