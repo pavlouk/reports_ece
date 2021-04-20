@@ -8,10 +8,12 @@ from skimage.io import imread
 from scipy import ndimage as ndi
 
 def mouse_detection(mouse_images, markerBack=70, markerBody=120):
+    # mouse_images: (240, 320)
     object_images = []
     object_masks = []
+    initial_masks = []
     for original in mouse_images:
-        bordered = original[:, 100:260]
+        bordered = original[:, 100:260] # (240, 160)
         # We create markers indicating the segmentation through histogram values
         markerImage = np.zeros_like(bordered)
         # We find markers of the background and the mouse body based on the extreme
@@ -24,6 +26,7 @@ def mouse_detection(mouse_images, markerBack=70, markerBody=120):
         initialMaskTemp = watershed(elevationMap, markerImage)
         # This method segments and labels the mouse individually
         initialMask = ndi.binary_fill_holes(initialMaskTemp - 1)
+        initial_masks.append(initialMask)
         labeledMouse, _ = ndi.label(initialMask)
         mouseLocation = ndi.find_objects(labeledMouse)[0]
         ro, co = rectangle_perimeter(start=(mouseLocation[0].start, mouseLocation[1].start), 
@@ -35,7 +38,7 @@ def mouse_detection(mouse_images, markerBack=70, markerBody=120):
         cleanMouse = mouseImage * mouseMask
         object_masks.append(mouseMask)
         object_images.append(cleanMouse)
-    return object_images, object_masks
+    return object_images, object_masks, initial_masks
 
 # image = imread('C:\\Users\\plouk\\Adiposer/data/raw/0h/Mouse1\\IR_2066.jpg')
 # uuu = [image]
