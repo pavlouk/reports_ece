@@ -13,7 +13,7 @@ import shutil
 #     IR_*.jpg    --> IR_ = cut IR_*[:, 100:260]
 #     CSV_*.csv   --> fix --> cut [:, 100:260]
 #     DC_*.jpg    --> cut centered[IR_]
-# 3. Πέντε Ποντίκια
+# 3. Πέντε Ποντίκια """return pd.DataFrame(rawData[:, 100:260].flatten()).to_csv(save_dir.as_posix() + '\/' + fname)"""
 #     iteration  2, 3, 4, 5 
 #     Root: C:\Users\plouk\Adiposer\data\raw\0h\Mouse1, 2, 3, 4, 5
 #     DIRs: []
@@ -52,19 +52,19 @@ def _DC_fixer(fpath, fname):
 # =============================================================================
     # print(f'DC fixer ---------- accessing {fname} -------------')
     image = imread(fpath, as_gray=True)
-    image.shape
+    return image.shape
     
-def _CSV_fixer(fpath, fname, save_dir):
-# =============================================================================
-#     fname: δέχεται το path του csv με τις θερμοκρασίες 
-#     επιστρέφει σειριακά δεδομένα θερμοκρασιών μεγέθους (240, 160) = 38.400
-# =============================================================================
-#     print(f'CSV fixer ---------- accessing {fname} -------------')
-#     άμα sep = 'κενό,' τότε φτιάνει δίστηλο frame, άμα sep = 'κενό' τότε φτιάνει τετράστηλο  frame
+def CSV_fixer(fpath, fname, save_dir):
+    # =============================================================================
+    # fname: δέχεται το path του csv με τις θερμοκρασίες 
+    # επιστρέφει σειριακά δεδομένα θερμοκρασιών μεγέθους (240, 160) = 38.400
+    # =============================================================================
+    # print(f'CSV fixer ---------- accessing {fname} -------------')
+    # με sep = 'κενό,' τότε δίστηλο frame, με sep = 'κενό' τότε τετράστηλο frame
     dataF = pd.read_csv(filepath_or_buffer=fpath, sep=' ,', engine='python')
     columnNames = dataF.columns
-#     μόνο η πρώτη στήλη με το Frame 1 έχει τις θερμοκρασίες
-#     dataColumn type: pandas Series
+    # μόνο η πρώτη στήλη με το Frame 1 έχει τις θερμοκρασίες
+    # dataColumn type: pandas Series
     dataColumn = dataF[columnNames[0]] # ας δούμε το πρώτο που έχει τη λέξη Frame 1 στην αρχή 
     firstLine = dataColumn[0]          # string
     # 320 ειναι τα κόμματα κάτι που ισχύει και για τα υπόλοιπα 
@@ -74,7 +74,7 @@ def _CSV_fixer(fpath, fname, save_dir):
         dataStringLine = dataColumn[i]
         rawData = np.vstack((rawData, np.fromstring(dataStringLine[1:], dtype=float, sep=',')))
         
-    return pd.DataFrame(rawData[:, 100:260].flatten()).to_csv(save_dir.as_posix() + '\/' + fname)
+    return rawData[:, 100:260]
     
 
 def process_targets(target_file_list, raw_files, save_dir):
@@ -102,7 +102,7 @@ def process_targets(target_file_list, raw_files, save_dir):
         #     count += 1
         if file.startswith('CSV_'):
             # print('Processing ' + file)
-            result = _CSV_fixer(path, file, save_dir)
+            result = CSV_fixer(path, file, save_dir)
             count += 1
     print(f'***** Finished Processing {count} Targets **********')
     return count 
@@ -113,64 +113,66 @@ PROJECT_DIR = SRC_DIR.parent
 RAW_DIR = PROJECT_DIR / "data" / "raw"
 INTERIM_DIR = PROJECT_DIR / "data" / "interim"
 mode = 0o755
+print(__name__)
+if __name__ == '__main__':
+    print('fgjjfjjfjfjfj')
+    # import re 
+    # pattern = re.compile("[0-9][0-9][0-9][0-9]")
+    # ids = [int(pattern.findall(content).pop()) for content in raw_files] 
+    # ids_unique = list(set(ids))
+    # couple_list = []
+    # unique_iter = iter(ids_unique)
+    # couple = (next(unique_iter), next(unique_iter))
+    # for i in range(len(ids_unique)):
+    #     if couple[0] == couple[1] + 1:
+    #         couple_list.append(couple)
+    #     couple = (next(unique_iter), next(unique_iter))
 
-# import re 
-# pattern = re.compile("[0-9][0-9][0-9][0-9]")
-# ids = [int(pattern.findall(content).pop()) for content in raw_files] 
-# ids_unique = list(set(ids))
-# couple_list = []
-# unique_iter = iter(ids_unique)
-# couple = (next(unique_iter), next(unique_iter))
-# for i in range(len(ids_unique)):
-#     if couple[0] == couple[1] + 1:
-#         couple_list.append(couple)
-#     couple = (next(unique_iter), next(unique_iter))
+    if os.path.exists(RAW_DIR):
 
-if os.path.exists(RAW_DIR):
-
-    processed_files = 0
-    # 1.Αρχικοποιηση 
-    print('******* Initialized /data/interim/[sample_hours] directories **************')
-    sample_hours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
-    [os.mkdir(INTERIM_DIR / sample_hour, mode) for sample_hour in sample_hours]
-    # 2. Πέντε ποντίκια για κάθε ώρα δειγματοληψίας 
-    print('******* Creating /data/interim/[sample_hours]/[mouse_ids] directories **************')
-    mouse_ids = ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5']
-    [os.mkdir(INTERIM_DIR / sample_hour / mouse_id, mode) for sample_hour in sample_hours for mouse_id in mouse_ids]
-    
-    for i, (raw_root, raw_dirs, raw_files) in enumerate(os.walk(RAW_DIR)):
-        # raw_root : string of a POSIX-style directory
-        # raw_dirs : list of subdirectories basenames
-        # raw_files: list of filenames in the directory
-        print(f'Iteration #{i}')
-        print(f'        Basename Root dir: {os.path.basename(raw_root)}')
-        print(f'        Found DIRs: {str(raw_dirs)}')
-            
-        if len(raw_dirs) == 0: # 3. Δεδομένα εικόνων 
-            print(f'******* {len(raw_files)} Files Found at {raw_root}')
-            
-            paren_dir = os.path.abspath(os.path.join(raw_root, os.pardir))
-            sample_h = os.path.basename(paren_dir)
-            
-            if raw_root.endswith('1'):
-                mouse_id = 'mouse_1'
-            elif raw_root.endswith('2'):
-                mouse_id = 'mouse_2'
-            elif raw_root.endswith('3'):
-                mouse_id = 'mouse_3'
-            elif raw_root.endswith('4'):
-                mouse_id = 'mouse_4'
-            elif raw_root.endswith('5'):
-                mouse_id = 'mouse_5'
+        processed_files = 0
+        # 1.Αρχικοποιηση 
+        print('******* Initialized /data/interim/[sample_hours] directories **************')
+        sample_hours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
+        [os.mkdir(INTERIM_DIR / sample_hour, mode) for sample_hour in sample_hours]
+        # 2. Πέντε ποντίκια για κάθε ώρα δειγματοληψίας 
+        print('******* Creating /data/interim/[sample_hours]/[mouse_ids] directories **************')
+        mouse_ids = ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5']
+        [os.mkdir(INTERIM_DIR / sample_hour / mouse_id, mode) for sample_hour in sample_hours for mouse_id in mouse_ids]
+        
+        for i, (raw_root, raw_dirs, raw_files) in enumerate(os.walk(RAW_DIR)):
+            # raw_root : string of a POSIX-style directory
+            # raw_dirs : list of subdirectories basenames
+            # raw_files: list of filenames in the directory
+            print(f'Iteration #{i}')
+            print(f'        Basename Root dir: {os.path.basename(raw_root)}')
+            print(f'        Found DIRs: {str(raw_dirs)}')
                 
-            SAVE_DIR = INTERIM_DIR / sample_h / mouse_id
-            
-            print(f'Base directory: {os.path.basename(raw_root)}')
-            print(f'Saving at: {SAVE_DIR.as_posix}')
-            full_path_target = [raw_root + '/' + raw_file for raw_file in raw_files]
-            processed_files += process_targets(full_path_target, raw_files, SAVE_DIR)
-            
-            print(f'------------ Total Processed Files {processed_files} ------------------')
-else:
-    ValueError("The dataset does not exist!")
+            if len(raw_dirs) == 0: # 3. Δεδομένα εικόνων 
+                print(f'******* {len(raw_files)} Files Found at {raw_root}')
+                
+                paren_dir = os.path.abspath(os.path.join(raw_root, os.pardir))
+                sample_h = os.path.basename(paren_dir)
+                
+                if raw_root.endswith('1'):
+                    mouse_id = 'mouse_1'
+                elif raw_root.endswith('2'):
+                    mouse_id = 'mouse_2'
+                elif raw_root.endswith('3'):
+                    mouse_id = 'mouse_3'
+                elif raw_root.endswith('4'):
+                    mouse_id = 'mouse_4'
+                elif raw_root.endswith('5'):
+                    mouse_id = 'mouse_5'
+                    
+                SAVE_DIR = INTERIM_DIR / sample_h / mouse_id
+                
+                print(f'Base directory: {os.path.basename(raw_root)}')
+                print(f'Saving at: {SAVE_DIR.as_posix}')
+                full_path_target = [raw_root + '/' + raw_file for raw_file in raw_files]
+                processed_files += process_targets(full_path_target, raw_files, SAVE_DIR)
+                
+                print(f'------------ Total Processed Files {processed_files} ------------------')
+    else:
+        ValueError("The dataset does not exist!")
         
