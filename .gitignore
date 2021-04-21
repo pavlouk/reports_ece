@@ -76,8 +76,7 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/data/
-/references/
+
 # Mac OS-specific storage files
 .DS_Store
 
@@ -87,9 +86,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
-README.md
 ADIPOSER.code-workspace
-notebooks/img/*
 # αρχεία temp από το word 
 ~*
 workspace.ini*

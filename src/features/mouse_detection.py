@@ -12,6 +12,7 @@ def mouse_detection(mouse_images, markerBack=70, markerBody=120):
     object_images = []
     object_masks = []
     initial_masks = []
+    mouse_locations = []
     for original in mouse_images:
         bordered = original[:, 100:260] # (240, 160)
         # We create markers indicating the segmentation through histogram values
@@ -33,12 +34,13 @@ def mouse_detection(mouse_images, markerBack=70, markerBody=120):
                              end=(mouseLocation[0].stop, mouseLocation[1].stop),
                              shape=bordered.shape)
         initialMask[ro, co] = True
+        mouse_locations.append(mouseLocation)
         mouseMask = initialMask[mouseLocation]
         mouseImage = bordered[mouseLocation]
         cleanMouse = mouseImage * mouseMask
         object_masks.append(mouseMask)
         object_images.append(cleanMouse)
-    return object_images, object_masks, initial_masks
+    return object_images, object_masks, initial_masks, mouse_locations
 
 # image = imread('C:\\Users\\plouk\\Adiposer/data/raw/0h/Mouse1\\IR_2066.jpg')
 # uuu = [image]
