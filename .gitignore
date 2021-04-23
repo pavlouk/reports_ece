@@ -90,3 +90,4 @@ ADIPOSER.code-workspace
 # αρχεία temp από το word 
 ~*
 workspace.ini*
+/data/
