@@ -71,6 +71,10 @@ target/
 
 # Spyder
 .spyproject/config/
+.spyproject
+.pylint.d
+desktop.ini
+
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
@@ -91,3 +95,4 @@ ADIPOSER.code-workspace
 ~*
 workspace.ini*
 /data/
+.tmp*
