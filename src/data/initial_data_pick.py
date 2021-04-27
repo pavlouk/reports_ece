@@ -115,7 +115,7 @@ INTERIM_DIR = PROJECT_DIR / "data" / "interim"
 mode = 0o755
 print(__name__)
 if __name__ == '__main__':
-    print('fgjjfjjfjfjfj')
+    print('lathos meros')
     # import re 
     # pattern = re.compile("[0-9][0-9][0-9][0-9]")
     # ids = [int(pattern.findall(content).pop()) for content in raw_files] 
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     if os.path.exists(RAW_DIR):
 
         processed_files = 0
-        # 1.Αρχικοποιηση 
+        # 1. Αρχικοποιηση 
         print('******* Initialized /data/interim/[sample_hours] directories **************')
         sample_hours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
         [os.mkdir(INTERIM_DIR / sample_hour, mode) for sample_hour in sample_hours]
