@@ -35,7 +35,7 @@ def _readable_EXIF(exifdata):
         return exifList
     return exifList
 
-def _IR_fixer(fpath, fname):
+def IR_fixer(fpath, fname):
 # =============================================================================
 #     fname: δέχεται το path της jpeg εικόνας ΙR
 #     επιστρέφει τα δεδομένα σειριακά δεδομένα εικόνας (240, 160) = 38.400
@@ -43,7 +43,7 @@ def _IR_fixer(fpath, fname):
     # print(f'IR fixer ---------- accessing {fname} -------------')
     image = imread(fpath, as_gray=True)
     exif = _readable_EXIF(Image.open(fpath).getexif())
-    return image[:, 100:260].flatten(), exif
+    return image[:, 100:260], exif
     
 def _DC_fixer(fpath, fname):
 # =============================================================================
