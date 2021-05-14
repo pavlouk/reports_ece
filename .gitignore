@@ -1,6 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
+*.py[co]
 
 # C extensions
 *.so
@@ -73,8 +73,6 @@ target/
 .spyproject/config/
 .spyproject
 .pylint.d
-desktop.ini
-
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
@@ -96,3 +94,5 @@ ADIPOSER.code-workspace
 workspace.ini*
 /data/
 .tmp*
+*.ini
+references/
