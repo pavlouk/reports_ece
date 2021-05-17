@@ -35,7 +35,7 @@ def _readable_EXIF(exifdata):
         return exifList
     return exifList
 
-def IR_fixer(fpath, fname):
+def IR_fixer(fpath):
 # =============================================================================
 #     fpath: δέχεται το path της jpeg εικόνας ΙR
 #     επιστρέφει τα δεδομένα σειριακά δεδομένα εικόνας (240, 160) = 38.400
@@ -45,7 +45,7 @@ def IR_fixer(fpath, fname):
     exif = _readable_EXIF(Image.open(fpath).getexif())
     return image[:, 100:260], exif
     
-def _DC_fixer(fpath, fname):
+def _DC_fixer(fpath):
 # =============================================================================
 #     fname: δέχεται το path της jpeg εικόνας DC
 #     επιστρέφει τα δεδομένα σειριακά σε συμφωνία με την infrared (240, 160) = 38.400
@@ -54,9 +54,9 @@ def _DC_fixer(fpath, fname):
     image = imread(fpath, as_gray=True)
     return image.shape
     
-def CSV_fixer(fpath, fname, save_dir):
+def CSV_fixer(fpath):
     # =============================================================================
-    # fname: δέχεται το path του csv με τις θερμοκρασίες 
+    # fpath: δέχεται το path του csv με τις θερμοκρασίες 
     # επιστρέφει σειριακά δεδομένα θερμοκρασιών μεγέθους (240, 160) = 38.400
     # =============================================================================
     # print(f'CSV fixer ---------- accessing {fname} -------------')
@@ -107,7 +107,7 @@ def process_targets(target_file_list, raw_files, save_dir):
     print(f'***** Finished Processing {count} Targets **********')
     return count 
 
-HERE = Path(__file__)           # ~/Adiposer/src/data/data_pick.py
+HERE = Path(__file__)           # ~/Adiposer/src/data/data_utils.py
 SRC_DIR = HERE.parent.parent
 PROJECT_DIR = SRC_DIR.parent
 RAW_DIR = PROJECT_DIR / "data" / "raw"
@@ -175,4 +175,3 @@ if __name__ == '__main__':
                 print(f'------------ Total Processed Files {processed_files} ------------------')
     else:
         ValueError("The dataset does not exist!")
-        
