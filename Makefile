@@ -34,6 +34,10 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
+## (DO NOT USE WITH MAKE -- ITS DIRECTORY DEPENDENT) Convert all directory python files to jupyter notebooks 
+py2notebook:
+	find . -type f -name "*.py" -exec p2j {} \;
+
 ## Clean /data/interim directory
 clean_interim:
 	rm -rf data/interim; mkdir data/interim
