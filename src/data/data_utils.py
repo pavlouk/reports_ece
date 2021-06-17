@@ -35,13 +35,13 @@ def _readable_EXIF(exifdata):
         return exifList
     return exifList
 
-def IR_fixer(fpath):
+def IR_fixer(fpath, as_gray=True):
 # =============================================================================
 #     fpath: δέχεται το path της jpeg εικόνας ΙR
 #     επιστρέφει τα δεδομένα σειριακά δεδομένα εικόνας (240, 160) = 38.400
 # =============================================================================
     # print(f'IR fixer ---------- accessing {fname} -------------')
-    image = imread(fpath, as_gray=True)
+    image = imread(fpath, as_gray=as_gray)
     exif = _readable_EXIF(Image.open(fpath).getexif())
     return image[:, 100:260], exif
     
@@ -73,7 +73,7 @@ def CSV_fixer(fpath):
     for i in range(1, dataF.shape[0]):
         dataStringLine = dataColumn[i]
         rawData = np.vstack((rawData, np.fromstring(dataStringLine[1:], dtype=float, sep=',')))
-        
+
     return rawData[:, 100:260]
     
 
