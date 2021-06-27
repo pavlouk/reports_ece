@@ -95,4 +95,6 @@ workspace.ini*
 /data/
 .tmp*
 *.ini
-references/
+references/skimage_tutorials/*
+references/**
+reports/*
