@@ -6,6 +6,7 @@
 	],
 	"settings": {
 		"jupyter.jupyterServerType": "local",
-		"python.pythonPath": "C:\\Users\\plouk\\anaconda3\\python.exe"
+		"python.pythonPath": "C:\\Users\\plouk\\anaconda3\\python.exe",
+		"vim.useSystemClipboard": true
 	}
 }
