@@ -3,8 +3,6 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 from skimage.io import imread
-from PIL import Image
-from PIL.ExifTags import TAGS
 import re 
 import shutil 
 # =============================================================================
@@ -19,31 +17,12 @@ import shutil
 #     DIRs: []
 # =============================================================================
 
-def _readable_EXIF(exifdata):
-    exifList = []
-    try:
-        # iterating over all EXIF data fields
-        for tag_id in exifdata:
-            # get the tag name, instead of human unreadable tag id
-            tag = TAGS.get(tag_id, tag_id)
-            data = exifdata.get(tag_id)
-            # decode bytes 
-            if isinstance(data, bytes):
-                data = data.decode()
-            exifList.append(f"{tag:25}: {data}")
-    except UnicodeDecodeError:
-        return exifList
-    return exifList
-
 def IR_fixer(fpath, as_gray=True):
 # =============================================================================
 #     fpath: δέχεται το path της jpeg εικόνας ΙR
-#     επιστρέφει τα δεδομένα σειριακά δεδομένα εικόνας (240, 160) = 38.400
-# =============================================================================
     # print(f'IR fixer ---------- accessing {fname} -------------')
     image = imread(fpath, as_gray=as_gray)
-    exif = _readable_EXIF(Image.open(fpath).getexif())
-    return image[:, 100:260], exif
+    return image[:, 100:260]
     
 def _DC_fixer(fpath):
 # =============================================================================
@@ -145,8 +124,8 @@ if __name__ == '__main__':
             # raw_dirs : list of subdirectories basenames
             # raw_files: list of filenames in the directory
             print(f'Iteration #{i}')
-            print(f'        Basename Root dir: {os.path.basename(raw_root)}')
-            print(f'        Found DIRs: {str(raw_dirs)}')
+            print(f'   Basename Root dir: {os.path.basename(raw_root)}')
+            print(f'   Found DIRs: {str(raw_dirs)}')
                 
             if len(raw_dirs) == 0: # 3. Δεδομένα εικόνων 
                 print(f'******* {len(raw_files)} Files Found at {raw_root}')
