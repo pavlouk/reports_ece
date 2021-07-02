@@ -55,6 +55,19 @@ def CSV_fixer(fpath):
 
     return rawData[:, 100:260]
     
+def make_interim(mult_views=True):
+    if mult_views:
+        os.mkdir(INTERIM_DIR / 'multiple_views')
+        return os.path.abspath(INTERIM_DIR / 'multiple_views')
+    else:
+        print('******* Initialized /data/interim/[sample_hours] directories **************')
+        sample_hours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
+        [os.mkdir(INTERIM_DIR / sample_hour, mode) for sample_hour in sample_hours]
+        # 2. Πέντε ποντίκια για κάθε ώρα δειγματοληψίας 
+        print('******* Creating /data/interim/[sample_hours]/[mouse_ids] directories **************')
+        mouse_ids = ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5']
+        [os.mkdir(INTERIM_DIR / sample_hour / mouse_id, mode) for sample_hour in sample_hours for mouse_id in mouse_ids]
+
 
 def process_targets(target_file_list, raw_files, save_dir):
     # τελικό σχήμα (240, 160) = 38.400 flattened δείγματα 
@@ -111,13 +124,7 @@ if __name__ == '__main__':
 
         processed_files = 0
         # 1. Αρχικοποιηση 
-        print('******* Initialized /data/interim/[sample_hours] directories **************')
-        sample_hours = ['0h', '24h', '48h', '72h', '96h', '120h', '144h', '192h', '240h']
-        [os.mkdir(INTERIM_DIR / sample_hour, mode) for sample_hour in sample_hours]
-        # 2. Πέντε ποντίκια για κάθε ώρα δειγματοληψίας 
-        print('******* Creating /data/interim/[sample_hours]/[mouse_ids] directories **************')
-        mouse_ids = ['mouse_1', 'mouse_2', 'mouse_3', 'mouse_4', 'mouse_5']
-        [os.mkdir(INTERIM_DIR / sample_hour / mouse_id, mode) for sample_hour in sample_hours for mouse_id in mouse_ids]
+
         
         for i, (raw_root, raw_dirs, raw_files) in enumerate(os.walk(RAW_DIR)):
             # raw_root : string of a POSIX-style directory
