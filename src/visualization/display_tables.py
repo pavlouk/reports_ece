@@ -7,9 +7,7 @@ class display(object):
         self.args = args
         
     def _repr_html_(self):
-        return '\n'.join(self.template.format(a, eval(a)._repr_html_())
-                         for a in self.args)
+        return '\n'.join(self.template.format(a, eval(a)._repr_html_()) for a in self.args)
     
     def __repr__(self):
-        return '\n\n'.join(a + '\n' + repr(eval(a))
-                           for a in self.args)
+        return '\n\n'.join(a + '\n' + repr(eval(a)) for a in self.args)

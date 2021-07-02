@@ -1,7 +1,7 @@
-# Adipose Tissue Detector directory structure
+# **Adipose** Tissue Detector directory structure
 ------------
 
-## Η δομή του project directory περιλαμβάνει: 
+## Η δομή του project directory: 
 
 ```
 ├── LICENSE
@@ -15,28 +15,28 @@
 │
 ├── docs               <- Κείμενα, θεωρητικά και οργανωτικά σημεία. 
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+├── models             <- Trained, serialized models, predictions ή model summaries.
 │
 ├── notebooks          <- Jupyter notebooks. Για τα ονόματα: αριθμός (για ordering),
 │                         και μια μικρή χωρισμένη με `-` περιγραφή, e.g. `1.0-initial-data-exploration`.
 │
-├── references         <- Κώδικας και παραδείγματα που έχω κατεβάσει.
-│                         Data dictionaries, manuals, and all other explanatory materials.
+├── references         <- Κώδικας και κατεβασμένα παραδείγματα.
+│                         Data dictionaries, manuals, and other explanatory materials.
 │
-├── reports            <- Generated αναλύσεις ως HTML, PDF, LaTeX, etc, το κείμενο της διπλωματικής.
-│   └── figures        <- Generated γραφικά και figures για χρήση στο reporting.
+├── reports            <- Word, PDF, LaTeX, etc, το κείμενο της διπλωματικής.
+│   └── figures        <- Γραφικά, figures για χρήση στο reporting.
 │
-├── requirements.txt   <- Το requirements αρχείο για reproducing του περιβάλλοντος, e.g.
+├── requirements.txt   <- Το requirements αρχείο για enviroment reproducing e.g.
 │                         generated με `pip freeze > requirements.txt`
 │
 ├── setup.py           <- Κάνει το project pip installable (pip install -e .) ώστε το src να είναι imported
 ├── src                <- Όλος ο κώδικας που χρησιμοποιείται στο project.
 │   ├── __init__.py    <- Κάνει το src ένα Python module.
 │   │
-│   ├── data           <- Script για download ή generate στα δεδομένα
+│   ├── data           <- Download ή data generation script
 │   │   └── make_dataset.py
 │   │
-│   ├── features       <- Script που μετατρέπει raw δεδομένα σε features για modeling.
+│   ├── features       <- Script που μετατρέπει raw δεδομένα σε features για modelling.
 │   │   └── build_features.py
 │   │
 │   ├── models         <- Script για την εκτέλεση των model και τη χρήση των models.
@@ -46,5 +46,5 @@
 │   └── visualization  <- Script για τη δημιουργία exploratory και results-oriented visualizations.
 │       └── visualize.py
 │
-└── tox.ini            <- tox αρχείο με ρυθμίσεις για το tox; see tox.readthedocs.io
+└── tox.ini            <- tox αρχείο ρυθμίσεων see tox.readthedocs.io
 ```
