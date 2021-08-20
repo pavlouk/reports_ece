@@ -1,0 +1,23 @@
+SPCR	.set 0x1900008 
+DRR	.set 0x1900000 	
+		
+	.def entry
+	.text
+
+entry:	MVKL .S1 SPCR, A1 
+	MVKH .S1 SPCR, A1
+	MVKL .S1 DRR, A2 
+	MVKH .S1 DRR, A2
+	MVK  .S2 0x1, B1
+		
+loop:	LDW *A1, B0
+	NOP 4
+	AND B0, B1, B0	;Isolating first bit
+	XOR B0, B1, B0	;Condition for exiting loop
+   [B0] B loop
+ 	NOP 5
+    	LDW *A2, A3	;Reading input
+  		
+  	IDLE
+  	.end
+
