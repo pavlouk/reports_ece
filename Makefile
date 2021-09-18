@@ -32,7 +32,7 @@ data: requirements
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+	find . -type d -name "__pycache__" -exec rm -rf {} \;
 
 ## (DO NOT USE WITH MAKE -- ITS DIRECTORY DEPENDENT) Convert all directory python files to jupyter notebooks 
 py2notebook:
