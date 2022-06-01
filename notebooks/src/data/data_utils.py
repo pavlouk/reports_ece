@@ -39,33 +39,6 @@ def CSV_fixer(fpath):
 
     return rawData[:, 100:260]
 
-"""
-Creating a CRUD
-c create
-    the directory 
-    name types
-what lossless data format is required
-    .tif is great, it uses np.nbytes memory per object
-        
-r read
-    reading as per what format
-        order and accessing attributes 
-
-u update
-    update is a new cycle of create and readf
-
-d delete 
-    all are create only,
-    memory is infinite 
-
-algo stuff
-    objects = object_generation()
-    save_objects(objects)
-    objects.save()
-
-    considering the new approach of function vs method decision for 
-    what needs more 
-"""
 def make_items():
     # Εισαγωγή του αρχείου yaml
     module_path = os.path.abspath(PROJECT_DIR)

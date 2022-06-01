@@ -1,7 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[co]
-
+.*.py
+*.docx
+*.ipynb
 # C extensions
 *.so
 
@@ -68,11 +70,10 @@ target/
 
 # VS Code
 .vscode/
-
+.vs
 # Spyder
-.spyproject/config/
-.spyproject
-.pylint.d
+.spyproject/
+.pylint.d/
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
@@ -81,7 +82,6 @@ target/
 
 # Mac OS-specific storage files
 .DS_Store
-
 # vim
 *.swp
 *.swo
@@ -98,4 +98,4 @@ workspace.ini*
 references/skimage_tutorials/*
 references/**
 reports/*
-ADIPOSER.code-workspace
+README.md
