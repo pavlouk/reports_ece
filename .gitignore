@@ -88,11 +88,10 @@ target/
 
 # Mypy cache
 .mypy_cache/
-ADIPOSER.code-workspace
 # αρχεία temp από το word 
 ~*
 workspace.ini*
-/data/
+data/
 .tmp*
 *.ini
 references/skimage_tutorials/*

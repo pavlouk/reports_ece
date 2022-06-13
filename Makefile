@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3 kati
+.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -39,12 +39,20 @@ py2notebook:
 	find . -type f -name "*.py" -exec p2j {} \;
 
 ## Clean /data/interim directory
-clean_interim:
+clean_data_interim:
 	rm -rf data/interim; mkdir data/interim
 
+## Clean /data/processed directory
+clean_data_processed:
+	rm -rf data/processed; mkdir data/processed
+
 ## Contents of /data/interim directory
-show_interim:
+show_data_interim:
 	@[ "$(ls -A /data/interim)" ] && echo "data/interim is not empty" || echo "data/interim is empty"
+
+## Contents of /data/interim directory
+show_data_processed:
+	@[ "$(ls -A /data/processed)" ] && echo "data/processed is not empty" || echo "data/processed is empty"
 
 ## Lint using flake8
 lint:

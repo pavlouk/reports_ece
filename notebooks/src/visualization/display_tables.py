@@ -3,7 +3,7 @@ class Display(object):
     template = """<div style="float: left; padding: 10px;">
     <p style='font-family:"Courier New", Courier, monospace'>{0}</p>{1}
     </div>"""
-    def __init__(self, *args):
+    def __init__(self, *args:tuple):
         self.args = args
         
     def _repr_html_(self) -> str:
