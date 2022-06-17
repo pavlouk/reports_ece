@@ -9,16 +9,17 @@ import yaml
 from PIL import Image
 from skimage.io import imread
 
-Images = List[np.ndarray]
+Image = np.ndrarray
+Images = List[Image]
 
 
-def ir_fixer(fpath: str, as_gray=True) -> np.ndarray:
+def ir_fixer(fpath: str, as_gray=True) -> Image:
     """fpath: το path της jpeg εικόνας ΙR"""
     image = imread(fpath, as_gray=as_gray)
     return image[:, 100:260]
 
 
-def dc_fixer(fpath: str) -> np.ndarray:
+def dc_fixer(fpath: str) -> Image:
     """fname: το path της jpeg εικόνας DC"""
     image = imread(fpath, as_gray=True)
     return image.shape

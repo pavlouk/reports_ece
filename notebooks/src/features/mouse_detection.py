@@ -7,10 +7,12 @@ from skimage.filters import sobel
 from skimage.segmentation import watershed
 from skimage.util import img_as_ubyte
 
+Images = List[np.ndarray]
+
 
 def mouse_detection(
-    mouse_images: List[np.ndarray], marker_back=70, marker_body=120, formatted=False
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    mouse_images: Images, marker_back=70, marker_body=120, formatted=False
+) -> Tuple[Images, Images, Images, Images, Images, Images]:
     """mouse_images: used to be (240, 320) now are (240, 160)"""
     object_images, object_masks, initial_masks, mouse_locations = [], [], [], []
     for original in mouse_images:
