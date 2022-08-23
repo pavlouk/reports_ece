@@ -1,22 +1,36 @@
+import math
+import os
+from pathlib import Path
 from typing import List, Tuple
 
 import numpy as np
+from PIL.Image import fromarray
+from PIL.Image import open as pil_open
 from scipy import ndimage as ndi
 from skimage.draw import rectangle_perimeter
 from skimage.filters import sobel
 from skimage.segmentation import watershed
 from skimage.util import img_as_ubyte
 
-Images = List[np.ndarray]
+HERE = Path(__file__)  # ~/Adiposer/src/data/data_utils.py
+SRC_DIR = HERE.parent.parent
+PROJECT_DIR = SRC_DIR.parent
+RAW_DIR = PROJECT_DIR / "data" / "raw"
+INTERIM_DIR = PROJECT_DIR / "data" / "interim"
+PROCESSED_DIR = PROJECT_DIR / "data" / "processed"
 
 
-def mouse_detection(
-    mouse_images: Images, marker_back=70, marker_body=120, formatted=False
-) -> Tuple[Images, Images, Images, Images, Images, Images]:
-    """mouse_images: used to be (240, 320) now are (240, 160)"""
-    object_images, object_masks, initial_masks, mouse_locations = [], [], [], []
-    for original in mouse_images:
-        bordered = original
+class Detection:
+    def __init__(self) -> None:
+        self.object_image = np.ndarray(shape=(320, 240))
+        self.object_mask = np.ndarray(shape=(320, 240))
+        self.initial_mask = np.ndarray(shape=(320, 240))
+        self.marker_back = 70
+        self.marker_body = 120
+
+    def extract_region(self, mouse_image) -> None:
+        """mouse_images: used to be (240, 320) now are (240, 160)"""
+        bordered = mouse_image
         # We create markers indicating the segmentation through histogram values
         marker_image = np.zeros_like(bordered)
         # We find markers of the background and the mouse body based on the extreme
@@ -28,82 +42,67 @@ def mouse_detection(
 
         initial_mask_temp = watershed(elevation_map, marker_image)
         # This method segments and labels the mouse individually
-        initial_mask = ndi.binary_fill_holes(initial_mask_temp - 1)
-        initial_masks.append(initial_mask)
-        labeled_mouse, _ = ndi.label(initial_mask)
-        mouse_location = ndi.find_objects(labeled_mouse)[0]
+        self.initial_mask = ndi.binary_fill_holes(initial_mask_temp - 1)
+
+        labeled_mouse, _ = ndi.label(self.initial_mask)
+        self.mouse_location = ndi.find_objects(labeled_mouse)[0]
         r_o, c_o = rectangle_perimeter(
-            start=(mouse_location[0].start, mouse_location[1].start),
-            end=(mouse_location[0].stop, mouse_location[1].stop),
+            start=(self.mouse_location[0].start, self.mouse_location[1].start),
+            end=(self.mouse_location[0].stop, self.mouse_location[1].stop),
             shape=bordered.shape,
         )
-        initial_mask[r_o, c_o] = True  # type: ignore
-        mouse_locations.append(mouse_location)
-        mouse_mask = initial_mask[mouse_location]  # type: ignore
-        mouse_image = bordered[mouse_location]
-        clean_mouse = mouse_image * mouse_mask
-        object_masks.append(mouse_mask)
-        object_images.append(clean_mouse)
+        self.initial_mask[r_o, c_o] = True  # type: ignore
+        self.mouse_mask = initial_mask[mouse_location]  # type: ignore
+        mouse_image = bordered[self.mouse_location]
+        self.object_image = mouse_image * self.mouse_mask
 
-    if formatted:
-        n_object_images = [
-            [
-                object_images[i],
-                object_images[i + 1],
-                object_images[i + 2],
-                object_images[i + 3],
-            ]
-            for i in range(0, len(mouse_images), 4)
-        ]
-        n_object_masks = [
-            [
-                object_masks[i],
-                object_masks[i + 1],
-                object_masks[i + 2],
-                object_masks[i + 3],
-            ]
-            for i in range(0, len(mouse_images), 4)
-        ]
-        n_initial_masks = [
-            [
-                initial_masks[i],
-                initial_masks[i + 1],
-                initial_masks[i + 2],
-                initial_masks[i + 3],
-            ]
-            for i in range(0, len(mouse_images), 4)
-        ]
-        n_mouse_images = [
-            [
-                mouse_images[i],
-                mouse_images[i + 1],
-                mouse_images[i + 2],
-                mouse_images[i + 3],
-            ]
-            for i in range(0, len(mouse_images), 4)
-        ]
-        n_mouse_locations = [
-            [
-                mouse_locations[i],
-                mouse_locations[i + 1],
-                mouse_locations[i + 2],
-                mouse_locations[i + 3],
-            ]
-            for i in range(0, len(mouse_images), 4)
-        ]
+    def bounding_box(self, image, ratios=(0.35, 0.65, 0.70, 0.78)):
+        xmin = int(ratios[0] * image.shape[1])
+        xmax = int(ratios[1] * image.shape[1])
+        ymin = int(ratios[2] * image.shape[0])
+        ymax = int(ratios[3] * image.shape[0])
+        return xmin, xmax, ymin, ymax
 
-        return (
-            n_object_images,
-            n_object_masks,
-            n_initial_masks,
-            n_mouse_images,
-            n_mouse_locations,
-        )  # type: ignore
+    def mask_orientation(self, props):
+        y0, x0 = props.centroid
+        orientation = props.orientation
+        x1 = x0 + math.cos(orientation) * 0.5 * props.minor_axis_length
+        y1 = y0 - math.sin(orientation) * 0.5 * props.minor_axis_length
+        x2 = x0 - math.sin(orientation) * 0.5 * props.major_axis_length
+        y2 = y0 - math.cos(orientation) * 0.5 * props.major_axis_length
+        minr, minc, maxr, maxc = props.bbox
+        bx = (minc, maxc, maxc, minc, minc)
+        by = (minr, minr, maxr, maxr, minr)
+        return x0, x1, x2, y0, y1, y2, bx, by
 
-    return (
-        object_images,
-        object_masks,
-        initial_masks,
-        mouse_images,
-        mouse_locations,
-    )  # type: ignore
+    def save_data_processed(
+        self, object_images, object_masks, initial_masks, marker_back, marker_body
+    ) -> None:
+        """save on ~/data/processed"""
+        location_dir = os.path.abspath(
+            PROCESSED_DIR / f"version{marker_back}_{marker_body}"
+        )
+        os.mkdir(location_dir)
+        # Convert to losless PIL Image and save to ~/data/processed
+        for i, file in enumerate(object_images):
+            fromarray(file).save(f"{location_dir}/{i}_obj_image.tif")
+        for i, file in enumerate(object_masks):
+            fromarray(file).save(f"{location_dir}/{i}_obj_mask.tif")
+        for i, file in enumerate(initial_masks):
+            fromarray(file).save(f"{location_dir}/{i}_initial_mask.tif")
+
+    def load_data_processed(self, marker_back: int, marker_body: int) -> None:
+        """load images from ~/data/processed"""
+        object_images, object_masks, initia_masks = [], [], []
+        location = f"version{marker_back}_{marker_body}"
+        location_dir = os.path.abspath(PROCESSED_DIR / location)
+        if os.path.exists(location_dir) or os.listdir(location_dir) == []:
+            # Read back from disk and convert to Numpy format {id}_obj_image.tif
+            for i in sorted(os.listdir(location_dir)):
+                if i.endswith("obj_image.tif"):
+                    object_images.append(np.array(pil_open(f"{location_dir}/{i}")))
+                if i.endswith("obj_mask.tif"):
+                    object_masks.append(np.array(pil_open(f"{location_dir}/{i}")))
+                if i.endswith("initial_mask.tif"):
+                    initia_masks.append(np.array(pil_open(f"{location_dir}/{i}")))
+            return object_images, object_masks, initia_masks
