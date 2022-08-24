@@ -79,30 +79,29 @@ class Detection:
         self, object_images, object_masks, initial_masks, marker_back, marker_body
     ) -> None:
         """save on ~/data/processed"""
-        location_dir = os.path.abspath(
+        batch_dir = os.path.abspath(
             PROCESSED_DIR / f"version{marker_back}_{marker_body}"
         )
-        os.mkdir(location_dir)
+        os.mkdir(batch_dir)
         # Convert to losless PIL Image and save to ~/data/processed
         for i, file in enumerate(object_images):
-            fromarray(file).save(f"{location_dir}/{i}_obj_image.tif")
+            fromarray(file).save(f"{batch_dir}/{i}_obj_image.tif")
         for i, file in enumerate(object_masks):
-            fromarray(file).save(f"{location_dir}/{i}_obj_mask.tif")
+            fromarray(file).save(f"{batch_dir}/{i}_obj_mask.tif")
         for i, file in enumerate(initial_masks):
-            fromarray(file).save(f"{location_dir}/{i}_initial_mask.tif")
+            fromarray(file).save(f"{batch_dir}/{i}_initial_mask.tif")
 
     def load_data_processed(self, marker_back: int, marker_body: int) -> None:
         """load images from ~/data/processed"""
-        object_images, object_masks, initia_masks = [], [], []
-        location = f"version{marker_back}_{marker_body}"
-        location_dir = os.path.abspath(PROCESSED_DIR / location)
-        if os.path.exists(location_dir) or os.listdir(location_dir) == []:
+
+        batch_id = f"version{marker_back}_{marker_body}"
+        batch_dir = os.path.abspath(PROCESSED_DIR / batch_id)
+        if os.path.exists(batch_dir) or os.listdir(batch_dir) == []:
             # Read back from disk and convert to Numpy format {id}_obj_image.tif
-            for i in sorted(os.listdir(location_dir)):
+            for i in sorted(os.listdir(batch_dir)):
                 if i.endswith("obj_image.tif"):
-                    object_images.append(np.array(pil_open(f"{location_dir}/{i}")))
+                    self.object_image = np.array(pil_open(f"{batch_dir}/{i}"))
                 if i.endswith("obj_mask.tif"):
-                    object_masks.append(np.array(pil_open(f"{location_dir}/{i}")))
+                    self.object_mask = np.array(pil_open(f"{batch_dir}/{i}"))
                 if i.endswith("initial_mask.tif"):
-                    initia_masks.append(np.array(pil_open(f"{location_dir}/{i}")))
-            return object_images, object_masks, initia_masks
+                    self.initial_mask = np.array(pil_open(f"{batch_dir}/{i}"))

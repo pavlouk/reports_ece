@@ -1,12 +1,15 @@
 import os
+from email.mime import image
 from pathlib import Path
+from tkinter import Image
 from typing import List, Tuple
 
 import numpy as np
 import pandas as pd
 import yaml
-from skimage.feature import downscale_local_mean
-from skimage.filter import unsharp_mask
+
+# from skimage.feature import downscale_local_mean
+from skimage.filters import unsharp_mask
 from skimage.io import imread
 
 HERE = Path(__file__)  # ~/Adiposer/src/data/data_utils.py
@@ -58,7 +61,7 @@ class FLIRImage:
             )
         self.csv_image = raw_data[:, 100:260]  # type: ignore
 
-    def img_to_vectors(self) -> Tuple[np.ndarray, np.ndarray]:
+    def img_to_vectors(self, img) -> Tuple[np.ndarray, np.ndarray]:
         """return the coordinates of the non-zero pixels"""
         elements = np.argwhere(img)
         x_ordinates, y_ordinates = np.vsplit(elements.transpose(), 2)
@@ -70,7 +73,7 @@ class FLIRImage:
         η ανάλυση γίνεται η μισή (120, 77)
         preprocessing // αλλαγές: αποκλιμάκωση εικόνας και αφαίρεση θορύβου
         """
-        self.ir_image = downscale_local_mean(self.ir_image, (2, 2))
+        # self.ir_image = downscale_local_mean(self.ir_image, (2, 2))
         # or denoise_wavelet
         self.ir_image = unsharp_mask(self.ir_image)
 
@@ -93,7 +96,32 @@ class ImageCollection:
                     jpg_id = experiment[mouse_name][mouse_angle]["jpg"][i]
                     csv_id = experiment[mouse_name][mouse_angle]["csv"][i]
                     dc_id = experiment[mouse_name][mouse_angle]["dc"][i]
+                    fi.id = jpg_id
                     fi.set_ir(f"{module_path}/data/raw/{hour}/{mouse_name}/{jpg_id}")
                     fi.set_csv(f"{module_path}/data/raw/{hour}/{mouse_name}/{csv_id}")
                     fi.set_dc(f"{module_path}/data/raw/{hour}/{mouse_name}/{dc_id}")
                     cls.flir_images.append(fi)
+
+    @classmethod
+    def get_by_id(cls, id) -> FLIRImage:
+        return cls.flir_images[id]
+
+    @classmethod
+    def get_by_mouse_id(cls, mouse_id) -> List[FLIRImage]:
+        return cls.flir_images[0:mouse_id]
+
+    @classmethod
+    def get_by_sample(cls, sample) -> List[FLIRImage]:
+        return cls.flir_images[0:sample]
+
+    @classmethod
+    def get_by_angle(cls, angle) -> List[FLIRImage]:
+        return cls.flir_images[0:angle]
+
+
+image_collection = ImageCollection()
+image_collection.make_images()
+
+for image in image_collection.flir_images:
+    image.csv_image
+    image.csv_path
