@@ -23,6 +23,9 @@ PROCESSED_DIR = PROJECT_DIR / "data" / "processed"
 class FLIRImage:
     def __init__(self) -> None:
         self.id = ""
+        self.mouse_name = ""
+        self.angle = ""
+        self.sample = ""
         self.ir_path = ""
         self.dc_path = ""
         self.csv_path = ""
@@ -31,20 +34,20 @@ class FLIRImage:
         self.csv_image = np.ndarray(shape=(320, 240))
 
     def set_ir(self, fpath: str, as_gray=True) -> None:
-        """fpath: σετάρει το path της IR και σετάρει την θερμική"""
+        """fpath: το path της IR και η θερμική εικόνα"""
         self.ir_path = fpath
         ir_image = imread(fpath, as_gray=as_gray)
         self.ir_image = ir_image[:, 100:260]
 
     def set_dc(self, fpath: str) -> None:
-        """fpath: σετάρει το path της DC και σετάρει την οπτική"""
+        """fpath: το path της DC και η οπτική"""
         self.dc_path = fpath
         dc_image = imread(fpath, as_gray=True)
         self.dc_image = dc_image[:, 100:260]
 
     def set_csv(self, fpath: str) -> None:
+        """fpath: το path του CSV και οι θερμοκρασίες"""
         self.csv_path = fpath
-        """fpath: σετάρει το path του csv και σετάρει τις θερμοκρασίες"""
         # με sep = ' ,' τότε παράγει δίστηλο frame
         df = pd.read_csv(filepath_or_buffer=fpath, sep=" ,", engine="python")
         column_names = df.columns
@@ -68,11 +71,7 @@ class FLIRImage:
         return x_ordinates.ravel(), y_ordinates.ravel()
 
     def downscale(self) -> None:
-        """
-        downscale + unsharp mask when using a graph-based method due to memory complexity
-        η ανάλυση γίνεται η μισή (120, 77)
-        preprocessing // αλλαγές: αποκλιμάκωση εικόνας και αφαίρεση θορύβου
-        """
+        """στο downscale_local_mean η ανάλυση γίνεται η μισή (120, 77)"""
         # self.ir_image = downscale_local_mean(self.ir_image, (2, 2))
         # or denoise_wavelet
         self.ir_image = unsharp_mask(self.ir_image)
@@ -91,32 +90,50 @@ class ImageCollection:
 
         for i, hour in enumerate(experiment["samples"]):
             for mouse_name in experiment["mouse_id"]:
-                for mouse_angle in experiment["mouse_angle"]:
+                for angle in experiment["mouse_angle"]:
                     fi = FLIRImage()
-                    jpg_id = experiment[mouse_name][mouse_angle]["jpg"][i]
-                    csv_id = experiment[mouse_name][mouse_angle]["csv"][i]
-                    dc_id = experiment[mouse_name][mouse_angle]["dc"][i]
+                    jpg_id = experiment[mouse_name][angle]["jpg"][i]
+                    csv_id = experiment[mouse_name][angle]["csv"][i]
+                    dc_id = experiment[mouse_name][angle]["dc"][i]
                     fi.id = jpg_id
-                    fi.set_ir(f"{module_path}/data/raw/{hour}/{mouse_name}/{jpg_id}")
+                    fi.mouse_name = mouse_name
+                    fi.angle = angle
+                    fi.sample = hour
+                    fi.set_ir(
+                        fpath=f"{module_path}/data/raw/{hour}/{mouse_name}/{jpg_id}"
+                    )
                     fi.set_csv(f"{module_path}/data/raw/{hour}/{mouse_name}/{csv_id}")
                     fi.set_dc(f"{module_path}/data/raw/{hour}/{mouse_name}/{dc_id}")
                     cls.flir_images.append(fi)
 
     @classmethod
     def get_by_id(cls, id) -> FLIRImage:
-        return cls.flir_images[id]
+        for flir_image in cls.flir_images:
+            if flir_image.id == id:
+                return flir_image
 
     @classmethod
-    def get_by_mouse_id(cls, mouse_id) -> List[FLIRImage]:
-        return cls.flir_images[0:mouse_id]
+    def get_by_mouse_name(cls, mouse_id) -> List[FLIRImage]:
+        flir_images = []
+        for flir_image in cls.flir_images:
+            if mouse_id == flir_image.mouse_name:
+                flir_images.append(flir_image)
+        return flir_images
 
     @classmethod
     def get_by_sample(cls, sample) -> List[FLIRImage]:
-        return cls.flir_images[0:sample]
+        flir_images = []
+        for flir_image in cls.flir_images:
+            if sample == flir_image.sample:
+                flir_images.append(flir_image)
+        return flir_images
 
     @classmethod
     def get_by_angle(cls, angle) -> List[FLIRImage]:
-        return cls.flir_images[0:angle]
+        flir_images = []
+        for flir_image in cls.flir_images:
+            if angle == flir_image.angle:
+                flir_images.append(flir_image)
 
 
 image_collection = ImageCollection()

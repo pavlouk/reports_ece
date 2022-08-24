@@ -12,6 +12,8 @@ from skimage.filters import sobel
 from skimage.segmentation import watershed
 from skimage.util import img_as_ubyte
 
+from data import FLIRImage as FLIRImage
+
 HERE = Path(__file__)  # ~/Adiposer/src/data/data_utils.py
 SRC_DIR = HERE.parent.parent
 PROJECT_DIR = SRC_DIR.parent
@@ -28,22 +30,20 @@ class Detection:
         self.marker_back = 70
         self.marker_body = 120
 
-    def extract_region(self, mouse_image) -> None:
+    def extract_region(self, flir_image: FLIRImage) -> None:
         """mouse_images: used to be (240, 320) now are (240, 160)"""
-        bordered = mouse_image
+        bordered = flir_image.ir_image
         # We create markers indicating the segmentation through histogram values
         marker_image = np.zeros_like(bordered)
-        # We find markers of the background and the mouse body based on the extreme
-        # parts of the histogram of gray values.
-
+        # Markers image for background and  mouse body
+        # based on the extreme parts of the histogram.
         marker_image[img_as_ubyte(bordered) < marker_back] = 1  # type: ignore
         marker_image[img_as_ubyte(bordered) > marker_body] = 2  # type: ignore
-        elevation_map = sobel(bordered)
 
+        elevation_map = sobel(bordered)
         initial_mask_temp = watershed(elevation_map, marker_image)
         # This method segments and labels the mouse individually
         self.initial_mask = ndi.binary_fill_holes(initial_mask_temp - 1)
-
         labeled_mouse, _ = ndi.label(self.initial_mask)
         self.mouse_location = ndi.find_objects(labeled_mouse)[0]
         r_o, c_o = rectangle_perimeter(
@@ -82,6 +82,7 @@ class Detection:
         batch_dir = os.path.abspath(
             PROCESSED_DIR / f"version{marker_back}_{marker_body}"
         )
+
         os.mkdir(batch_dir)
         # Convert to losless PIL Image and save to ~/data/processed
         for i, file in enumerate(object_images):
@@ -93,7 +94,6 @@ class Detection:
 
     def load_data_processed(self, marker_back: int, marker_body: int) -> None:
         """load images from ~/data/processed"""
-
         batch_id = f"version{marker_back}_{marker_body}"
         batch_dir = os.path.abspath(PROCESSED_DIR / batch_id)
         if os.path.exists(batch_dir) or os.listdir(batch_dir) == []:
