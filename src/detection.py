@@ -12,7 +12,7 @@ from skimage.filters import sobel
 from skimage.segmentation import watershed
 from skimage.util import img_as_ubyte
 
-from data import FLIRImage as FLIRImage
+from .data import FLIRImage as FLIRImage
 
 HERE = Path(__file__)  # ~/Adiposer/src/data/data_utils.py
 SRC_DIR = HERE.parent.parent
