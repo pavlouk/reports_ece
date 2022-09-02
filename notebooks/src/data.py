@@ -23,9 +23,9 @@ class FLIRImage:
         self.ir_id = ""
         self.dc_id = ""
         self.csv_id = ""
-        self.ir_image = np.zeros(shape=(320, 240))
-        self.dc_image = np.zeros(shape=(2048, 1536))
-        self.csv_image = np.zeros(shape=(320, 240))
+        self.ir_image = cv.Mat(shape=(320, 240))
+        self.dc_image = cv.Mat(shape=(2048, 1536))
+        self.csv_image = cv.Mat(shape=(320, 240))
 
     def set_ir(self) -> None:
         ir_path = f"{project_dir}/data/raw/{self.sample}/{self.mouse}/{self.ir_id}"
