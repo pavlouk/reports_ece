@@ -23,9 +23,9 @@ class FLIRImage:
         self.ir_id = ""
         self.dc_id = ""
         self.csv_id = ""
-        self.ir_image = cv.Mat(shape=(320, 240))
-        self.dc_image = cv.Mat(shape=(2048, 1536))
-        self.csv_image = cv.Mat(shape=(320, 240))
+        self.ir_image = np.zeros(shape=(320, 240))
+        self.dc_image = np.zeros(shape=(2048, 1536))
+        self.csv_image = np.zeros(shape=(320, 240))
 
     def set_ir(self) -> None:
         ir_path = f"{project_dir}/data/raw/{self.sample}/{self.mouse}/{self.ir_id}"
@@ -67,15 +67,19 @@ class FLIRImage:
 class ImageCollection:
     def __init__(self, *args) -> None:
         self.image_collection: List[FLIRImage] = []
+        csv_path = f"{project_dir}/data/selected_data.csv"
         if args[0] == "all":
-            return
+            self.df = pd.read_csv(
+                filepath_or_buffer=csv_path, sep=" ,", engine="python"
+            )
+
         if args[0] == "IR_2060.jpg":
             fi = FLIRImage()
             fi.mouse = "mouse_1"
             fi.angle = "posterior"
             fi.sample = "0h"
             fi.ir_id = "IR_2060.jpg"
-            fi.csv_id = "CSV_2060.jpg"
+            fi.csv_id = "CSV_2060.csv"
             fi.dc_id = "DC_2061.jpg"
             fi.set_ir()
             fi.set_csv()
@@ -88,7 +92,7 @@ class ImageCollection:
         #     for mouse_id in experiment["ids"]:
         #         for angle in experiment["angles"]:
 
-    def get_single_image(self, id) -> FLIRImage:
+    def get_single_image(self, id: str) -> FLIRImage:
         default_image = FLIRImage()
         for flir_image in self.image_collection:
             if (
@@ -99,21 +103,21 @@ class ImageCollection:
                 return flir_image
         return default_image
 
-    def get_by_mouse_name(self, mouse) -> List[FLIRImage]:
+    def get_by_mouse_name(self, mouse: str) -> List[FLIRImage]:
         flir_images = []
         for flir_image in self.image_collection:
             if mouse == flir_image.mouse:
                 flir_images.append(flir_image)
         return flir_images
 
-    def get_by_sample(self, sample) -> List[FLIRImage]:
+    def get_by_sample(self, sample: str) -> List[FLIRImage]:
         flir_images = []
         for flir_image in self.image_collection:
             if sample == flir_image.sample:
                 flir_images.append(flir_image)
         return flir_images
 
-    def get_by_angle(self, angle) -> List[FLIRImage]:
+    def get_by_angle(self, angle: str) -> List[FLIRImage]:
         flir_images = []
         for flir_image in self.image_collection:
             if angle == flir_image.angle:
