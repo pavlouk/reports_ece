@@ -13,19 +13,23 @@ RAW_DIR = ADIPOSER_DIR / "data" / "raw"
 INTERIM_DIR = ADIPOSER_DIR / "data" / "interim"
 PROCESSED_DIR = ADIPOSER_DIR / "data" / "processed"
 project_dir = os.path.abspath(ADIPOSER_DIR)
+CSV_FILE = "selected.csv"
 
 
 class FLIRImage:
-    def __init__(self) -> None:
-        self.mouse = ""
-        self.angle = ""
-        self.sample = ""
-        self.ir_id = ""
-        self.dc_id = ""
-        self.csv_id = ""
+    def __init__(self, mouse, angle, sample, ir_id, dc_id, csv_id) -> None:
+        self.mouse = mouse
+        self.angle = angle
+        self.sample = sample
+        self.ir_id = ir_id
+        self.dc_id = dc_id
+        self.csv_id = csv_id
         self.ir_image = np.zeros(shape=(320, 240))
         self.dc_image = np.zeros(shape=(2048, 1536))
         self.csv_image = np.zeros(shape=(320, 240))
+        self.set_csv()
+        self.set_dc()
+        self.set_ir()
 
     def set_ir(self) -> None:
         ir_path = f"{project_dir}/data/raw/{self.sample}/{self.mouse}/{self.ir_id}"
@@ -65,35 +69,77 @@ class FLIRImage:
 
 
 class ImageCollection:
-    def __init__(self, *args) -> None:
+    def __init__(self, **kwargs) -> None:
+        """
+        constructs image collection based on keyword arguments
+        if kwargs is None then construct the whole dataset
+        mouse=["mouse_1", "mouse_2"]
+        angle="left"
+        """
         self.image_collection: List[FLIRImage] = []
-        csv_path = f"{project_dir}/data/selected_data.csv"
-        if args[0] == "all":
-            self.df = pd.read_csv(
-                filepath_or_buffer=csv_path, sep=" ,", engine="python"
-            )
+        csv_path = f"{project_dir}/data/{CSV_FILE}"
+        csv = pd.read_csv(csv_path)
+        if kwargs is None:
+            for index, data in csv.iterrows():
+                self.image_collection.append(
+                    FLIRImage(
+                        mouse=data["mouse"],
+                        angle=data["angle"],
+                        sample=data["sample"],
+                        ir_id=data["ir_id"],
+                        dc_id=data["dc_id"],
+                        csv_id=data["csv_id"],
+                    )
+                )
+        else:
+            mouse_angle_sample_ir_dc_csv_list = [
+                kwargs.get("mouse"),
+                kwargs.get("angle"),
+                kwargs.get("sample"),
+                kwargs.get("ir_id"),
+                kwargs.get("dc_id"),
+                kwargs.get("csv_id"),
+            ]
 
-        if args[0] == "IR_2060.jpg":
-            fi = FLIRImage()
-            fi.mouse = "mouse_1"
-            fi.angle = "posterior"
-            fi.sample = "0h"
-            fi.ir_id = "IR_2060.jpg"
-            fi.csv_id = "CSV_2060.csv"
-            fi.dc_id = "DC_2061.jpg"
-            fi.set_ir()
-            fi.set_csv()
-            fi.set_dc()
-            self.image_collection.append(fi)
-        # load csv sample file and let pandas do filtering
-        # with open(os.path.abspath(PROJECT_DIR / "data/multiple_views.yml")) as file:
-        #     experiment = yaml.load(file, Loader=yaml.FullLoader)
-        # # for i, sample in enumerate(experiment["samples"]):
-        #     for mouse_id in experiment["ids"]:
-        #         for angle in experiment["angles"]:
+            mouse_angle_sample_ir_dc_csv = list(
+                map(
+                    lambda x: "0" if x is None else "1",
+                    mouse_angle_sample_ir_dc_csv_list,
+                )
+            )
+            self.mouse_angle_sample_ir_dc_csv = "".join(mouse_angle_sample_ir_dc_csv)
+            self.csv_results = {
+                "100000": lambda: csv[(csv["mouse"] == kwargs["mouse"])],
+                "110000": lambda: csv[
+                    (csv["mouse"] == kwargs["mouse"])
+                    & (csv["angle"] == kwargs["angle"])
+                ],
+                "111000": lambda: csv[
+                    (csv["mouse"] == kwargs["mouse"])
+                    & (csv["angle"] == kwargs["angle"])
+                    & (csv["sample"] == kwargs["sample"])
+                ],
+                "101000": lambda: csv[
+                    (csv["mouse"] == kwargs["mouse"])
+                    & (csv["sample"] == kwargs["sample"])
+                ],
+                "000100": lambda: csv[(csv["ir_id"] == kwargs["ir_id"])],
+            }.get(self.mouse_angle_sample_ir_dc_csv, lambda: "Not assigned case")
+            self.csv_results = self.csv_results()
+            for indx, data in self.csv_results.iterrows():  # type: ignore
+                self.image_collection.append(
+                    FLIRImage(
+                        mouse=data["mouse"],
+                        angle=data["angle"],
+                        sample=data["sample"],
+                        ir_id=data["ir_id"],
+                        dc_id=data["dc_id"],
+                        csv_id=data["csv_id"],
+                    )
+                )
 
     def get_single_image(self, id: str) -> FLIRImage:
-        default_image = FLIRImage()
+        default_image = FLIRImage("", "", "", "", "", "")
         for flir_image in self.image_collection:
             if (
                 flir_image.ir_id == id
