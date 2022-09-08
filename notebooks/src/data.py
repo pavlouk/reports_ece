@@ -5,7 +5,6 @@ from typing import List
 import cv2 as cv
 import numpy as np
 import pandas as pd
-import yaml
 
 HERE = Path(__file__)
 ADIPOSER_DIR = HERE.parent.parent.parent
@@ -36,8 +35,8 @@ class FLIRImage:
         if not os.path.exists(ir_path):
             self.ir_id = "NOT FOUND"
             return
-        ir_image = cv.imread(ir_path, flags=cv.IMREAD_GRAYSCALE)
-        self.ir_image = ir_image[:, 100:260]
+        self.ir_image = cv.imread(ir_path, flags=cv.IMREAD_GRAYSCALE)
+        self.ir_image = self.ir_image[:, 100:260]
 
     def set_dc(self) -> None:
         dc_path = f"{project_dir}/data/raw/{self.sample}/{self.mouse}/{self.dc_id}"
