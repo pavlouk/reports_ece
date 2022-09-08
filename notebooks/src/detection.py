@@ -22,13 +22,11 @@ class Detection:
     def region_growing(an_image, a_seed_set: List[Tuple], an_in_value, tolerance=5):
         visited_matrix = np.full(shape=(240, 160), fill_value=False, dtype=bool)
         point_list = a_seed_set.copy()
-        logger_list = []
         while len(point_list) > 0:
             this_point = point_list.pop()
             x, y = this_point[0], this_point[1]
-            pixel_value = an_image[x, y]
             visited_matrix[x, y] = an_in_value
-            logger_list.append(len(point_list))
+            pixel_value = an_image[x, y]
             for j in range(y - 1, y + 2):
                 if 0 <= j and j < an_image.shape[1]:
                     for i in range(x - 1, x + 2):
@@ -37,9 +35,9 @@ class Detection:
                             neighbor_visited = visited_matrix[i, j]
                             if not neighbor_visited and math.fabs(
                                 neighbor_value - pixel_value
-                            ) <= (tolerance / 100.0 * 255):
+                            ) <= (tolerance / 100.0):
                                 point_list.append((i, j))
-        return visited_matrix, logger_list
+        return visited_matrix
 
 
 class DetectionCollection:
