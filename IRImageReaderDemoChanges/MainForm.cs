@@ -29,8 +29,8 @@ namespace IRImageReaderDemoChanges
         {
             InitializeComponent();
 
-            _image.TemperatureUnit = TemperatureUnit.Fahrenheit;
-            _image.DistanceUnit = DistanceUnit.Feet;
+            _image.TemperatureUnit = TemperatureUnit.Celsius;
+            _image.DistanceUnit = DistanceUnit.Meter;
 
             propertyGrid1.SelectedObject = _image;
             pictureBox1.Image = Image();
@@ -40,9 +40,6 @@ namespace IRImageReaderDemoChanges
             UpdateRangeSliderControl();
             _image.Changed += new EventHandler<ImageChangedEventArgs>(imageChanged);
             _image.Scale.Changed += new EventHandler<ScaleChangedEventArgs>(Scale_Changed);
-            EnableVoiceAnnotation();
-            FillTextAnnotation();
-            FillAlarm();
             UpdateObjectParameters();
             FillIsotherms();
 
@@ -84,80 +81,9 @@ namespace IRImageReaderDemoChanges
             toolStripComboBoxColorDist.Items.Add(ColorDistribution.GuidedFilterDDE.ToString());
             SelectColorDistributionMode();
             toolStripComboBoxColorDist.SelectedIndexChanged += toolStripComboBoxColorDist_SelectedIndexChanged;
-            toolStripComboBoxFusionMode.Items.Add("Msx");
-            toolStripComboBoxFusionMode.Items.Add("ThermalOnly");
-            toolStripComboBoxFusionMode.Items.Add("Blending");
-            toolStripComboBoxFusionMode.Items.Add("PictureInPicture");
-            toolStripComboBoxFusionMode.Items.Add("ThermalFusionAbove");
-            toolStripComboBoxFusionMode.Items.Add("ThermalFusionBelow");
-            toolStripComboBoxFusionMode.Items.Add("ThermalFusionInterval");
-            toolStripComboBoxFusionMode.Items.Add("VisualOnly");
-            toolStripComboBoxFusionMode.SelectedIndexChanged += toolStripComboBoxFusionMode_SelectedIndexChanged;
-            toolStripComboBoxFusionMode.Enabled = false;
-            UltraMaxtoolStripButton2.Visible = false;
-            UltraMaxtoolStripButton2.MouseDown += CreateUltraMaxButton_MouseDown;
 
-            Text = "Thermal Image Reader Sample, running Atlas version: " + ImageBase.Version;
 
-            trackBarThermalFusion.Enabled = false;
-            trackBarThermalFusion.ValueChanged += TrackBar1_ValueChanged;
 
-        }
-
-        private void TrackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            var value = trackBarThermalFusion.Value / 1000.0;
-            if (_image.Fusion.Mode == _image.Fusion.ThermalFusionAbove)
-            {
-                _image.Fusion.ThermalFusionAbove.Threshold = value;
-            }
-            else if (_image.Fusion.Mode == _image.Fusion.ThermalFusionBelow)
-            {
-                _image.Fusion.ThermalFusionBelow.Threshold = value;
-            }
-            else if (_image.Fusion.Mode == _image.Fusion.ThermalFusionInterval)
-            {
-                _image.Fusion.ThermalFusionInterval.Range = new Range<double>(_image.Scale.Range.Minimum, value);
-            }
-        }
-
-        private void SelectFusionMode()
-        {
-            if (_image.Fusion == null)
-            {
-                toolStripComboBoxFusionMode.Enabled = false;
-                return;
-            }
-            toolStripComboBoxFusionMode.Enabled = true;
-            switch (_image.Fusion.Mode.ToString())
-            {
-                case "Flir.Atlas.Image.Fusion.Msx":
-                    toolStripComboBoxFusionMode.SelectedIndex = 0;
-                    break;
-                case "Flir.Atlas.Image.Fusion.ThermalOnly":
-                    toolStripComboBoxFusionMode.SelectedIndex = 1;
-                    break;
-                case "Flir.Atlas.Image.Fusion.Blending":
-                    toolStripComboBoxFusionMode.SelectedIndex = 2;
-                    break;
-                case "Flir.Atlas.Image.Fusion.PictureInPicture":
-                    toolStripComboBoxFusionMode.SelectedIndex = 3;
-                    break;
-                case "Flir.Atlas.Image.Fusion.ThermalFusionAbove":
-                    toolStripComboBoxFusionMode.SelectedIndex = 4;
-                    break;
-                case "Flir.Atlas.Image.Fusion.ThermalFusionBelow":
-                    toolStripComboBoxFusionMode.SelectedIndex = 5;
-                    break;
-                case "Flir.Atlas.Image.Fusion.ThermalFusionInterval":
-                    toolStripComboBoxFusionMode.SelectedIndex = 6;
-                    break;
-                case "Flir.Atlas.Image.Fusion.VisualOnly":
-                    toolStripComboBoxFusionMode.SelectedIndex = 7;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         private void SelectColorDistributionMode()
@@ -256,64 +182,6 @@ namespace IRImageReaderDemoChanges
             }
         }
 
-
-        void toolStripComboBoxFusionMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string sel = toolStripComboBoxFusionMode.SelectedItem.ToString();
-            trackBarThermalFusion.Enabled = false;
-            switch (sel)
-            {
-                case "Msx":
-                    _image.Fusion.Mode = _image.Fusion.Msx;
-                    break;
-                case "ThermalOnly":
-                    _image.Fusion.Mode = _image.Fusion.ThermalOnly;
-                    break;
-                case "VisualOnly":
-                    _image.Fusion.Mode = _image.Fusion.VisualOnly;
-                    break;
-                case "ThermalFusionAbove":
-                    if (_image.Fusion.ThermalFusionAbove.Threshold >= _image.Scale.Range.Maximum || _image.Fusion.ThermalFusionAbove.Threshold <= _image.Scale.Range.Minimum)
-                    {
-                        _image.Fusion.ThermalFusionAbove.Threshold = _image.Scale.Level;
-                    }
-                    _image.Fusion.Mode = _image.Fusion.ThermalFusionAbove;
-                    trackBarThermalFusion.SetRange((int)(_image.Scale.Range.Minimum * 1000), (int)(_image.Scale.Range.Maximum * 1000));
-                    trackBarThermalFusion.Value = (int)(_image.Fusion.ThermalFusionAbove.Threshold * 1000);
-                    trackBarThermalFusion.Enabled = true;
-                    break;
-                case "ThermalFusionBelow":
-                    if (_image.Fusion.ThermalFusionBelow.Threshold >= _image.Scale.Range.Maximum || _image.Fusion.ThermalFusionBelow.Threshold <= _image.Scale.Range.Minimum)
-                    {
-                        _image.Fusion.ThermalFusionBelow.Threshold = _image.Scale.Level;
-                    }
-                    _image.Fusion.Mode = _image.Fusion.ThermalFusionBelow;
-                    trackBarThermalFusion.SetRange((int)(_image.Scale.Range.Minimum * 1000), (int)(_image.Scale.Range.Maximum * 1000));
-                    trackBarThermalFusion.Value = (int)(_image.Fusion.ThermalFusionBelow.Threshold * 1000);
-                    trackBarThermalFusion.Enabled = true;
-                    break;
-                case "ThermalFusionInterval":
-                    if (_image.Fusion.ThermalFusionInterval.Range.Maximum >= _image.Scale.Range.Maximum || _image.Fusion.ThermalFusionInterval.Range.Maximum <= _image.Scale.Range.Minimum)
-                    {
-                        _image.Fusion.ThermalFusionInterval.Range = new Range<double>(_image.Scale.Range.Minimum, _image.Scale.Level);
-                    }
-                    _image.Fusion.Mode = _image.Fusion.ThermalFusionInterval;
-                    trackBarThermalFusion.SetRange((int)(_image.Scale.Range.Minimum * 1000), (int)(_image.Scale.Range.Maximum * 1000));
-                    trackBarThermalFusion.Value = (int)(_image.Fusion.ThermalFusionInterval.Range.Maximum * 1000);
-                    trackBarThermalFusion.Enabled = true;
-                    break;
-                case "Blending":
-                    _image.Fusion.Mode = _image.Fusion.Blending;
-                    break;
-                case "PictureInPicture":
-                    _image.Fusion.Mode = _image.Fusion.PictureInPicture;
-                    break;
-                default:
-                    throw new NotImplementedException("Unknown fusion mode");
-            }
-        }
-
-
         #endregion
 
         #region Event Handlers
@@ -394,28 +262,13 @@ namespace IRImageReaderDemoChanges
                         _image.Open(dialog.FileName);
 
                         SelectColorDistributionMode();
-                        SelectFusionMode();
 
                         propertyGrid1.Refresh();
                         listViewEXIF.RefreshEXIF(dialog.FileName);
                         pictureBox1.Image = Image();
                         UpdateScale();
                         UpdateRangeSliderControl();
-                        EnableVoiceAnnotation();
-                        CleanUpVoiceAnnotation();
-                        FillTextAnnotation();
-                        FillAlarm();
                         ApplyIsothermAndUpdateImage();
-
-
-                        if (_image.ContainsUltraMaxData)
-                        {
-                            UltraMaxtoolStripButton2.Visible = true;
-                        }
-                        else
-                        {
-                            UltraMaxtoolStripButton2.Visible = false;
-                        }
 
                         UpdateObjectParameters();
 
@@ -1613,107 +1466,6 @@ namespace IRImageReaderDemoChanges
 
         #endregion
 
-        #region Voice Annotations
-
-        private void buttonPlay_Click(object sender, EventArgs e)
-        {
-            if (_image.VoiceAnnotation != null)
-            {
-                if (string.IsNullOrEmpty(_voiceAnnotationFileName))
-                {
-                    _voiceAnnotationFileName = Path.GetTempFileName();
-                    FileStream fis = new FileStream(_voiceAnnotationFileName, FileMode.OpenOrCreate, FileAccess.Write);
-                    fis.Write(_image.VoiceAnnotation.Data, 0, _image.VoiceAnnotation.Data.Length);
-                    fis.Close();
-                }
-                _player.Play(_voiceAnnotationFileName, this);
-                buttonPlay.Enabled = false;
-                buttonStop.Enabled = true;
-                buttonPause.Enabled = true;
-            }
-        }
-
-        private void buttonPause_Click(object sender, EventArgs e)
-        {
-            _player.Pause();
-            buttonPlay.Enabled = true;
-            buttonStop.Enabled = true;
-            buttonPause.Enabled = false;
-        }
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-            _player.Stop();
-            buttonPlay.Enabled = true;
-            buttonStop.Enabled = false;
-            buttonPause.Enabled = false;
-        }
-
-        private void EnableVoiceAnnotation()
-        {
-            if (!_player.IsPlaying)
-            {
-                buttonPlay.Enabled = _image.VoiceAnnotation != null;
-                buttonStop.Enabled = false;
-                buttonPause.Enabled = false;
-            }
-        }
-
-        private void CleanUpVoiceAnnotation()
-        {
-            if (string.IsNullOrEmpty(_voiceAnnotationFileName) == false)
-            {
-                try
-                {
-                    File.Delete(_voiceAnnotationFileName);
-                }
-                catch (Exception ex)
-                {
-                    DisplayErrorMessage(String.Format("An error occurred when trying to clean up voice annotations: \n\n{0}", ex.ToString()), ex);
-                }
-                _voiceAnnotationFileName = string.Empty;
-            }
-        }
-
-        #endregion
-
-        #region Alarms
-
-        private void listViewAlarm_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            if (e.Item.Tag != null)
-            {
-                propertyGridAlarm.SelectedObject = e.Item.Tag;
-            }
-        }
-
-        private void FillAlarm()
-        {
-            propertyGridAlarm.SelectedObject = null;
-            listViewAlarm.Items.Clear();
-
-            foreach (Alarm alarm in _image.Alarms)
-            {
-                AddAlarmToList(alarm);
-            }
-
-            if (listViewAlarm.Items.Count > 0)
-            {
-                propertyGridAlarm.SelectedObject = listViewAlarm.Items[0].Tag;
-            }
-        }
-        private void AddAlarmToList(Alarm al)
-        {
-            ListViewItem item = new ListViewItem();
-            item.Name = al.Name;
-            item.Tag = al;
-            item.Text = al.Name;
-            item.SubItems.Add(al.GetType().ToString());
-            listViewAlarm.Items.Add(item);
-        }
-
-        #endregion
-
         #region Methods
 
         void imageChanged(object sender, ImageChangedEventArgs e)
@@ -1772,17 +1524,8 @@ namespace IRImageReaderDemoChanges
 
         #region Form override
 
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == MediaPlayer.MM_MCINOTIFY)
-            {
-                EnableVoiceAnnotation();
-            }
-            base.WndProc(ref m);
-        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            CleanUpVoiceAnnotation();
             CleanupIsotherms();
             base.OnFormClosing(e);
         }
@@ -2098,88 +1841,6 @@ namespace IRImageReaderDemoChanges
         }
 
         #endregion
-
-        #region Text Annotations
-
-        private void FillTextAnnotation()
-        {
-            if (_image.TextAnnotations == null)
-            {
-                // text annotations not supported
-                return;
-            }
-            listViewTextAnnotations.Items.Clear();
-            foreach (KeyValuePair<string, string> txt in _image.TextAnnotations)
-            {
-                ListViewItem item = new ListViewItem(txt.Key);
-                item.Tag = txt;
-                item.SubItems.Add(txt.Value);
-                listViewTextAnnotations.Items.Add(item);
-            }
-        }
-
-        private void listViewTextAnnotations_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            if (e.Item.Tag != null)
-            {
-                KeyValuePair<string, string> txt = (KeyValuePair<string, string>)e.Item.Tag;
-                textBoxEditLabel.Text = txt.Key;
-                textBoxEditValue.Text = txt.Value;
-            }
-            else
-            {
-                textBoxEditLabel.Text = "";
-                textBoxEditValue.Text = "";
-            }
-        }
-
-        private void buttonSetTextAnnotations_Click(object sender, EventArgs e)
-        {
-            if (textBoxEditValue.Text != "" && textBoxEditLabel.Text != "")
-            {
-                if (listViewTextAnnotations.SelectedItems.Count > 0)
-                {
-                    KeyValuePair<string, string> txt = (KeyValuePair<string, string>)listViewTextAnnotations.SelectedItems[0].Tag;
-
-                    _image.TextAnnotations[txt.Key] = textBoxEditValue.Text;
-                }
-
-                FillTextAnnotation();
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (textBoxLabel.Text != "")
-            {
-                _image.TextAnnotations.Add(textBoxLabel.Text, textBoxValue.Text);
-                FillTextAnnotation();
-            }
-        }
-
-        private void listViewTextAnnotations_KeyPress(object sender, KeyPressEventArgs e)
-        {
-        }
-
-        private void listViewTextAnnotations_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                if (listViewTextAnnotations.SelectedIndices.Count > 0)
-                {
-                    ListView.SelectedListViewItemCollection items = listViewTextAnnotations.SelectedItems;
-                    if (items.Count > 0)
-                    {
-                        ListViewItem item = items[0];
-                        KeyValuePair<string, string> txt = (KeyValuePair<string, string>)item.Tag;
-                        _image.TextAnnotations.Remove(txt.Key);
-                        FillTextAnnotation();
-                    }
-                }
-            }
-        }
-
-        #endregion}
 
         #region Private Fields
 
