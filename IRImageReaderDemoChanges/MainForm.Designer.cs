@@ -68,7 +68,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxColorDist = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -86,9 +85,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listViewEXIF = new IRImageReaderDemoChanges.Exif();
-            this.columnHeaderId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.labelwidth = new System.Windows.Forms.Label();
@@ -135,14 +131,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 52);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 65);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(726, 488);
+            this.pictureBox1.Size = new System.Drawing.Size(726, 502);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -214,10 +207,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxScale.BackColor = System.Drawing.Color.White;
             this.pictureBoxScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxScale.Location = new System.Drawing.Point(744, 65);
+            this.pictureBoxScale.Location = new System.Drawing.Point(751, 148);
             this.pictureBoxScale.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxScale.Name = "pictureBoxScale";
-            this.pictureBoxScale.Size = new System.Drawing.Size(30, 461);
+            this.pictureBoxScale.Size = new System.Drawing.Size(30, 317);
             this.pictureBoxScale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxScale.TabIndex = 4;
             this.pictureBoxScale.TabStop = false;
@@ -227,7 +220,7 @@
             this.labelMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMax.AutoSize = true;
-            this.labelMax.Location = new System.Drawing.Point(743, 49);
+            this.labelMax.Location = new System.Drawing.Point(743, 123);
             this.labelMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMax.Name = "labelMax";
             this.labelMax.Size = new System.Drawing.Size(43, 13);
@@ -239,7 +232,7 @@
             // 
             this.labelMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMin.AutoSize = true;
-            this.labelMin.Location = new System.Drawing.Point(743, 529);
+            this.labelMin.Location = new System.Drawing.Point(743, 475);
             this.labelMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMin.Name = "labelMin";
             this.labelMin.Size = new System.Drawing.Size(43, 13);
@@ -250,7 +243,7 @@
             // autoAdjustButton
             // 
             this.autoAdjustButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.autoAdjustButton.Location = new System.Drawing.Point(743, 546);
+            this.autoAdjustButton.Location = new System.Drawing.Point(743, 573);
             this.autoAdjustButton.Name = "autoAdjustButton";
             this.autoAdjustButton.Size = new System.Drawing.Size(38, 30);
             this.autoAdjustButton.TabIndex = 8;
@@ -281,8 +274,7 @@
             this.isoThermToolStripComboBox,
             this.toolStripSeparator3,
             this.toolStripLabel2,
-            this.toolStripComboBoxColorDist,
-            this.toolStripSeparator6});
+            this.toolStripComboBoxColorDist});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1130, 31);
@@ -460,11 +452,6 @@
             this.toolStripComboBoxColorDist.Name = "toolStripComboBoxColorDist";
             this.toolStripComboBoxColorDist.Size = new System.Drawing.Size(121, 23);
             // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 31);
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -475,7 +462,7 @@
             this.tabControl1.Location = new System.Drawing.Point(802, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(328, 650);
+            this.tabControl1.Size = new System.Drawing.Size(328, 677);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage4
@@ -675,39 +662,14 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.listViewEXIF);
             this.tabPage1.Controls.Add(this.propertyGrid1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(320, 624);
+            this.tabPage1.Size = new System.Drawing.Size(320, 651);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // listViewEXIF
-            // 
-            this.listViewEXIF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewEXIF.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderId,
-            this.columnHeaderValue});
-            this.listViewEXIF.HideSelection = false;
-            this.listViewEXIF.Location = new System.Drawing.Point(3, 468);
-            this.listViewEXIF.Name = "listViewEXIF";
-            this.listViewEXIF.ShowGroups = false;
-            this.listViewEXIF.Size = new System.Drawing.Size(310, 150);
-            this.listViewEXIF.TabIndex = 5;
-            this.listViewEXIF.UseCompatibleStateImageBehavior = false;
-            this.listViewEXIF.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeaderId
-            // 
-            this.columnHeaderId.Text = "Id";
-            // 
-            // columnHeaderValue
-            // 
-            this.columnHeaderValue.Text = "Value";
-            this.columnHeaderValue.Width = 228;
             // 
             // propertyGrid1
             // 
@@ -716,7 +678,7 @@
             this.propertyGrid1.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 6);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(310, 456);
+            this.propertyGrid1.Size = new System.Drawing.Size(310, 642);
             this.propertyGrid1.TabIndex = 4;
             // 
             // tabPage5
@@ -731,7 +693,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(320, 498);
+            this.tabPage5.Size = new System.Drawing.Size(320, 624);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Isotherms";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -883,7 +845,7 @@
             this.columnHeader8});
             this.listViewMeasurements.FullRowSelect = true;
             this.listViewMeasurements.HideSelection = false;
-            this.listViewMeasurements.Location = new System.Drawing.Point(12, 582);
+            this.listViewMeasurements.Location = new System.Drawing.Point(12, 609);
             this.listViewMeasurements.MultiSelect = false;
             this.listViewMeasurements.Name = "listViewMeasurements";
             this.listViewMeasurements.Size = new System.Drawing.Size(762, 123);
@@ -935,7 +897,7 @@
             this.rangeSliderControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rangeSliderControl1.BackColor = System.Drawing.Color.Transparent;
-            this.rangeSliderControl1.Location = new System.Drawing.Point(12, 546);
+            this.rangeSliderControl1.Location = new System.Drawing.Point(12, 573);
             this.rangeSliderControl1.Name = "rangeSliderControl1";
             this.rangeSliderControl1.Size = new System.Drawing.Size(726, 30);
             this.rangeSliderControl1.TabIndex = 7;
@@ -945,7 +907,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 714);
+            this.ClientSize = new System.Drawing.Size(1130, 741);
             this.Controls.Add(this.listViewMeasurements);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.autoAdjustButton);
@@ -1017,9 +979,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonPolyLine;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private Exif listViewEXIF;
-        private System.Windows.Forms.ColumnHeader columnHeaderId;
-        private System.Windows.Forms.ColumnHeader columnHeaderValue;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonPlay;
@@ -1064,7 +1023,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownWidth;
         private System.Windows.Forms.PropertyGrid propertyGridIsotherms;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxColorDist;

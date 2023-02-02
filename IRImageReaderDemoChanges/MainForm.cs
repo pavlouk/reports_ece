@@ -264,7 +264,6 @@ namespace IRImageReaderDemoChanges
                         SelectColorDistributionMode();
 
                         propertyGrid1.Refresh();
-                        listViewEXIF.RefreshEXIF(dialog.FileName);
                         pictureBox1.Image = Image();
                         UpdateScale();
                         UpdateRangeSliderControl();
@@ -1848,8 +1847,6 @@ namespace IRImageReaderDemoChanges
         private ThermalImageFile _image = new ThermalImageFile();
         private ToolTip _tooltip = new ToolTip();
 
-        private string _voiceAnnotationFileName = string.Empty;
-        private MediaPlayer _player = new MediaPlayer();
 
         #endregion
 
