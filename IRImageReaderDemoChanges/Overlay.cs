@@ -142,7 +142,7 @@ namespace IRImageReaderDemoChanges
             //graphics.FillRectangle(_transparentBrush, rect);
 
             //DrawColdSpot(graphics, rectangle.ColdSpot);
-            //DrawHotSpot(graphics, rectangle.HotSpot);
+            DrawHotSpot(graphics, rectangle.HotSpot);
         }
 
         private void DrawLineSelection(MeasurementLine line, Graphics graphics)

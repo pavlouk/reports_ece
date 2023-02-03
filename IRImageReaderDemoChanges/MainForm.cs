@@ -1759,7 +1759,7 @@ namespace IRImageReaderDemoChanges
                     numericUpDownLevel.Enabled = true;
 
                     numericUpDownWidth.Value = (decimal)(Math.Abs(isothermInterval.Interval.Maximum - isothermInterval.Interval.Minimum));
-                    numericUpDownLevel.Value = (decimal)(isothermInterval.Interval.Minimum);
+                    numericUpDownLevel.Value = (decimal)((isothermInterval.Interval.Maximum + isothermInterval.Interval.Minimum)/2);
                 }
                 else if (iso.IsothermType == IsothermType.Above)
                 {
