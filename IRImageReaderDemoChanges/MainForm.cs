@@ -375,7 +375,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
 
             toolStripButtonSelect.Checked = false;
@@ -390,7 +389,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
 
             toolStripButtonSelect.Checked = false;
@@ -405,7 +403,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonSpot.Checked = false;
             toolStripButtonPolyLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -419,7 +416,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -433,7 +429,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -447,7 +442,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -461,7 +455,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
             markerToolStripButton.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = true;
             toolStripButtonSelect.Checked = false;
             _adding = false;
@@ -475,7 +468,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButtonPolyLine.Checked = false;
-            toolStripButtonFlyingSpot.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = true;
             _adding = false;

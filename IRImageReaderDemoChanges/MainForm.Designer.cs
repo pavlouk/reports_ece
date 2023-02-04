@@ -52,7 +52,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonSelect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSpot = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonFlyingSpot = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonArea = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLine = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -259,7 +258,6 @@
             this.toolStripSeparator4,
             this.toolStripButtonSelect,
             this.toolStripButtonSpot,
-            this.toolStripButtonFlyingSpot,
             this.toolStripButtonArea,
             this.toolStripButtonLine,
             this.toolStripButton1,
@@ -316,16 +314,6 @@
             this.toolStripButtonSpot.Size = new System.Drawing.Size(28, 28);
             this.toolStripButtonSpot.Text = "Spotmeter Tool";
             this.toolStripButtonSpot.Click += new System.EventHandler(this.toolStripButtonSpot_Click);
-            // 
-            // toolStripButtonFlyingSpot
-            // 
-            this.toolStripButtonFlyingSpot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonFlyingSpot.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFlyingSpot.Image")));
-            this.toolStripButtonFlyingSpot.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonFlyingSpot.Name = "toolStripButtonFlyingSpot";
-            this.toolStripButtonFlyingSpot.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButtonFlyingSpot.Text = "Flying Spot Tool";
-            this.toolStripButtonFlyingSpot.Click += new System.EventHandler(this.toolStripButtonFlyingSpot_Click);
             // 
             // toolStripButtonArea
             // 
@@ -992,7 +980,6 @@
         private System.Windows.Forms.ToolStripButton markerToolStripButton;
         private System.Windows.Forms.ToolStripComboBox isoThermToolStripComboBox;
         private System.Windows.Forms.ToolStripButton isoThermToolStripButton;
-        private System.Windows.Forms.ToolStripButton toolStripButtonFlyingSpot;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
