@@ -55,9 +55,7 @@
             this.toolStripButtonArea = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLine = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonPolyLine = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.markerToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.paletteToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -261,18 +259,16 @@
             this.toolStripButtonArea,
             this.toolStripButtonLine,
             this.toolStripButton1,
-            this.toolStripButtonPolyLine,
             this.toolStripSeparator1,
-            this.markerToolStripButton,
             this.toolStripLabel1,
             this.paletteToolStripComboBox,
-            this.paletteToolStripButton,
             this.toolStripSeparator2,
-            this.isoThermToolStripButton,
-            this.isoThermToolStripComboBox,
+            this.paletteToolStripButton,
             this.toolStripSeparator3,
             this.toolStripLabel2,
-            this.toolStripComboBoxColorDist});
+            this.toolStripComboBoxColorDist,
+            this.isoThermToolStripButton,
+            this.isoThermToolStripComboBox});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1130, 31);
@@ -347,34 +343,10 @@
             this.toolStripButton1.ToolTipText = "Delete Tool";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // toolStripButtonPolyLine
-            // 
-            this.toolStripButtonPolyLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPolyLine.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPolyLine.Image")));
-            this.toolStripButtonPolyLine.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPolyLine.Name = "toolStripButtonPolyLine";
-            this.toolStripButtonPolyLine.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButtonPolyLine.Text = "toolStripButtonPolyLine";
-            this.toolStripButtonPolyLine.ToolTipText = "Add PolyLine";
-            this.toolStripButtonPolyLine.Visible = false;
-            this.toolStripButtonPolyLine.Click += new System.EventHandler(this.toolStripButtonPolyLine_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
-            // 
-            // markerToolStripButton
-            // 
-            this.markerToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.markerToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("markerToolStripButton.Image")));
-            this.markerToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.markerToolStripButton.Name = "markerToolStripButton";
-            this.markerToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.markerToolStripButton.Text = "markerToolStripButton";
-            this.markerToolStripButton.ToolTipText = "Add Marker";
-            this.markerToolStripButton.Visible = false;
-            this.markerToolStripButton.Click += new System.EventHandler(this.markerToolStripButton_Click);
             // 
             // toolStripLabel1
             // 
@@ -964,7 +936,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ToolStripButton toolStripButtonPolyLine;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
@@ -977,7 +948,6 @@
         private System.Windows.Forms.ToolStripComboBox paletteToolStripComboBox;
         private System.Windows.Forms.ToolStripButton paletteToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton markerToolStripButton;
         private System.Windows.Forms.ToolStripComboBox isoThermToolStripComboBox;
         private System.Windows.Forms.ToolStripButton isoThermToolStripButton;
         private System.Windows.Forms.ToolStripButton toolStripButton1;

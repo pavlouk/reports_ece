@@ -373,8 +373,6 @@ namespace IRImageReaderDemoChanges
             _currentTool = MeasurmentTool.Area;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = false;
 
             toolStripButtonSelect.Checked = false;
@@ -387,8 +385,6 @@ namespace IRImageReaderDemoChanges
             _currentTool = MeasurmentTool.Spot;
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = false;
 
             toolStripButtonSelect.Checked = false;
@@ -401,8 +397,6 @@ namespace IRImageReaderDemoChanges
             _currentTool = MeasurmentTool.Line;
             toolStripButtonArea.Checked = false;
             toolStripButtonSpot.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -415,7 +409,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonArea.Checked = false;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -427,8 +420,6 @@ namespace IRImageReaderDemoChanges
             _currentTool = MeasurmentTool.FlyingSpot;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -441,7 +432,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonSpot.Checked = false;
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = false;
             _adding = true;
@@ -453,8 +443,6 @@ namespace IRImageReaderDemoChanges
             _currentTool = MeasurmentTool.Area;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
-            markerToolStripButton.Checked = false;
             toolStripButton1.Checked = true;
             toolStripButtonSelect.Checked = false;
             _adding = false;
@@ -467,7 +455,6 @@ namespace IRImageReaderDemoChanges
             toolStripButtonSpot.Checked = false;
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
-            toolStripButtonPolyLine.Checked = false;
             toolStripButton1.Checked = false;
             toolStripButtonSelect.Checked = true;
             _adding = false;
@@ -1245,9 +1232,7 @@ namespace IRImageReaderDemoChanges
             {
                 toolStripButtonArea.Checked = false;
                 toolStripButtonLine.Checked = false;
-                toolStripButtonPolyLine.Checked = false;
                 toolStripButtonSpot.Checked = false;
-                markerToolStripButton.Checked = false;
                 toolStripButton1.Checked = false;
 
                 if (HitTest(point, ref i, ref tool, ref hit))
@@ -1274,9 +1259,7 @@ namespace IRImageReaderDemoChanges
             {
                 toolStripButtonArea.Checked = false;
                 toolStripButtonLine.Checked = false;
-                toolStripButtonPolyLine.Checked = false;
                 toolStripButtonSpot.Checked = false;
-                markerToolStripButton.Checked = false;
                 toolStripButton1.Checked = false;
 
                 switch (_currentTool)
