@@ -58,13 +58,13 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.paletteToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.isoThermToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.isoThermToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.paletteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxColorDist = new System.Windows.Forms.ToolStripComboBox();
+            this.isoThermToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.isoThermToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -108,6 +108,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rangeSliderControl1 = new IRImageReaderDemoChanges.RangeSliderControl();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScale)).BeginInit();
@@ -268,7 +269,8 @@
             this.toolStripLabel2,
             this.toolStripComboBoxColorDist,
             this.isoThermToolStripButton,
-            this.isoThermToolStripComboBox});
+            this.isoThermToolStripComboBox,
+            this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1130, 31);
@@ -361,6 +363,11 @@
             this.paletteToolStripComboBox.Size = new System.Drawing.Size(121, 31);
             this.paletteToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.paletteToolStripComboBox_SelectedIndexChanged);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
             // paletteToolStripButton
             // 
             this.paletteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -370,28 +377,6 @@
             this.paletteToolStripButton.Size = new System.Drawing.Size(54, 28);
             this.paletteToolStripButton.Text = "Inverted";
             this.paletteToolStripButton.Click += new System.EventHandler(this.paletteToolStripButton_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
-            // 
-            // isoThermToolStripButton
-            // 
-            this.isoThermToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.isoThermToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("isoThermToolStripButton.Image")));
-            this.isoThermToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.isoThermToolStripButton.Name = "isoThermToolStripButton";
-            this.isoThermToolStripButton.Size = new System.Drawing.Size(58, 28);
-            this.isoThermToolStripButton.Text = "Isotherm";
-            this.isoThermToolStripButton.Click += new System.EventHandler(this.isoThermToolStripButton_Click);
-            // 
-            // isoThermToolStripComboBox
-            // 
-            this.isoThermToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.isoThermToolStripComboBox.Name = "isoThermToolStripComboBox";
-            this.isoThermToolStripComboBox.Size = new System.Drawing.Size(121, 31);
-            this.isoThermToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.isoThermToolStripComboBox_SelectedIndexChanged);
             // 
             // toolStripSeparator3
             // 
@@ -411,6 +396,23 @@
             this.toolStripComboBoxColorDist.DropDownWidth = 140;
             this.toolStripComboBoxColorDist.Name = "toolStripComboBoxColorDist";
             this.toolStripComboBoxColorDist.Size = new System.Drawing.Size(121, 23);
+            // 
+            // isoThermToolStripButton
+            // 
+            this.isoThermToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.isoThermToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("isoThermToolStripButton.Image")));
+            this.isoThermToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.isoThermToolStripButton.Name = "isoThermToolStripButton";
+            this.isoThermToolStripButton.Size = new System.Drawing.Size(58, 28);
+            this.isoThermToolStripButton.Text = "Isotherm";
+            this.isoThermToolStripButton.Click += new System.EventHandler(this.isoThermToolStripButton_Click);
+            // 
+            // isoThermToolStripComboBox
+            // 
+            this.isoThermToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.isoThermToolStripComboBox.Name = "isoThermToolStripComboBox";
+            this.isoThermToolStripComboBox.Size = new System.Drawing.Size(121, 31);
+            this.isoThermToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.isoThermToolStripComboBox_SelectedIndexChanged);
             // 
             // tabControl1
             // 
@@ -863,6 +865,16 @@
             this.rangeSliderControl1.TabIndex = 7;
             this.rangeSliderControl1.Text = "rangeSliderControl1";
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -984,6 +996,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxColorDist;
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 

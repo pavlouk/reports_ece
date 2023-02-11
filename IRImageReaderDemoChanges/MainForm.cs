@@ -449,6 +449,17 @@ namespace IRImageReaderDemoChanges
             _delete = true;
         }
 
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            _currentTool = MeasurmentTool.Area;
+            toolStripButtonSpot.Checked = false;
+            toolStripButtonLine.Checked = false;
+            toolStripButton2.Checked = true;
+            toolStripButtonSelect.Checked = false;
+            _adding = false;
+            _delete = true;
+        }
+
         private void toolStripButtonSelect_Click(object sender, EventArgs e)
         {
             _currentTool = MeasurmentTool.None;
@@ -1833,5 +1844,6 @@ namespace IRImageReaderDemoChanges
             _image.Rotate(90);
             pictureBox1.Image = Image();
         }
+
     }
 }
