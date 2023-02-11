@@ -19,7 +19,7 @@ using Appearance = Flir.Atlas.Image.Isotherms.Appearance;
 
 #endregion
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     public partial class MainForm : Form
     {

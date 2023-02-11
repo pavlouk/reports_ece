@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     public class Overlay
     {

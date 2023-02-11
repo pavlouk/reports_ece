@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     internal static class Program
     {

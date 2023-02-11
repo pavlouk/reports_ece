@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     public partial class RangeSliderControl : Control
     {

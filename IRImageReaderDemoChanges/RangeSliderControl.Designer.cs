@@ -1,4 +1,4 @@
-﻿namespace IRImageReaderDemoChanges
+﻿namespace IRImageApplication
 {
     partial class RangeSliderControl
     {

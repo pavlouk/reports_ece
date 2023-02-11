@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IRImageReaderDemoChanges")]
+[assembly: AssemblyTitle("IRImageApplication")]
 [assembly: AssemblyDescription("Demo application to demonstrate the usage of Flir.Atlas.Image API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FLIR Systems")]
-[assembly: AssemblyProduct("IRImageReaderDemoChanges")]
+[assembly: AssemblyProduct("IRImageApplication")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("FLIR® is a registered trademark of FLIR Systems.")]
 [assembly: AssemblyCulture("")]

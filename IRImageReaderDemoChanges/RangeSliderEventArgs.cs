@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     public class RangeSliderEventArgs : EventArgs
     {

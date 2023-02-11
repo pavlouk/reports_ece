@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IRImageReaderDemoChanges.Properties
+namespace IRImageApplication.Properties
 {
 
 

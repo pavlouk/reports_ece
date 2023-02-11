@@ -3,7 +3,7 @@ using Flir.Atlas.Image.Measurements;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace IRImageReaderDemoChanges
+namespace IRImageApplication
 {
     public class MeasurmentList : ListView
     {
