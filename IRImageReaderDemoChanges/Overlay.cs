@@ -139,7 +139,7 @@ namespace IRImageApplication
             str += rectangle.Max.Value.ToString("F01");
             graphics.DrawString(str, _textFont, _textBrush, rectangle.Location.X + 5, rectangle.Location.Y + 5);
 
-            //graphics.FillRectangle(_transparentBrush, rect);
+            graphics.FillRectangle(_transparentBrush, rect);
 
             //DrawColdSpot(graphics, rectangle.ColdSpot);
             DrawHotSpot(graphics, rectangle.HotSpot);

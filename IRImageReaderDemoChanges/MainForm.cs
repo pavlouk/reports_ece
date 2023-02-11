@@ -380,13 +380,23 @@ namespace IRImageApplication
             _delete = false;
         }
 
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            _currentTool = MeasurmentTool.Area;
+            toolStripButtonSpot.Checked = false;
+            toolStripButtonLine.Checked = false;
+            toolStripButton2.Checked = true;
+            toolStripButtonSelect.Checked = false;
+            _adding = true;
+            _delete = false;
+        }
+
         private void toolStripButtonSpot_Click(object sender, EventArgs e)
         {
             _currentTool = MeasurmentTool.Spot;
             toolStripButtonArea.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButton1.Checked = false;
-
             toolStripButtonSelect.Checked = false;
             _adding = true;
             _delete = false;
@@ -444,17 +454,6 @@ namespace IRImageApplication
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButton1.Checked = true;
-            toolStripButtonSelect.Checked = false;
-            _adding = false;
-            _delete = true;
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            _currentTool = MeasurmentTool.Area;
-            toolStripButtonSpot.Checked = false;
-            toolStripButtonLine.Checked = false;
-            toolStripButton2.Checked = true;
             toolStripButtonSelect.Checked = false;
             _adding = false;
             _delete = true;
