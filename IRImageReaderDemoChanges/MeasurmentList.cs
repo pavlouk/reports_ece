@@ -41,7 +41,7 @@ namespace IRImageApplication
             item.SubItems.Add(spot.Y.ToString());
             item.SubItems.Add("---");
             item.SubItems.Add("---");
-
+            item.SubItems.Add("---");
             item.Tag = spot;
 
             return item;
@@ -71,6 +71,7 @@ namespace IRImageApplication
             item.SubItems.Add(rectangle.Location.Y.ToString());
             item.SubItems.Add(rectangle.Width.ToString());
             item.SubItems.Add(rectangle.Height.ToString());
+            item.SubItems.Add((rectangle.Width * rectangle.Height).ToString());
             item.Tag = rectangle;
 
             return item;
@@ -90,6 +91,7 @@ namespace IRImageApplication
             item.SubItems[index++].Text = rectangle.Location.Y.ToString();
             item.SubItems[index++].Text = rectangle.Width.ToString();
             item.SubItems[index++].Text = rectangle.Height.ToString();
+            item.SubItems[index++].Text = (rectangle.Width * rectangle.Height).ToString();
             item.Tag = rectangle;
         }
 
@@ -106,6 +108,7 @@ namespace IRImageApplication
             item.SubItems.Add(line.Start.Y.ToString());
             item.SubItems.Add(System.Math.Abs(line.End.X - line.Start.X).ToString());
             item.SubItems.Add(System.Math.Abs(line.End.Y - line.Start.Y).ToString());
+            item.SubItems.Add("---");
             item.Tag = line;
 
             return item;
@@ -125,6 +128,7 @@ namespace IRImageApplication
             item.SubItems[index++].Text = line.Start.Y.ToString();
             item.SubItems[index++].Text = System.Math.Abs(line.End.X - line.Start.X).ToString();
             item.SubItems[index++].Text = System.Math.Abs(line.End.Y - line.Start.Y).ToString();
+            item.SubItems[index++].Text = "---";
             item.Tag = line;
         }
 

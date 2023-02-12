@@ -65,6 +65,7 @@
             this.toolStripComboBoxColorDist = new System.Windows.Forms.ToolStripComboBox();
             this.isoThermToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.isoThermToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -108,7 +109,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rangeSliderControl1 = new IRImageApplication.RangeSliderControl();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScale)).BeginInit();
@@ -324,17 +325,6 @@
             this.toolStripButtonArea.Text = "Area Tool";
             this.toolStripButtonArea.Click += new System.EventHandler(this.toolStripButtonArea_Click);
             // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton2.Text = "New Area Tool";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
             // toolStripButtonLine
             // 
             this.toolStripButtonLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -424,6 +414,17 @@
             this.isoThermToolStripComboBox.Name = "isoThermToolStripComboBox";
             this.isoThermToolStripComboBox.Size = new System.Drawing.Size(121, 31);
             this.isoThermToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.isoThermToolStripComboBox_SelectedIndexChanged);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.CheckOnClick = true;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton2.Text = "New Area Tool";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // tabControl1
             // 
@@ -815,7 +816,8 @@
             this.columnHeader3,
             this.columnHeader6,
             this.columnHeader7,
-            this.columnHeader8});
+            this.columnHeader8,
+            this.columnHeader12});
             this.listViewMeasurements.FullRowSelect = true;
             this.listViewMeasurements.HideSelection = false;
             this.listViewMeasurements.Location = new System.Drawing.Point(12, 609);
@@ -875,6 +877,10 @@
             this.rangeSliderControl1.Size = new System.Drawing.Size(726, 30);
             this.rangeSliderControl1.TabIndex = 7;
             this.rangeSliderControl1.Text = "rangeSliderControl1";
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Pixel Area";
             // 
             // MainForm
             // 
@@ -998,6 +1004,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxColorDist;
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
     }
 }
 

@@ -1271,6 +1271,7 @@ namespace IRImageApplication
                 toolStripButtonLine.Checked = false;
                 toolStripButtonSpot.Checked = false;
                 toolStripButton1.Checked = false;
+                toolStripButton2.Checked = false;
 
                 switch (_currentTool)
                 {
