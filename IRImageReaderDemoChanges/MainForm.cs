@@ -411,18 +411,6 @@ namespace IRImageApplication
             _delete = false;
         }
 
-        private void toolStripButtonPolyLine_Click(object sender, EventArgs e)
-        {
-            _currentTool = MeasurmentTool.PolyLine;
-            toolStripButtonArea.Checked = false;
-            toolStripButtonSpot.Checked = false;
-            toolStripButtonLine.Checked = false;
-            toolStripButton1.Checked = false;
-            toolStripButtonSelect.Checked = false;
-            _adding = true;
-            _delete = false;
-        }
-
         private void markerToolStripButton_Click(object sender, EventArgs e)
         {
             _currentTool = MeasurmentTool.Marker;
@@ -1317,7 +1305,6 @@ namespace IRImageApplication
             Spot,
             Area,
             Line,
-            PolyLine,
             Marker,
             None
         }
