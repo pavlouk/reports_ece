@@ -108,8 +108,8 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.rangeSliderControl1 = new IRImageApplication.RangeSliderControl();
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rangeSliderControl1 = new IRImageApplication.RangeSliderControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScale)).BeginInit();
@@ -259,6 +259,7 @@
             this.toolStripButtonSelect,
             this.toolStripButtonSpot,
             this.toolStripButtonArea,
+            this.toolStripButton2,
             this.toolStripButtonLine,
             this.toolStripButton1,
             this.toolStripSeparator1,
@@ -270,8 +271,7 @@
             this.toolStripLabel2,
             this.toolStripComboBoxColorDist,
             this.isoThermToolStripButton,
-            this.isoThermToolStripComboBox,
-            this.toolStripButton2});
+            this.isoThermToolStripComboBox});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1130, 31);
@@ -867,6 +867,10 @@
             // 
             this.columnHeader8.Text = "Height";
             // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Pixel Area";
+            // 
             // rangeSliderControl1
             // 
             this.rangeSliderControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -877,10 +881,6 @@
             this.rangeSliderControl1.Size = new System.Drawing.Size(726, 30);
             this.rangeSliderControl1.TabIndex = 7;
             this.rangeSliderControl1.Text = "rangeSliderControl1";
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.Text = "Pixel Area";
             // 
             // MainForm
             // 

@@ -65,8 +65,6 @@ namespace IRImageApplication
             isoThermToolStripButton.Checked = false;
             isoThermToolStripComboBox.Enabled = false;
 
-            _tooltip.ShowAlways = true;
-
             guiIsUpdating = false;
 
             buttonPause.Enabled = false;
@@ -365,7 +363,7 @@ namespace IRImageApplication
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-
+            
         }
 
         private void toolStripButtonArea_Click(object sender, EventArgs e)
@@ -417,17 +415,6 @@ namespace IRImageApplication
         {
             _currentTool = MeasurmentTool.PolyLine;
             toolStripButtonArea.Checked = false;
-            toolStripButtonSpot.Checked = false;
-            toolStripButtonLine.Checked = false;
-            toolStripButton1.Checked = false;
-            toolStripButtonSelect.Checked = false;
-            _adding = true;
-            _delete = false;
-        }
-
-        private void toolStripButtonFlyingSpot_Click(object sender, EventArgs e)
-        {
-            _currentTool = MeasurmentTool.FlyingSpot;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButton1.Checked = false;
@@ -1181,25 +1168,6 @@ namespace IRImageApplication
             {
                 this.Cursor = Cursors.Cross;
             }
-            else if (_currentTool == MeasurmentTool.FlyingSpot)
-            {
-                string output;
-                var offsetX = 10;
-                var offsetY = -20;
-                location.Offset(new Point(offsetX, offsetY));
-                if (point.X >= 0 && point.X < _image.Width && point.Y >= 0 && point.Y < _image.Height)
-                {
-                    ThermalValue value = _image.GetValueAt(point);
-
-                    Cursor = Cursors.Cross;
-                    output = string.Format("Value ={2}, X={0}, Y={1}", point.X, point.Y, value.Value);
-                }
-                else
-                {
-                    output = string.Format("Value ={2}, X={0}, Y={1}", point.X, point.Y, "N/A");
-                }
-                _tooltip.Show(output, pictureBox1, location);
-            }
             else
             {
                 if (!_tracker.isTracking)
@@ -1224,7 +1192,7 @@ namespace IRImageApplication
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            _tooltip.Hide(pictureBox1);
+
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -1280,12 +1248,6 @@ namespace IRImageApplication
 
                     case MeasurmentTool.Spot:
                         _image.Measurements.Add(point);
-                        _adding = false;
-                        break;
-
-                    case MeasurmentTool.FlyingSpot:
-                        _image.Measurements.Add(point);
-                        _tooltip.Hide(pictureBox1);
                         _adding = false;
                         break;
 
@@ -1357,7 +1319,6 @@ namespace IRImageApplication
             Line,
             PolyLine,
             Marker,
-            FlyingSpot,
             None
         }
         private MeasurmentTool _currentTool = MeasurmentTool.None;
@@ -1493,7 +1454,7 @@ namespace IRImageApplication
         private Bitmap Image()
         {
             Bitmap bitmap = null;
-
+            
             bitmap = _image.Image;
 
 
@@ -1831,7 +1792,6 @@ namespace IRImageApplication
 
         private bool guiIsUpdating = true;
         private ThermalImageFile _image = new ThermalImageFile();
-        private ToolTip _tooltip = new ToolTip();
 
 
         #endregion
