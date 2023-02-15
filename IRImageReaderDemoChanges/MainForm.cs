@@ -1215,6 +1215,10 @@ namespace IRImageApplication
                     {
                         _image.Measurements.Remove(_image.Measurements.MeasurementRectangles[i]);
                     }
+                    else if (tool == MeasurmentTool.AdiposeArea)
+                    {
+                        _image.Measurements.Remove(_image.Measurements.MeasurementAdiposeAreas[i]);
+                    }
                 }
 
                 _currentTool = MeasurmentTool.None;
@@ -1304,7 +1308,7 @@ namespace IRImageApplication
         {
             Spot,
             Area,
-            AdiposeArea
+            AdiposeArea,
             Line,
             Marker,
             None
