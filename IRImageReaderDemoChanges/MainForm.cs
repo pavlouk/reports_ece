@@ -1304,6 +1304,7 @@ namespace IRImageApplication
         {
             Spot,
             Area,
+            AdiposeArea
             Line,
             Marker,
             None
