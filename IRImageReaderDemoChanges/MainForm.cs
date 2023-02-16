@@ -1249,6 +1249,12 @@ namespace IRImageApplication
                         _adding = false;
                         break;
 
+                    case MeasurmentTool.AdiposeArea:
+                        Rectangle adiposeRect = new Rectangle(point, new Size(1, 1));
+                        _image.Measurements.Add(adiposeRect);
+                        _adding = false;
+                        break;
+
                     case MeasurmentTool.Line:
                         Point p2 = point;
                         p2.Offset(1, 1);
