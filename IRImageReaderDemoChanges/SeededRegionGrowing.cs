@@ -9,27 +9,27 @@ namespace IRImageApplication
 {
     internal class SeededRegionGrowing
     {
-        private int[][] _image;  // grayscale image
+        private double[][] _image;  // grayscale image
         private int _width;  // image width
         private int _height;  // image height
         private bool[][] _visited;  // flag for visited pixels
-        private int[][] _region;  // region being grown
+        private double[][] _region;  // region being grown
         private int _regionSize;  // current size of the region
-        private int _threshold;  // threshold for similarity
+        private double _threshold;  // threshold for similarity
 
-        public SeededRegionGrowing(int[][] image, int threshold)
+        public SeededRegionGrowing(double[][] image, double threshold)
         {
             _image = image;
             _width = image.Length;
             _height = image[0].Length;
             _visited = new bool[_width][];
-            _region = new int[_width][];
+            _region = new double[_width][];
             _threshold = threshold;
 
             for (int i = 0; i < _width; i++)
             {
                 _visited[i] = new bool[_height];
-                _region[i] = new int[_height];
+                _region[i] = new double[_height];
             }
         }
 
@@ -121,11 +121,11 @@ namespace IRImageApplication
             }
         }
 
-        public int GetThresholdAsPercentage(double percentage)
+        public double GetThresholdAsPercentage(double percentage)
         {
             // Find the minimum and maximum pixel values in the image
-            int min = int.MaxValue;
-            int max = int.MinValue;
+            double min = double.MaxValue;
+            double max = double.MinValue;
             for (int i = 0; i < _width; i++)
             {
                 for (int j = 0; j < _height; j++)
@@ -142,7 +142,7 @@ namespace IRImageApplication
             }
 
             // Calculate the threshold as a percentage of the dynamic range
-            int range = max - min;
+            double range = max - min;
             int threshold = (int)(percentage * range);
 
             return threshold;

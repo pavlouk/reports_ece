@@ -380,7 +380,7 @@ namespace IRImageApplication
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            _currentTool = MeasurmentTool.Area;
+            _currentTool = MeasurmentTool.AdiposeArea;
             toolStripButtonSpot.Checked = false;
             toolStripButtonLine.Checked = false;
             toolStripButton2.Checked = true;
@@ -1217,7 +1217,7 @@ namespace IRImageApplication
                     }
                     else if (tool == MeasurmentTool.AdiposeArea)
                     {
-                        _image.Measurements.Remove(_image.Measurements.MeasurementAdiposeAreas[i]);
+                        _image.Measurements.Remove(_image.Measurements.MeasurementRectangles[i]);
                     }
                 }
 
