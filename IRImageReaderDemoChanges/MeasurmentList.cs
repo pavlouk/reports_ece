@@ -77,6 +77,43 @@ namespace IRImageApplication
             return item;
         }
 
+        private void UpdateAdiposeAreaListViewItem(MeasurementRectangle rectangle, ListViewItem item)
+        {
+            if (rectangle == null)
+                return;
+            item.Text = rectangle.Name;
+            int index = 1;
+            item.SubItems[index++].Text = "---";
+            item.SubItems[index++].Text = rectangle.Min.Value.ToString("F2");
+            item.SubItems[index++].Text = rectangle.Max.Value.ToString("F2");
+            item.SubItems[index++].Text = rectangle.Average.Value.ToString("F2");
+            item.SubItems[index++].Text = rectangle.Location.X.ToString();
+            item.SubItems[index++].Text = rectangle.Location.Y.ToString();
+            item.SubItems[index++].Text = rectangle.Width.ToString();
+            item.SubItems[index++].Text = rectangle.Height.ToString();
+            item.SubItems[index++].Text = (rectangle.Width * rectangle.Height).ToString();
+            item.Tag = rectangle;
+        }
+
+        private ListViewItem CreateAdiposeAreaListViewItem(MeasurementRectangle rectangle)
+        {
+            if (rectangle == null)
+                return null;
+            ListViewItem item = new ListViewItem(rectangle.Name);
+            item.SubItems.Add("---");
+            item.SubItems.Add(rectangle.Min.Value.ToString("F2"));
+            item.SubItems.Add(rectangle.Max.Value.ToString("F2"));
+            item.SubItems.Add(rectangle.Average.Value.ToString("F2"));
+            item.SubItems.Add(rectangle.Location.X.ToString());
+            item.SubItems.Add(rectangle.Location.Y.ToString());
+            item.SubItems.Add(rectangle.Width.ToString());
+            item.SubItems.Add(rectangle.Height.ToString());
+            item.SubItems.Add((rectangle.Width * rectangle.Height).ToString());
+            item.Tag = rectangle;
+
+            return item;
+        }
+
         private void UpdateAreaListViewItem(MeasurementRectangle rectangle, ListViewItem item)
         {
             if (rectangle == null)
@@ -180,6 +217,24 @@ namespace IRImageApplication
             {
                 BeginUpdate();
                 UpdateAreaListViewItem(item.Tag as MeasurementRectangle, item);
+                EndUpdate();
+            }
+        }
+
+        public void AddAdiposeArea(MeasurementRectangle rectangle)
+        {
+            if (rectangle == null)
+                return;
+            Items.Add(CreateAdiposeAreaListViewItem(rectangle));
+        }
+
+        public void UpdateAdiposeArea(MeasurementShape shape)
+        {
+            ListViewItem item = FindMeasurementShape(shape);
+            if (item != null)
+            {
+                BeginUpdate();
+                UpdateAdiposeAreaListViewItem(item.Tag as MeasurementRectangle, item);
                 EndUpdate();
             }
         }

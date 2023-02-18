@@ -141,7 +141,6 @@ namespace IRImageApplication
 
             graphics.FillRectangle(_transparentBrush, rect);
 
-            //DrawColdSpot(graphics, rectangle.ColdSpot);
             DrawHotSpot(graphics, rectangle.HotSpot);
         }
 
@@ -166,17 +165,6 @@ namespace IRImageApplication
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             graphics.DrawLine(_pen, line.Start, line.End);
             DrawLineSelection(line, graphics);
-        }
-
-        private void DrawColdSpot(Graphics graphics, Point point)
-        {
-            Point point1 = point;
-            point1.Offset(-6, -6);
-            Point point2 = point;
-            point2.Offset(6, -6);
-            Point[] points = new Point[] { point, point1, point2 };
-            graphics.FillPolygon(Brushes.Blue, points);
-            graphics.DrawPolygon(Pens.Black, points);
         }
 
         private void DrawHotSpot(Graphics graphics, Point point)

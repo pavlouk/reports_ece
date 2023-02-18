@@ -1323,6 +1323,13 @@ namespace IRImageApplication
 
         private class MeasTracker
         {
+            public bool isTracking;
+            public int index;
+            public MeasurmentTool tool;
+            public TrackerHit tracker;
+            public Point prevPos = new Point(0, 0);
+            public Point hitPos = new Point(0, 0);
+            
             public MeasTracker()
             {
                 Reset();
@@ -1338,13 +1345,8 @@ namespace IRImageApplication
                 hitPos = new Point(0, 0);
             }
 
-            public bool isTracking;
-            public int index;
-            public MeasurmentTool tool;
-            public TrackerHit tracker;
-            public Point prevPos = new Point(0, 0);
-            public Point hitPos = new Point(0, 0);
         }
+
         private MeasTracker _tracker = new MeasTracker();
 
         #endregion
