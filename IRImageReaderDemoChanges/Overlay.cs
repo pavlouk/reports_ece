@@ -144,6 +144,23 @@ namespace IRImageApplication
             DrawHotSpot(graphics, rectangle.HotSpot);
         }
 
+        private void DrawAdiposeArea(MeasurementRectangle rectangle, Graphics graphics)
+        {
+            Rectangle rect = new Rectangle(rectangle.Location.X, rectangle.Location.Y, rectangle.Width, rectangle.Height);
+            graphics.DrawRectangle(_pen, rect);
+
+            DrawAreaSelection(rectangle, graphics);
+
+            string str = rectangle.Min.Value.ToString("F01");
+            str += " - ";
+            str += rectangle.Max.Value.ToString("F01");
+            graphics.DrawString(str, _textFont, _textBrush, rectangle.Location.X + 5, rectangle.Location.Y + 5);
+
+            graphics.FillRectangle(_transparentBrush, rect);
+
+            DrawHotSpot(graphics, rectangle.HotSpot);
+        }
+
         private void DrawLineSelection(MeasurementLine line, Graphics graphics)
         {
             // Left mid

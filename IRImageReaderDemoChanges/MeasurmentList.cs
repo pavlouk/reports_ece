@@ -77,43 +77,6 @@ namespace IRImageApplication
             return item;
         }
 
-        private void UpdateAdiposeAreaListViewItem(MeasurementRectangle rectangle, ListViewItem item)
-        {
-            if (rectangle == null)
-                return;
-            item.Text = rectangle.Name;
-            int index = 1;
-            item.SubItems[index++].Text = "---";
-            item.SubItems[index++].Text = rectangle.Min.Value.ToString("F2");
-            item.SubItems[index++].Text = rectangle.Max.Value.ToString("F2");
-            item.SubItems[index++].Text = rectangle.Average.Value.ToString("F2");
-            item.SubItems[index++].Text = rectangle.Location.X.ToString();
-            item.SubItems[index++].Text = rectangle.Location.Y.ToString();
-            item.SubItems[index++].Text = rectangle.Width.ToString();
-            item.SubItems[index++].Text = rectangle.Height.ToString();
-            item.SubItems[index++].Text = (rectangle.Width * rectangle.Height).ToString();
-            item.Tag = rectangle;
-        }
-
-        private ListViewItem CreateAdiposeAreaListViewItem(MeasurementRectangle rectangle)
-        {
-            if (rectangle == null)
-                return null;
-            ListViewItem item = new ListViewItem(rectangle.Name);
-            item.SubItems.Add("---");
-            item.SubItems.Add(rectangle.Min.Value.ToString("F2"));
-            item.SubItems.Add(rectangle.Max.Value.ToString("F2"));
-            item.SubItems.Add(rectangle.Average.Value.ToString("F2"));
-            item.SubItems.Add(rectangle.Location.X.ToString());
-            item.SubItems.Add(rectangle.Location.Y.ToString());
-            item.SubItems.Add(rectangle.Width.ToString());
-            item.SubItems.Add(rectangle.Height.ToString());
-            item.SubItems.Add((rectangle.Width * rectangle.Height).ToString());
-            item.Tag = rectangle;
-
-            return item;
-        }
-
         private void UpdateAreaListViewItem(MeasurementRectangle rectangle, ListViewItem item)
         {
             if (rectangle == null)
@@ -130,6 +93,43 @@ namespace IRImageApplication
             item.SubItems[index++].Text = rectangle.Height.ToString();
             item.SubItems[index++].Text = (rectangle.Width * rectangle.Height).ToString();
             item.Tag = rectangle;
+        }
+
+        private ListViewItem CreateAdiposeAreaListViewItem(MeasurementRectangle adiposeRectangle)
+        {
+            if (adiposeRectangle == null)
+                return null;
+            ListViewItem item = new ListViewItem(adiposeRectangle.Name);
+            item.SubItems.Add("---");
+            item.SubItems.Add(adiposeRectangle.Min.Value.ToString("F2"));
+            item.SubItems.Add(adiposeRectangle.Max.Value.ToString("F2"));
+            item.SubItems.Add(adiposeRectangle.Average.Value.ToString("F2"));
+            item.SubItems.Add(adiposeRectangle.Location.X.ToString());
+            item.SubItems.Add(adiposeRectangle.Location.Y.ToString());
+            item.SubItems.Add(adiposeRectangle.Width.ToString());
+            item.SubItems.Add(adiposeRectangle.Height.ToString());
+            item.SubItems.Add((adiposeRectangle.Width * adiposeRectangle.Height).ToString());
+            item.Tag = adiposeRectangle;
+
+            return item;
+        }
+
+        private void UpdateAdiposeAreaListViewItem(MeasurementRectangle adiposeRectangle, ListViewItem item)
+        {
+            if (adiposeRectangle == null)
+                return;
+            item.Text = adiposeRectangle.Name;
+            int index = 1;
+            item.SubItems[index++].Text = "---";
+            item.SubItems[index++].Text = adiposeRectangle.Min.Value.ToString("F2");
+            item.SubItems[index++].Text = adiposeRectangle.Max.Value.ToString("F2");
+            item.SubItems[index++].Text = adiposeRectangle.Average.Value.ToString("F2");
+            item.SubItems[index++].Text = adiposeRectangle.Location.X.ToString();
+            item.SubItems[index++].Text = adiposeRectangle.Location.Y.ToString();
+            item.SubItems[index++].Text = adiposeRectangle.Width.ToString();
+            item.SubItems[index++].Text = adiposeRectangle.Height.ToString();
+            item.SubItems[index++].Text = (adiposeRectangle.Width * adiposeRectangle.Height).ToString();
+            item.Tag = adiposeRectangle;
         }
 
         private ListViewItem CreateLineListViewItem(MeasurementLine line)
