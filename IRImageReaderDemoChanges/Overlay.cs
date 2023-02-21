@@ -32,7 +32,14 @@ namespace IRImageApplication
             }
             foreach (MeasurementRectangle rectangle in _image.Measurements.MeasurementRectangles)
             {
-                DrawArea(rectangle, graphics);
+                if (rectangle is MeasurementRectangle)
+                {
+                    DrawAdiposeArea(rectangle, graphics);
+                }
+                else
+                {
+                    DrawArea(rectangle, graphics);
+                }
             }
             foreach (MeasurementLine line in _image.Measurements.MeasurementLines)
             {
@@ -144,21 +151,21 @@ namespace IRImageApplication
             DrawHotSpot(graphics, rectangle.HotSpot);
         }
 
-        private void DrawAdiposeArea(MeasurementRectangle rectangle, Graphics graphics)
+        private void DrawAdiposeArea(MeasurementRectangle adiposeRectangle, Graphics graphics)
         {
-            Rectangle rect = new Rectangle(rectangle.Location.X, rectangle.Location.Y, rectangle.Width, rectangle.Height);
+            Rectangle rect = new Rectangle(adiposeRectangle.Location.X, adiposeRectangle.Location.Y, adiposeRectangle.Width, adiposeRectangle.Height);
             graphics.DrawRectangle(_pen, rect);
 
-            DrawAreaSelection(rectangle, graphics);
+            DrawAreaSelection(adiposeRectangle, graphics);
 
-            string str = rectangle.Min.Value.ToString("F01");
+            string str = adiposeRectangle.Min.Value.ToString("F01");
             str += " - ";
-            str += rectangle.Max.Value.ToString("F01");
-            graphics.DrawString(str, _textFont, _textBrush, rectangle.Location.X + 5, rectangle.Location.Y + 5);
+            str += adiposeRectangle.Max.Value.ToString("F01");
+            graphics.DrawString(str, _textFont, _textBrush, adiposeRectangle.Location.X + 5, adiposeRectangle.Location.Y + 5);
 
             graphics.FillRectangle(_transparentBrush, rect);
 
-            DrawHotSpot(graphics, rectangle.HotSpot);
+            DrawHotSpot(graphics, adiposeRectangle.HotSpot);
         }
 
         private void DrawLineSelection(MeasurementLine line, Graphics graphics)

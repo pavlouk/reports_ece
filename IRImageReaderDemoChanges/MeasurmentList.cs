@@ -99,6 +99,9 @@ namespace IRImageApplication
         {
             if (adiposeRectangle == null)
                 return null;
+
+            MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
+
             ListViewItem item = new ListViewItem(adiposeRectangle.Name);
             item.SubItems.Add("---");
             item.SubItems.Add(adiposeRectangle.Min.Value.ToString("F2"));
@@ -221,11 +224,11 @@ namespace IRImageApplication
             }
         }
 
-        public void AddAdiposeArea(MeasurementRectangle rectangle)
+        public void AddAdiposeArea(MeasurementRectangle adiposeRectangle)
         {
-            if (rectangle == null)
+            if (adiposeRectangle == null)
                 return;
-            Items.Add(CreateAdiposeAreaListViewItem(rectangle));
+            Items.Add(CreateAdiposeAreaListViewItem(adiposeRectangle));
         }
 
         public void UpdateAdiposeArea(MeasurementShape shape)

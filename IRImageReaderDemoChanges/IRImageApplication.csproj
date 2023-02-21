@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MeasurementAdiposeRectangle.cs" />
     <Compile Include="GainOffset.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

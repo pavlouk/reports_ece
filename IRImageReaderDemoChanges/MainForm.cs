@@ -204,7 +204,7 @@ namespace IRImageApplication
             if (e.MeasurementShape as MeasurementSpot != null)
                 listViewMeasurements.AddSpot(e.MeasurementShape as MeasurementSpot);
             else if (e.MeasurementShape as MeasurementRectangle != null)
-                listViewMeasurements.AddArea(e.MeasurementShape as MeasurementRectangle);
+                listViewMeasurements.AddAdiposeArea(e.MeasurementShape as MeasurementRectangle);
             else if (e.MeasurementShape as MeasurementLine != null)
                 listViewMeasurements.AddLine(e.MeasurementShape as MeasurementLine);
         }
@@ -215,7 +215,7 @@ namespace IRImageApplication
             if (e.MeasurementShape as MeasurementSpot != null)
                 listViewMeasurements.UpdateSpot(e.MeasurementShape as MeasurementSpot);
             else if (e.MeasurementShape as MeasurementRectangle != null)
-                listViewMeasurements.UpdateArea(e.MeasurementShape as MeasurementRectangle);
+                listViewMeasurements.UpdateAdiposeArea(e.MeasurementShape as MeasurementRectangle);
             else if (e.MeasurementShape as MeasurementLine != null)
                 listViewMeasurements.UpdateLine(e.MeasurementShape as MeasurementLine);
         }
