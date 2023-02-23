@@ -32,14 +32,7 @@ namespace IRImageApplication
             }
             foreach (MeasurementRectangle rectangle in _image.Measurements.MeasurementRectangles)
             {
-                if (rectangle is MeasurementRectangle)
-                {
-                    DrawAdiposeArea(rectangle, graphics);
-                }
-                else
-                {
-                    DrawArea(rectangle, graphics);
-                }
+                DrawAdiposeArea(rectangle, graphics);
             }
             foreach (MeasurementLine line in _image.Measurements.MeasurementLines)
             {

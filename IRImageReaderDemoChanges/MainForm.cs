@@ -1796,7 +1796,6 @@ namespace IRImageApplication
 
         #endregion
 
-
         public object Measurement_Added { get; set; }
 
         private void rotateToolStripMenuItem_Click(object sender, EventArgs e)
