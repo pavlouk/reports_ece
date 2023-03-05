@@ -7,73 +7,69 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRImageApplication
 {
     public class MeasurementAdiposeRectangle
     {
-        private readonly MeasurementRectangle _rectangle;
+        private ThermalValue _max;
+        private ThermalValue _min;
+        private ThermalValue _average;
+        private Point _location;
+        private int _height;
+        private int _width;
+        private String _name;
+        private double[][] _rectangleImage;
 
         public MeasurementAdiposeRectangle(MeasurementRectangle rectangle)
         {
-            this._rectangle = rectangle;
-        }
+            _max = rectangle.Max;
+            _min = rectangle.Min;
+            _average = rectangle.Average;
+            _location = rectangle.Location;
+            _height = rectangle.Height;
+            _width = rectangle.Width;
+            _name = rectangle.Name;
 
-        public ThermalValue Max 
-        { 
-            get
-            {
-                return _rectangle.Max;
-            } 
-        }
+            //_imageValues = rectangle.GetValues();
 
-        public ThermalValue Min
-        {
-            get
+            double[] imageValues = rectangle.GetValues();
+
+            // print the values to the console
+            for (int i = 0; i < imageValues.Length; i++)
             {
-                return _rectangle.Min;
+                Console.WriteLine($"Value {i}: {imageValues[i]}");
+            }
+
+            
+            int index = 0;
+            _rectangleImage = new double[_width][];
+            for (int i = 0; i < _width; i++)
+            {
+                _rectangleImage[i] = new double[_height];
+                for (int j = 0; j < _height; j++)
+                {
+                    _rectangleImage[i][j]  = imageValues[index++];
+                }
             }
         }
 
-        public ThermalValue Average
-        {
-            get
-            {
-                return _rectangle.Average;
-            }
-        }
+        public double[][] RectangleImage { get => _rectangleImage; }
 
-        public Point Location
-        {
-            get
-            {
-                return _rectangle.Location;
-            }
-        }
+        public ThermalValue Max { get => _max; }
 
-        public int Height
-        {
-            get
-            {
-                return _rectangle.Height;
-            }
-        }
+        public ThermalValue Min { get => _min; }
 
-        public int Width
-        {
-            get
-            {
-                return _rectangle.Width;
-            }
-        }
+        public ThermalValue Average { get => _average; }
 
-        public String Name
-        { 
-            get 
-            {
-                return _rectangle.Name; 
-            } 
-        }
+        public Point Location { get => _location; }
+
+        public int Height { get => _height; }
+
+        public int Width { get => _width; }
+
+        public String Name { get => _name; }
 
     }
 }

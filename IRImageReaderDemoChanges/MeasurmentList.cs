@@ -112,7 +112,7 @@ namespace IRImageApplication
             item.SubItems.Add(measurementAdiposeRectangle.Width.ToString());
             item.SubItems.Add(measurementAdiposeRectangle.Height.ToString());
             item.SubItems.Add((measurementAdiposeRectangle.Width * measurementAdiposeRectangle.Height).ToString());
-            item.Tag = measurementAdiposeRectangle;
+            item.Tag = adiposeRectangle;
 
             return item;
         }
@@ -122,6 +122,8 @@ namespace IRImageApplication
             if (adiposeRectangle == null)
                 return;
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
+            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle, measurementAdiposeRectangle.Max.Value);
+            //measurementAdiposeRectangle
 
             item.Text = measurementAdiposeRectangle.Name;
             int index = 1;
@@ -134,7 +136,7 @@ namespace IRImageApplication
             item.SubItems[index++].Text = measurementAdiposeRectangle.Width.ToString();
             item.SubItems[index++].Text = measurementAdiposeRectangle.Height.ToString();
             item.SubItems[index++].Text = (measurementAdiposeRectangle.Width * measurementAdiposeRectangle.Height).ToString();
-            item.Tag = measurementAdiposeRectangle;
+            item.Tag = adiposeRectangle;
         }
 
         private ListViewItem CreateLineListViewItem(MeasurementLine line)
