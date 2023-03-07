@@ -20,6 +20,7 @@ namespace IRImageApplication
         private int _height;
         private int _width;
         private String _name;
+        private double[] _imageValues;
         private double[][] _rectangleImage;
 
         public MeasurementAdiposeRectangle(MeasurementRectangle rectangle)
@@ -32,26 +33,41 @@ namespace IRImageApplication
             _width = rectangle.Width;
             _name = rectangle.Name;
 
-            //_imageValues = rectangle.GetValues();
-
-            double[] imageValues = rectangle.GetValues();
-
+            _imageValues = rectangle.GetValues();
+            
             // print the values to the console
-            for (int i = 0; i < imageValues.Length; i++)
-            {
-                Console.WriteLine($"Value {i}: {imageValues[i]}");
-            }
+            //for (int i = 0; i < _imageValues.Length; i++)
+            //{
+            //    Console.Write("{0:F2} ", _imageValues[i]);
+            //}
+            //Console.WriteLine();
 
+            _rectangleImage = new double[_height][];
             
             int index = 0;
-            _rectangleImage = new double[_width][];
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < _height; i++)
             {
-                _rectangleImage[i] = new double[_height];
-                for (int j = 0; j < _height; j++)
+                _rectangleImage[i] = new double[_width];
+                for (int j = 0; j < _width; j++)
                 {
-                    _rectangleImage[i][j]  = imageValues[index++];
+                    _rectangleImage[i][j] = _imageValues[index++];
                 }
+            }
+            Console.WriteLine();
+            Console.Write($"Width: {_width} Height: {_height}");
+            Console.WriteLine();
+
+            for (int i = 0; i < _height; i++)
+            {
+                for (int j = 0; j < _width; j++)
+                {
+                    if (_rectangleImage[i][j] > 10.0f)
+                        Console.Write("{0:F2} ", _rectangleImage[i][j]);
+                    else
+                        Console.Write("0 ");
+
+                }
+                Console.WriteLine();
             }
         }
 
