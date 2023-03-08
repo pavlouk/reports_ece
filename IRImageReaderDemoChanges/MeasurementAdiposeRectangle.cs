@@ -85,7 +85,7 @@ namespace IRImageApplication
                     if (_rectangleImage[i][j] > 10.0f)
                         Console.Write("{0:F2} ", _rectangleImage[i][j]);
                     else
-                        Console.Write("0 ")
+                        Console.Write("0 ");
                 }
                 Console.WriteLine();
             }

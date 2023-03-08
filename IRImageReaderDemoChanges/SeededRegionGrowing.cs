@@ -19,16 +19,17 @@ namespace IRImageApplication
         private double _threshold;  // threshold for similarity
 
         public int RegionSize { get => _regionSize; }
+        public double Threshold { get; set; }
+        public double[][] Visited { get; set; }
+        public double[][] Region { get; set; }
 
-
-        public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle, double threshold)
+        public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
             _image = measurementAdiposeRectangle.RectangleImage;
             _width = measurementAdiposeRectangle.Width;
             _height = measurementAdiposeRectangle.Height;
             _visited = new bool[_width][];
             _region = new double[_width][];
-            _threshold = threshold;
 
             for (int i = 0; i < _width; i++)
             {

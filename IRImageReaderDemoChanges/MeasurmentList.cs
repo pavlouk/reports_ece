@@ -101,6 +101,8 @@ namespace IRImageApplication
                 return null;
 
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
+            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle, measurementAdiposeRectangle.Max.Value);
+
 
             ListViewItem item = new ListViewItem(measurementAdiposeRectangle.Name);
             item.SubItems.Add("---");
@@ -121,9 +123,9 @@ namespace IRImageApplication
         {
             if (adiposeRectangle == null)
                 return;
+
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
             SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle, measurementAdiposeRectangle.Max.Value);
-            //measurementAdiposeRectangle
 
             item.Text = measurementAdiposeRectangle.Name;
             int index = 1;

@@ -150,6 +150,7 @@ namespace IRImageApplication
             graphics.DrawRectangle(_pen, rect);
 
             DrawAreaSelection(adiposeRectangle, graphics);
+            //DrawAdiposeSelection(adiposeRectangle, graphics);
 
             string str = adiposeRectangle.Min.Value.ToString("F01");
             str += " - ";
