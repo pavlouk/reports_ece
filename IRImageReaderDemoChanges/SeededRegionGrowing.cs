@@ -28,13 +28,22 @@ namespace IRImageApplication
             _image = measurementAdiposeRectangle.RectangleImage;
             _width = measurementAdiposeRectangle.Width;
             _height = measurementAdiposeRectangle.Height;
-            _visited = new bool[_width][];
-            _region = new double[_width][];
 
-            for (int i = 0; i < _width; i++)
+            if (_width > 0 && _height > 0)
             {
-                _visited[i] = new bool[_height];
-                _region[i] = new double[_height];
+                _visited = new bool[_width][];
+                _region = new double[_width][];
+
+                for (int i = 0; i < _width; i++)
+                {
+                    _visited[i] = new bool[_height];
+                    _region[i] = new double[_height];
+                }
+            } 
+            else
+            {
+                _visited = null;
+                _region = null;
             }
         }
 
