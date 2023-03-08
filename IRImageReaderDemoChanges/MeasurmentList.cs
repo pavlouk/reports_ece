@@ -101,8 +101,7 @@ namespace IRImageApplication
                 return null;
 
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
-            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle, measurementAdiposeRectangle.Max.Value);
-
+            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle);
 
             ListViewItem item = new ListViewItem(measurementAdiposeRectangle.Name);
             item.SubItems.Add("---");
@@ -125,7 +124,17 @@ namespace IRImageApplication
                 return;
 
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
-            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle, measurementAdiposeRectangle.Max.Value);
+            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle);
+            // TODO: debug
+            //for (int i = 0; i < seededRegion.Visited; i++)
+            //{
+            //    for (int j = 0; j < seededRegion.Visited; j++)
+            //    {
+
+            //    }
+            //}
+
+            measurementAdiposeRectangle.PrintImageValues();
 
             item.Text = measurementAdiposeRectangle.Name;
             int index = 1;

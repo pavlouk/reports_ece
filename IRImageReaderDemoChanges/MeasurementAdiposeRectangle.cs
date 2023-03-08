@@ -32,18 +32,27 @@ namespace IRImageApplication
             _height = rectangle.Height;
             _width = rectangle.Width;
             _name = rectangle.Name;
-
-            _imageValues = rectangle.GetValues();
             
-            _rectangleImage = new double[_height][];
-            int index = 0;
-            for (int i = 0; i < _height; i++)
+            if (_width > 0 && _height > 0)
             {
-                _rectangleImage[i] = new double[_width];
-                for (int j = 0; j < _width; j++)
+                _imageValues = rectangle.GetValues();
+
+                _rectangleImage = new double[_height][];
+                int index = 0;
+                for (int i = 0; i < _height; i++)
                 {
-                    _rectangleImage[i][j] = _imageValues[index++];
+                    _rectangleImage[i] = new double[_width];
+                    for (int j = 0; j < _width; j++)
+                    {
+                        _rectangleImage[i][j] = _imageValues[index++];
+                    }
                 }
+
+            }
+            else
+            {
+                _imageValues = null;
+                _rectangleImage = null;
             }
         }
 
