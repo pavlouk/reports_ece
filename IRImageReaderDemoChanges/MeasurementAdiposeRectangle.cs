@@ -35,15 +35,7 @@ namespace IRImageApplication
 
             _imageValues = rectangle.GetValues();
             
-            // print the values to the console
-            //for (int i = 0; i < _imageValues.Length; i++)
-            //{
-            //    Console.Write("{0:F2} ", _imageValues[i]);
-            //}
-            //Console.WriteLine();
-
             _rectangleImage = new double[_height][];
-            
             int index = 0;
             for (int i = 0; i < _height; i++)
             {
@@ -52,22 +44,6 @@ namespace IRImageApplication
                 {
                     _rectangleImage[i][j] = _imageValues[index++];
                 }
-            }
-            Console.WriteLine();
-            Console.Write($"Width: {_width} Height: {_height}");
-            Console.WriteLine();
-
-            for (int i = 0; i < _height; i++)
-            {
-                for (int j = 0; j < _width; j++)
-                {
-                    if (_rectangleImage[i][j] > 10.0f)
-                        Console.Write("{0:F2} ", _rectangleImage[i][j]);
-                    else
-                        Console.Write("0 ");
-
-                }
-                Console.WriteLine();
             }
         }
 
@@ -87,5 +63,32 @@ namespace IRImageApplication
 
         public String Name { get => _name; }
 
+        public void PrintSerialValues()
+        {
+            for (int i = 0; i < _imageValues.Length; i++)
+            {
+                Console.Write("{0:F2} ", _imageValues[i]);
+            }
+            Console.WriteLine();
+        }
+
+        public void PrintImageValues()
+        {
+            Console.WriteLine();
+            Console.Write($"Width: {_width} Height: {_height}");
+            Console.WriteLine();
+
+            for (int i = 0; i < _height; i++)
+            {
+                for (int j = 0; j < _width; j++)
+                {
+                    if (_rectangleImage[i][j] > 10.0f)
+                        Console.Write("{0:F2} ", _rectangleImage[i][j]);
+                    else
+                        Console.Write("0 ")
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
