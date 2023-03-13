@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IRImageApplication
 {
@@ -20,25 +22,27 @@ namespace IRImageApplication
 
         public int RegionSize { get => _regionSize; }
         public double Threshold { get; set; }
-        public double[][] Visited { get; set; }
-        public double[][] Region { get; set; }
+        public double[][] Visited { get; }
+        public double[][] Region { get; }
 
         public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
-            _image = measurementAdiposeRectangle.RectangleImage;
-            _width = measurementAdiposeRectangle.Width;
-            _height = measurementAdiposeRectangle.Height;
-
-            if (_width > 0 && _height > 0)
+            if (measurementAdiposeRectangle.RectangleImage != null && measurementAdiposeRectangle.Width > 1 && measurementAdiposeRectangle.Height > 1)
             {
-                _visited = new bool[_width][];
-                _region = new double[_width][];
+                _image = measurementAdiposeRectangle.RectangleImage;
+                _width = measurementAdiposeRectangle.Width;
+                _height = measurementAdiposeRectangle.Height;
+                
+                _visited = new bool[_height][];
+                _region = new double[_height][];
 
-                for (int i = 0; i < _width; i++)
+                for (int i = 0; i < _height; i++)
                 {
-                    _visited[i] = new bool[_height];
-                    _region[i] = new double[_height];
+                    _visited[i] = new bool[_width];
+                    _region[i] = new double[_width];
                 }
+
+                GrowFromSeed(measurementAdiposeRectangle.Hotspot);
             } 
             else
             {
@@ -47,23 +51,25 @@ namespace IRImageApplication
             }
         }
 
-        public List<Point> GrowFromSeed(Point seed)
+        private void GrowFromSeed(Point seed)
         {
+            // todo: translate global seed to local seed 
+            if (_visited == null)
+                return;
+
             if (!IsInImage(seed))
             {
                 throw new ArgumentOutOfRangeException("Seed is outside image boundary.");
             }
 
             List<Point> regionPoints = new List<Point>();
-
-            // Initialize region
             _regionSize = 0;
             ClearRegion();
+           
             _region[seed.X][seed.Y] = _image[seed.X][seed.Y];
             _regionSize++;
-
-            // Grow region
             regionPoints.Add(seed);
+
             while (regionPoints.Count > 0)
             {
                 Point p = regionPoints[0];
@@ -97,20 +103,20 @@ namespace IRImageApplication
                 }
             }
 
-            // Return region
-            List<Point> result = new List<Point>();
-            for (int i = 0; i < _width; i++)
-            {
-                for (int j = 0; j < _height; j++)
-                {
-                    if (_region[i][j] != 0)
-                    {
-                        result.Add(new Point(i, j));
-                    }
-                }
-            }
-
-            return result;
+            //// Return region
+            //List<Point> result = new List<Point>();
+            //for (int i = 0; i < _width; i++)
+            //{
+            //    for (int j = 0; j < _height; j++)
+            //    {
+            //        if (_region[i][j] != 0)
+            //        {
+            //            result.Add(new Point(i, j));
+            //        }
+            //    }
+            //}
+             
+            //return result;
         }
 
         private bool IsInImage(Point p)
@@ -140,6 +146,7 @@ namespace IRImageApplication
             // Find the minimum and maximum pixel values in the image
             double min = double.MaxValue;
             double max = double.MinValue;
+
             for (int i = 0; i < _width; i++)
             {
                 for (int j = 0; j < _height; j++)
@@ -162,5 +169,49 @@ namespace IRImageApplication
             return threshold;
         }
 
+        public void PrintVisited()
+        {
+            if (_visited is null)
+                return;
+
+            Console.WriteLine();
+            Console.Write($"Width: {_width} Height: {_height}");
+            Console.WriteLine();
+
+            for (int i = 0; i < _width; i++)
+            {
+                for (int j = 0; j < _height; j++)
+                {
+                    if (_visited[i][j])
+                        Console.Write("1 ");
+                    else
+                        Console.Write("0 ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void PrintRegion()
+        {
+            if (_visited is null)
+                return;
+
+            Console.WriteLine();
+            Console.Write($"Width: {_width} Height: {_height}");
+            Console.WriteLine();
+
+            for (int i = 0; i < _width; i++)
+            {
+                for (int j = 0; j < _height; j++)
+                {
+                    if (_region[i][j] > 0f)
+                        Console.Write("1 ");
+                    else
+                        Console.Write("0 ");
+                }
+                Console.WriteLine();
+            }
+        }
     }
+
 }

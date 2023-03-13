@@ -125,16 +125,9 @@ namespace IRImageApplication
 
             MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
             SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle);
-            // TODO: debug
-            //for (int i = 0; i < seededRegion.Visited; i++)
-            //{
-            //    for (int j = 0; j < seededRegion.Visited; j++)
-            //    {
+            //measurementAdiposeRectangle.PrintImageValues();
+            seededRegion.PrintRegion();
 
-            //    }
-            //}
-
-            measurementAdiposeRectangle.PrintImageValues();
 
             item.Text = measurementAdiposeRectangle.Name;
             int index = 1;

@@ -22,6 +22,7 @@ namespace IRImageApplication
         private String _name;
         private double[] _imageValues;
         private double[][] _rectangleImage;
+        private Point _hotspot;
 
         public MeasurementAdiposeRectangle(MeasurementRectangle rectangle)
         {
@@ -32,7 +33,8 @@ namespace IRImageApplication
             _height = rectangle.Height;
             _width = rectangle.Width;
             _name = rectangle.Name;
-            
+            _hotspot = rectangle.HotSpot;
+
             if (_width > 0 && _height > 0)
             {
                 _imageValues = rectangle.GetValues();
@@ -57,6 +59,8 @@ namespace IRImageApplication
         }
 
         public double[][] RectangleImage { get => _rectangleImage; }
+
+        public Point Hotspot { get => _hotspot; }
 
         public ThermalValue Max { get => _max; }
 
