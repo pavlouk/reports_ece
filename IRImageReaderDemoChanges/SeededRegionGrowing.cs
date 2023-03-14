@@ -19,6 +19,7 @@ namespace IRImageApplication
         private double[][] _region;  // region being grown
         private int _regionSize;  // current size of the region
         private double _threshold;  // threshold for similarity
+        private Point _location;
 
         public int RegionSize { get => _regionSize; }
         public double Threshold { get; set; }
@@ -32,6 +33,7 @@ namespace IRImageApplication
                 _image = measurementAdiposeRectangle.RectangleImage;
                 _width = measurementAdiposeRectangle.Width;
                 _height = measurementAdiposeRectangle.Height;
+                _location = measurementAdiposeRectangle.Location;
                 
                 _visited = new bool[_height][];
                 _region = new double[_height][];
@@ -54,10 +56,12 @@ namespace IRImageApplication
         private void GrowFromSeed(Point seed)
         {
             // todo: translate global seed to local seed 
+            Point localSeed = new Point(seed.X - _location.X, seed.Y - _location.Y);
+
             if (_visited == null)
                 return;
 
-            if (!IsInImage(seed))
+            if (!IsInImage(localSeed))
             {
                 throw new ArgumentOutOfRangeException("Seed is outside image boundary.");
             }
@@ -66,7 +70,7 @@ namespace IRImageApplication
             _regionSize = 0;
             ClearRegion();
            
-            _region[seed.X][seed.Y] = _image[seed.X][seed.Y];
+            _region[localSeed.X][localSeed.Y] = _image[seed.X][seed.Y];
             _regionSize++;
             regionPoints.Add(seed);
 
@@ -74,10 +78,11 @@ namespace IRImageApplication
             {
                 Point p = regionPoints[0];
                 regionPoints.RemoveAt(0);
+                Point localP = new Point(p.X - _location.X, p.Y - _location.Y);
 
-                if (!_visited[p.X][p.Y])
+                if (!_visited[localP.X][localP.Y])
                 {
-                    _visited[p.X][p.Y] = true;
+                    _visited[localP.X][localP.Y] = true;
 
                     // Check neighbors
                     for (int x = -1; x <= 1; x++)
@@ -90,11 +95,12 @@ namespace IRImageApplication
                             }
 
                             Point neighbor = new Point(p.X + x, p.Y + y);
+                            Point localNeighbor = new Point(localP.X + x, localP.Y + y);
 
-                            if (IsInImage(neighbor) && IsSimilar(neighbor, p))
+                            if (IsInImage(localNeighbor) && IsSimilar(neighbor, p))
                             {
                                 // Add to region
-                                _region[neighbor.X][neighbor.Y] = _image[neighbor.X][neighbor.Y];
+                                _region[localNeighbor.X][localNeighbor.Y] = _image[neighbor.X][neighbor.Y];
                                 _regionSize++;
                                 regionPoints.Add(neighbor);
                             }
@@ -131,9 +137,9 @@ namespace IRImageApplication
 
         private void ClearRegion()
         {
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < _width; j++)
                 {
                     _region[i][j] = 0;
                     _visited[i][j] = false;
