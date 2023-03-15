@@ -34,6 +34,8 @@ namespace IRImageApplication
                 _width = measurementAdiposeRectangle.Width;
                 _height = measurementAdiposeRectangle.Height;
                 _location = measurementAdiposeRectangle.Location;
+
+                _threshold = 5.0f;
                 
                 _visited = new bool[_height][];
                 _region = new double[_height][];
@@ -55,8 +57,8 @@ namespace IRImageApplication
 
         private void GrowFromSeed(Point seed)
         {
-            // todo: translate global seed to local seed 
-            Point localSeed = new Point(seed.X - _location.X, seed.Y - _location.Y);
+            // translate global seed to local seed 
+            Point localSeed = new Point(seed.Y - _location.Y, seed.X - _location.X);
 
             if (_visited == null)
                 return;
@@ -70,19 +72,19 @@ namespace IRImageApplication
             _regionSize = 0;
             ClearRegion();
            
-            _region[localSeed.X][localSeed.Y] = _image[seed.X][seed.Y];
+            _region[localSeed.X][localSeed.Y] = _image[localSeed.X][localSeed.Y];
             _regionSize++;
-            regionPoints.Add(seed);
+            regionPoints.Add(localSeed);
 
             while (regionPoints.Count > 0)
             {
                 Point p = regionPoints[0];
                 regionPoints.RemoveAt(0);
-                Point localP = new Point(p.X - _location.X, p.Y - _location.Y);
+                //Point localP = new Point(p.X - _location.X, p.Y - _location.Y);
 
-                if (!_visited[localP.X][localP.Y])
+                if (!_visited[p.X][p.Y])
                 {
-                    _visited[localP.X][localP.Y] = true;
+                    _visited[p.X][p.Y] = true;
 
                     // Check neighbors
                     for (int x = -1; x <= 1; x++)
@@ -95,12 +97,12 @@ namespace IRImageApplication
                             }
 
                             Point neighbor = new Point(p.X + x, p.Y + y);
-                            Point localNeighbor = new Point(localP.X + x, localP.Y + y);
+                            //Point localNeighbor = new Point(localP.X + x, localP.Y + y);
 
-                            if (IsInImage(localNeighbor) && IsSimilar(neighbor, p))
+                            if (IsInImage(neighbor) && IsSimilar(neighbor, p))
                             {
                                 // Add to region
-                                _region[localNeighbor.X][localNeighbor.Y] = _image[neighbor.X][neighbor.Y];
+                                _region[neighbor.X][neighbor.Y] = _image[neighbor.X][neighbor.Y];
                                 _regionSize++;
                                 regionPoints.Add(neighbor);
                             }
@@ -127,7 +129,7 @@ namespace IRImageApplication
 
         private bool IsInImage(Point p)
         {
-            return p.X >= 0 && p.X < _width && p.Y >= 0 && p.Y < _height;
+            return p.X >= 0 && p.X < _height && p.Y >= 0 && p.Y < _width;
         }
 
         private bool IsSimilar(Point p1, Point p2)
@@ -206,9 +208,9 @@ namespace IRImageApplication
             Console.Write($"Width: {_width} Height: {_height}");
             Console.WriteLine();
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < _width; j++)
                 {
                     if (_region[i][j] > 0f)
                         Console.Write("1 ");
