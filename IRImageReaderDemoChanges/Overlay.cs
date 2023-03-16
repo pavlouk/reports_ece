@@ -146,13 +146,19 @@ namespace IRImageApplication
 
         private void DrawAdiposeArea(MeasurementRectangle adiposeRectangle, Graphics graphics)
         {
+            if (adiposeRectangle == null)
+                return;
+
+            MeasurementAdiposeRectangle measurementAdiposeRectangle = new MeasurementAdiposeRectangle(adiposeRectangle);
+            SeededRegionGrowing seededRegion = new SeededRegionGrowing(measurementAdiposeRectangle);
+
             Rectangle rect = new Rectangle(adiposeRectangle.Location.X, adiposeRectangle.Location.Y, adiposeRectangle.Width, adiposeRectangle.Height);
             graphics.DrawRectangle(_pen, rect);
 
             DrawAreaSelection(adiposeRectangle, graphics);
             //DrawAdiposeSelection(adiposeRectangle, graphics);
 
-            string str = adiposeRectangle.Min.Value.ToString("F01");
+            string str = seededRegion.RegionSize.ToString("F01");
             str += " - ";
             str += adiposeRectangle.Max.Value.ToString("F01");
             graphics.DrawString(str, _textFont, _textBrush, adiposeRectangle.Location.X + 5, adiposeRectangle.Location.Y + 5);
