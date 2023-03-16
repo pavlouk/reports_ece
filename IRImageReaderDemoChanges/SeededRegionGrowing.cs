@@ -80,7 +80,6 @@ namespace IRImageApplication
             {
                 Point p = regionPoints[0];
                 regionPoints.RemoveAt(0);
-                //Point localP = new Point(p.X - _location.X, p.Y - _location.Y);
 
                 if (!_visited[p.X][p.Y])
                 {
@@ -97,7 +96,6 @@ namespace IRImageApplication
                             }
 
                             Point neighbor = new Point(p.X + x, p.Y + y);
-                            //Point localNeighbor = new Point(localP.X + x, localP.Y + y);
 
                             if (IsInImage(neighbor) && IsSimilar(neighbor, p))
                             {
@@ -111,20 +109,17 @@ namespace IRImageApplication
                 }
             }
 
-            //// Return region
-            //List<Point> result = new List<Point>();
-            //for (int i = 0; i < _width; i++)
-            //{
-            //    for (int j = 0; j < _height; j++)
-            //    {
-            //        if (_region[i][j] != 0)
-            //        {
-            //            result.Add(new Point(i, j));
-            //        }
-            //    }
-            //}
-             
-            //return result;
+            // Return region
+            _regionSize = 0;
+            for (int i = 0; i < _height; i++)
+            {
+                for (int j = 0; j < _width; j++)
+                {
+                    if (_region[i][j] != 0)
+                        _regionSize++;                
+                }
+            }
+
         }
 
         private bool IsInImage(Point p)
@@ -186,9 +181,9 @@ namespace IRImageApplication
             Console.Write($"Width: {_width} Height: {_height}");
             Console.WriteLine();
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < _width; j++)
                 {
                     if (_visited[i][j])
                         Console.Write("1 ");

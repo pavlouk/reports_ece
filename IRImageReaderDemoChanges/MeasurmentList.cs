@@ -112,7 +112,7 @@ namespace IRImageApplication
             item.SubItems.Add(measurementAdiposeRectangle.Location.Y.ToString());
             item.SubItems.Add(measurementAdiposeRectangle.Width.ToString());
             item.SubItems.Add(measurementAdiposeRectangle.Height.ToString());
-            item.SubItems.Add((measurementAdiposeRectangle.Width * measurementAdiposeRectangle.Height).ToString());
+            item.SubItems.Add((seededRegion.RegionSize).ToString());
             item.Tag = adiposeRectangle;
 
             return item;
@@ -139,7 +139,7 @@ namespace IRImageApplication
             item.SubItems[index++].Text = measurementAdiposeRectangle.Location.Y.ToString();
             item.SubItems[index++].Text = measurementAdiposeRectangle.Width.ToString();
             item.SubItems[index++].Text = measurementAdiposeRectangle.Height.ToString();
-            item.SubItems[index++].Text = (measurementAdiposeRectangle.Width * measurementAdiposeRectangle.Height).ToString();
+            item.SubItems[index++].Text = (seededRegion.RegionSize).ToString();
             item.Tag = adiposeRectangle;
         }
 
