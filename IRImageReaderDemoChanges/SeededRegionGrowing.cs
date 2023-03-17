@@ -21,6 +21,7 @@ namespace IRImageApplication
         private double _threshold;  // threshold for similarity
         private Point _location;
         private List<Point> _adiposePoints;
+        private double _runningMean;
 
         public int RegionSize { get => _regionSize; }
         public double Threshold { get; set; }
@@ -37,7 +38,7 @@ namespace IRImageApplication
                 _height = measurementAdiposeRectangle.Height;
                 _location = measurementAdiposeRectangle.Location;
 
-                _threshold = measurementAdiposeRectangle.Average.Value;
+                _threshold = 0.1f;
                 
                 _visited = new bool[_height][];
                 _region = new double[_height][];
@@ -79,6 +80,7 @@ namespace IRImageApplication
             ClearRegion();
            
             _region[localSeed.X][localSeed.Y] = _image[localSeed.X][localSeed.Y];
+            _runningMean = _image[localSeed.X][localSeed.Y];
             _regionSize++;
             regionPoints.Add(localSeed);
 
@@ -109,6 +111,8 @@ namespace IRImageApplication
                                 _region[neighbor.X][neighbor.Y] = _image[neighbor.X][neighbor.Y];
                                 _regionSize++;
                                 regionPoints.Add(neighbor);
+                                // update seeded region mean temp
+                                _runningMean = UpdateMean(regionPoints);
                             }
                         }
                     }
@@ -130,14 +134,25 @@ namespace IRImageApplication
 
         }
 
+        private double UpdateMean(List<Point> regionPoints)
+        {
+            double runningMean = 0f;
+            foreach (Point regionPoint in regionPoints)
+            {
+                runningMean += _region[regionPoint.X][regionPoint.Y];
+            }
+            return runningMean / regionPoints.Count;
+        }
+
         private bool IsInImage(Point p)
         {
             return p.X >= 0 && p.X < _height && p.Y >= 0 && p.Y < _width;
         }
 
-        private bool IsSimilar(Point p1, Point p2)
+        private bool IsSimilar(Point neighborPoint, Point regionPoint)
         {
-            return Math.Abs(_image[p1.X][p1.Y] - _image[p2.X][p2.Y]) <= _threshold;
+            // todo neighbor point - running mean of seeded region
+            return Math.Abs(_image[neighborPoint.X][neighborPoint.Y] - _runningMean) <= _threshold;
         }
 
         private void ClearRegion()
