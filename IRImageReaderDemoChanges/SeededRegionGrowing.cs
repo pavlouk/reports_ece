@@ -20,11 +20,13 @@ namespace IRImageApplication
         private int _regionSize;  // current size of the region
         private double _threshold;  // threshold for similarity
         private Point _location;
+        private List<Point> _adiposePoints;
 
         public int RegionSize { get => _regionSize; }
         public double Threshold { get; set; }
         public double[][] Visited { get; }
         public double[][] Region { get; }
+        public List<Point> AdiposePoints { get; set; }
 
         public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
@@ -40,6 +42,9 @@ namespace IRImageApplication
                 _visited = new bool[_height][];
                 _region = new double[_height][];
 
+               _adiposePoints = new List<Point>();
+
+
                 for (int i = 0; i < _height; i++)
                 {
                     _visited[i] = new bool[_width];
@@ -52,6 +57,7 @@ namespace IRImageApplication
             {
                 _visited = null;
                 _region = null;
+                _adiposePoints = null;
             }
         }
 
@@ -108,15 +114,17 @@ namespace IRImageApplication
                     }
                 }
             }
-
-            // Return region
             _regionSize = 0;
             for (int i = 0; i < _height; i++)
             {
                 for (int j = 0; j < _width; j++)
                 {
                     if (_region[i][j] != 0)
-                        _regionSize++;                
+                    {
+                        _regionSize++;
+                        _adiposePoints.Add(new Point(i, j));
+                    }
+
                 }
             }
 

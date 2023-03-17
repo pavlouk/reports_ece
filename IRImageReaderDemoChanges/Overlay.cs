@@ -127,6 +127,68 @@ namespace IRImageApplication
             graphics.DrawLine(_pen, new Point(selection.Location.X + selection.Width, selection.Y), new Point(selection.Location.X + selection.Width, selection.Y + selection.Height));
         }
 
+        private void DrawAdiposeSelection(MeasurementAdiposeRectangle adiposeRectangle, SeededRegionGrowing seededRegion, Graphics graphics)
+        {
+            if (seededRegion.AdiposePoints == null || adiposeRectangle == null)
+                return;
+            
+            int r = 2;
+            foreach (Point spot in seededRegion.AdiposePoints)
+            {
+                //Console.Write("1 ");
+                graphics.DrawEllipse(_pen, adiposeRectangle.Location.X + spot.X - r / 2, adiposeRectangle.Location.Y + spot.Y - r / 2, r, r);
+            }
+
+
+            // Upper left
+            //Rectangle selection = PadHitArea(new Point(rectangle.Location.X, rectangle.Location.Y));
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.X + selection.Width, selection.Y));
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.X, selection.Y + selection.Height));
+
+            // Upper mid
+            //selection = PadHitArea(new Point(rectangle.Location.X + rectangle.Width / 2, rectangle.Location.Y));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.X + selection.Width, selection.Y));
+            //graphics.DrawLine(_pen, new Point(selection.Location.X, selection.Y + selection.Height), new Point(selection.X + selection.Width, selection.Y + selection.Height));
+
+            // Upper right
+            //selection = PadHitArea(new Point(rectangle.Location.X + rectangle.Width, rectangle.Location.Y));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.X + selection.Width, selection.Y));
+            //graphics.DrawLine(_pen, new Point(selection.X + selection.Width, selection.Y), new Point(selection.X + selection.Width, selection.Y + selection.Height));
+
+
+            // Right mid
+            //selection = PadHitArea(new Point(rectangle.Location.X + rectangle.Width, rectangle.Location.Y + rectangle.Height / 2));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.X, selection.Y + selection.Height));
+            //graphics.DrawLine(_pen, new Point(selection.X + selection.Width, selection.Y), new Point(selection.X + selection.Width, selection.Y + selection.Height));
+
+            // Bottom right
+            //selection = PadHitArea(new Point(rectangle.Location.X + rectangle.Width, rectangle.Location.Y + rectangle.Height));
+
+            //graphics.DrawLine(_pen, new Point(selection.Location.X + selection.Width, selection.Location.Y), new Point(selection.Location.X + selection.Width, selection.Y + selection.Height));
+            //graphics.DrawLine(_pen, new Point(selection.Location.X + selection.Width, selection.Y + selection.Height), new Point(selection.X, selection.Y + selection.Height));
+
+            // Bottom mid
+            //selection = PadHitArea(new Point(rectangle.Location.X + rectangle.Width / 2, rectangle.Location.Y + rectangle.Height));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.Location.X + selection.Width, selection.Y));
+            //graphics.DrawLine(_pen, new Point(selection.Location.X, selection.Y + selection.Height), new Point(selection.Location.X + selection.Width, selection.Y + selection.Height));
+
+            // Lower left
+            //selection = PadHitArea(new Point(rectangle.Location.X, rectangle.Location.Y + rectangle.Height));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.Location.X, selection.Y + selection.Height));
+            //graphics.DrawLine(_pen, new Point(selection.Location.X, selection.Y + selection.Height), new Point(selection.Location.X + selection.Width, selection.Y + selection.Height));
+
+            // Left mid
+            //selection = PadHitArea(new Point(rectangle.Location.X, rectangle.Location.Y + rectangle.Height / 2));
+
+            //graphics.DrawLine(_pen, selection.Location, new Point(selection.Location.X, selection.Y + selection.Height));
+            //graphics.DrawLine(_pen, new Point(selection.Location.X + selection.Width, selection.Y), new Point(selection.Location.X + selection.Width, selection.Y + selection.Height));
+        }
+
         private void DrawArea(MeasurementRectangle rectangle, Graphics graphics)
         {
             Rectangle rect = new Rectangle(rectangle.Location.X, rectangle.Location.Y, rectangle.Width, rectangle.Height);
@@ -156,9 +218,9 @@ namespace IRImageApplication
             graphics.DrawRectangle(_pen, rect);
 
             DrawAreaSelection(adiposeRectangle, graphics);
-            //DrawAdiposeSelection(adiposeRectangle, graphics);
+            DrawAdiposeSelection(measurementAdiposeRectangle, seededRegion, graphics);
 
-            string str = seededRegion.RegionSize.ToString("F01");
+            string str = adiposeRectangle.Min.Value.ToString("F01");
             str += " - ";
             str += adiposeRectangle.Max.Value.ToString("F01");
             graphics.DrawString(str, _textFont, _textBrush, adiposeRectangle.Location.X + 5, adiposeRectangle.Location.Y + 5);
