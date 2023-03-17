@@ -26,7 +26,7 @@ namespace IRImageApplication
         public double Threshold { get; set; }
         public double[][] Visited { get; }
         public double[][] Region { get; }
-        public List<Point> AdiposePoints { get; set; }
+        public List<Point> AdiposePoints { get => _adiposePoints; }
 
         public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
@@ -37,7 +37,7 @@ namespace IRImageApplication
                 _height = measurementAdiposeRectangle.Height;
                 _location = measurementAdiposeRectangle.Location;
 
-                _threshold = 5.0f;
+                _threshold = measurementAdiposeRectangle.Average.Value;
                 
                 _visited = new bool[_height][];
                 _region = new double[_height][];
