@@ -135,10 +135,10 @@ namespace IRImageApplication
                 return;
             }
             
-            int r = 1;
+            int r = 2;
             foreach (Point spot in seededRegion.AdiposePoints)
             {
-                graphics.DrawEllipse(_pen, adiposeRectangle.Location.Y + spot.Y, adiposeRectangle.Location.X + spot.X, r, r);
+                graphics.DrawEllipse(_pen, spot.Y, spot.X, r, r);
             }
 
         }

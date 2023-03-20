@@ -131,7 +131,7 @@ namespace IRImageApplication
                     if (_region[i][j] != 0)
                     {
                         _regionSize++;
-                        _adiposePoints.Add(new Point(i, j));
+                        _adiposePoints.Add(new Point(i + _location.Y, j + _location.X));
                         _regionMean += _region[i][j];
                     }
 
