@@ -1804,5 +1804,9 @@ namespace IRImageApplication
             pictureBox1.Image = Image();
         }
 
+        private void listViewMeasurements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

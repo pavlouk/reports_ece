@@ -135,10 +135,10 @@ namespace IRImageApplication
                 return;
             }
             
-            int r = 2;
+            int r = 1;
             foreach (Point spot in seededRegion.AdiposePoints)
             {
-                graphics.DrawEllipse(_pen, adiposeRectangle.Location.Y + spot.Y - r / 2, adiposeRectangle.Location.X + spot.X - r / 2, r, r);
+                graphics.DrawEllipse(_pen, adiposeRectangle.Location.Y + spot.Y, adiposeRectangle.Location.X + spot.X, r, r);
             }
 
         }
@@ -210,9 +210,9 @@ namespace IRImageApplication
         private void DrawHotSpot(Graphics graphics, Point point)
         {
             Point point1 = point;
-            point1.Offset(-6, 6);
+            point1.Offset(-3, 3);
             Point point2 = point;
-            point2.Offset(6, 6);
+            point2.Offset(3, 3);
             Point[] points = new Point[] { point, point1, point2 };
             graphics.FillPolygon(Brushes.Red, points);
             graphics.DrawPolygon(Pens.Black, points);

@@ -22,12 +22,14 @@ namespace IRImageApplication
         private Point _location;
         private List<Point> _adiposePoints;
         private double _runningMean;
+        private double _regionMean;
 
         public int RegionSize { get => _regionSize; }
         public double Threshold { get; set; }
         public double[][] Visited { get; }
         public double[][] Region { get; }
         public List<Point> AdiposePoints { get => _adiposePoints; }
+        public double RegionMean { get => _regionMean; }
 
         public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
@@ -59,6 +61,7 @@ namespace IRImageApplication
                 _visited = null;
                 _region = null;
                 _adiposePoints = null;
+                _regionMean = 0.0;
             }
         }
 
@@ -119,6 +122,8 @@ namespace IRImageApplication
                 }
             }
             _regionSize = 0;
+            _regionMean = _region[0][0];
+
             for (int i = 0; i < _height; i++)
             {
                 for (int j = 0; j < _width; j++)
@@ -127,11 +132,12 @@ namespace IRImageApplication
                     {
                         _regionSize++;
                         _adiposePoints.Add(new Point(i, j));
+                        _regionMean += _region[i][j];
                     }
 
                 }
             }
-
+            _regionMean = _regionMean / (double)_regionSize;
         }
 
         private double UpdateMean(List<Point> regionPoints)

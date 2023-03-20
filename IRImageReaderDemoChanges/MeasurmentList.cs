@@ -42,6 +42,8 @@ namespace IRImageApplication
             item.SubItems.Add("---");
             item.SubItems.Add("---");
             item.SubItems.Add("---");
+            item.SubItems.Add("---");
+
             item.Tag = spot;
 
             return item;
@@ -72,6 +74,8 @@ namespace IRImageApplication
             item.SubItems.Add(rectangle.Width.ToString());
             item.SubItems.Add(rectangle.Height.ToString());
             item.SubItems.Add((rectangle.Width * rectangle.Height).ToString());
+            item.SubItems.Add((rectangle.Width * rectangle.Height).ToString());
+
             item.Tag = rectangle;
 
             return item;
@@ -113,6 +117,8 @@ namespace IRImageApplication
             item.SubItems.Add(measurementAdiposeRectangle.Width.ToString());
             item.SubItems.Add(measurementAdiposeRectangle.Height.ToString());
             item.SubItems.Add((seededRegion.RegionSize).ToString());
+            item.SubItems.Add((seededRegion.RegionSize).ToString("0.##"));
+
             item.Tag = adiposeRectangle;
 
             return item;
@@ -128,7 +134,6 @@ namespace IRImageApplication
             //measurementAdiposeRectangle.PrintImageValues();
             seededRegion.PrintRegion();
 
-
             item.Text = measurementAdiposeRectangle.Name;
             int index = 1;
             item.SubItems[index++].Text = "---";
@@ -140,6 +145,8 @@ namespace IRImageApplication
             item.SubItems[index++].Text = measurementAdiposeRectangle.Width.ToString();
             item.SubItems[index++].Text = measurementAdiposeRectangle.Height.ToString();
             item.SubItems[index++].Text = (seededRegion.RegionSize).ToString();
+            item.SubItems[index++].Text = (seededRegion.RegionMean).ToString("0.##");
+
             item.Tag = adiposeRectangle;
         }
 
@@ -157,6 +164,8 @@ namespace IRImageApplication
             item.SubItems.Add(System.Math.Abs(line.End.X - line.Start.X).ToString());
             item.SubItems.Add(System.Math.Abs(line.End.Y - line.Start.Y).ToString());
             item.SubItems.Add("---");
+            item.SubItems.Add("---");
+
             item.Tag = line;
 
             return item;
@@ -177,6 +186,8 @@ namespace IRImageApplication
             item.SubItems[index++].Text = System.Math.Abs(line.End.X - line.Start.X).ToString();
             item.SubItems[index++].Text = System.Math.Abs(line.End.Y - line.Start.Y).ToString();
             item.SubItems[index++].Text = "---";
+            item.SubItems[index++].Text = "---";
+
             item.Tag = line;
         }
 

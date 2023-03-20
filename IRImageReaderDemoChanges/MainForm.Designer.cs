@@ -53,6 +53,7 @@
             this.toolStripButtonSelect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSpot = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonArea = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLine = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -65,7 +66,6 @@
             this.toolStripComboBoxColorDist = new System.Windows.Forms.ToolStripComboBox();
             this.isoThermToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.isoThermToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -109,6 +109,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rangeSliderControl1 = new IRImageApplication.RangeSliderControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
@@ -209,7 +210,7 @@
             this.pictureBoxScale.Location = new System.Drawing.Point(751, 148);
             this.pictureBoxScale.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxScale.Name = "pictureBoxScale";
-            this.pictureBoxScale.Size = new System.Drawing.Size(30, 317);
+            this.pictureBoxScale.Size = new System.Drawing.Size(30, 277);
             this.pictureBoxScale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxScale.TabIndex = 4;
             this.pictureBoxScale.TabStop = false;
@@ -231,7 +232,7 @@
             // 
             this.labelMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMin.AutoSize = true;
-            this.labelMin.Location = new System.Drawing.Point(743, 475);
+            this.labelMin.Location = new System.Drawing.Point(743, 435);
             this.labelMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMin.Name = "labelMin";
             this.labelMin.Size = new System.Drawing.Size(43, 13);
@@ -242,7 +243,7 @@
             // autoAdjustButton
             // 
             this.autoAdjustButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.autoAdjustButton.Location = new System.Drawing.Point(743, 573);
+            this.autoAdjustButton.Location = new System.Drawing.Point(743, 533);
             this.autoAdjustButton.Name = "autoAdjustButton";
             this.autoAdjustButton.Size = new System.Drawing.Size(38, 30);
             this.autoAdjustButton.TabIndex = 8;
@@ -325,6 +326,17 @@
             this.toolStripButtonArea.Text = "Area Tool";
             this.toolStripButtonArea.Click += new System.EventHandler(this.toolStripButtonArea_Click);
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.CheckOnClick = true;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton2.Text = "Adipose Area Tool";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
             // toolStripButtonLine
             // 
             this.toolStripButtonLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -360,6 +372,7 @@
             // paletteToolStripComboBox
             // 
             this.paletteToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.paletteToolStripComboBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.paletteToolStripComboBox.Name = "paletteToolStripComboBox";
             this.paletteToolStripComboBox.Size = new System.Drawing.Size(121, 31);
             this.paletteToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.paletteToolStripComboBox_SelectedIndexChanged);
@@ -395,6 +408,7 @@
             this.toolStripComboBoxColorDist.AutoSize = false;
             this.toolStripComboBoxColorDist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBoxColorDist.DropDownWidth = 140;
+            this.toolStripComboBoxColorDist.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripComboBoxColorDist.Name = "toolStripComboBoxColorDist";
             this.toolStripComboBoxColorDist.Size = new System.Drawing.Size(121, 23);
             // 
@@ -411,20 +425,10 @@
             // isoThermToolStripComboBox
             // 
             this.isoThermToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.isoThermToolStripComboBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.isoThermToolStripComboBox.Name = "isoThermToolStripComboBox";
             this.isoThermToolStripComboBox.Size = new System.Drawing.Size(121, 31);
             this.isoThermToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.isoThermToolStripComboBox_SelectedIndexChanged);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton2.Text = "New Area Tool";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // tabControl1
             // 
@@ -436,7 +440,7 @@
             this.tabControl1.Location = new System.Drawing.Point(802, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(328, 677);
+            this.tabControl1.Size = new System.Drawing.Size(328, 637);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage4
@@ -458,7 +462,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(320, 651);
+            this.tabPage4.Size = new System.Drawing.Size(320, 611);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Object Parameters";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -817,10 +821,11 @@
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8,
-            this.columnHeader12});
+            this.columnHeader12,
+            this.columnHeader13});
             this.listViewMeasurements.FullRowSelect = true;
             this.listViewMeasurements.HideSelection = false;
-            this.listViewMeasurements.Location = new System.Drawing.Point(12, 609);
+            this.listViewMeasurements.Location = new System.Drawing.Point(12, 569);
             this.listViewMeasurements.MultiSelect = false;
             this.listViewMeasurements.Name = "listViewMeasurements";
             this.listViewMeasurements.Size = new System.Drawing.Size(762, 123);
@@ -871,12 +876,16 @@
             // 
             this.columnHeader12.Text = "Pixel Area";
             // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Area Average";
+            // 
             // rangeSliderControl1
             // 
             this.rangeSliderControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rangeSliderControl1.BackColor = System.Drawing.Color.Transparent;
-            this.rangeSliderControl1.Location = new System.Drawing.Point(12, 573);
+            this.rangeSliderControl1.Location = new System.Drawing.Point(12, 533);
             this.rangeSliderControl1.Name = "rangeSliderControl1";
             this.rangeSliderControl1.Size = new System.Drawing.Size(726, 30);
             this.rangeSliderControl1.TabIndex = 7;
@@ -886,7 +895,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 741);
+            this.ClientSize = new System.Drawing.Size(1130, 701);
             this.Controls.Add(this.listViewMeasurements);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.autoAdjustButton);
@@ -1005,6 +1014,7 @@
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
     }
 }
 
