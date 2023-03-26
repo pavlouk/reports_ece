@@ -79,8 +79,8 @@ namespace IRImageApplication
             toolStripComboBoxColorDist.Items.Add(ColorDistribution.GuidedFilterDDE.ToString());
             SelectColorDistributionMode();
             toolStripComboBoxColorDist.SelectedIndexChanged += toolStripComboBoxColorDist_SelectedIndexChanged;
-
-
+            seededRegionGrowing = new SeededRegionGrowing(null);
+            seededRegionGrowing.SetThreshold(0.1);
 
         }
 
@@ -225,8 +225,6 @@ namespace IRImageApplication
             _image.Measurements.Added -= MeasurementCollection_Added;
             _image.Measurements.Changed -= MeasurementCollection_Changed;
             _image.Measurements.Removed -= MeasurementCollection_Removed;
-
-
         }
 
         private void DisplayErrorMessage(string message, Exception ex)
@@ -1541,6 +1539,22 @@ namespace IRImageApplication
             }
         }
 
+        private void numericUpDownThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Console.Write($"{seededRegionGrowing.Threshold}");
+                Console.WriteLine();
+                _image.ThermalParameters.Distance = (double)numericUpDownDistance.Value;
+                seededRegionGrowing.SetThreshold((double)numericUpDownThreshold.Value);
+                Update();
+            }
+            catch (System.Exception)
+            {
+
+            }
+        }
+
         private void numericUpDownAtmTemp_ValueChanged(object sender, EventArgs e)
         {
             try
@@ -1808,5 +1822,6 @@ namespace IRImageApplication
         {
 
         }
+
     }
 }

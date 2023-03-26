@@ -18,21 +18,28 @@ namespace IRImageApplication
         private bool[][] _visited;  // flag for visited pixels
         private double[][] _region;  // region being grown
         private int _regionSize;  // current size of the region
-        private double _threshold;  // threshold for similarity
+        private static double _threshold;  // threshold for similarity
         private Point _location;
         private List<Point> _adiposePoints;
         private double _runningMean;
         private double _regionMean;
 
         public int RegionSize { get => _regionSize; }
-        public double Threshold { get; set; }
-        public double[][] Visited { get; }
-        public double[][] Region { get; }
         public List<Point> AdiposePoints { get => _adiposePoints; }
         public double RegionMean { get => _regionMean; }
 
+        public void SetThreshold(double threshold)
+        {
+            _threshold = threshold;
+        }
+
+        public double Threshold { get => _threshold; }
+
         public SeededRegionGrowing(MeasurementAdiposeRectangle measurementAdiposeRectangle)
         {
+            if (measurementAdiposeRectangle == null)
+                return;
+
             if (measurementAdiposeRectangle.RectangleImage != null && measurementAdiposeRectangle.Width > 1 && measurementAdiposeRectangle.Height > 1)
             {
                 _image = measurementAdiposeRectangle.RectangleImage;
@@ -40,7 +47,7 @@ namespace IRImageApplication
                 _height = measurementAdiposeRectangle.Height;
                 _location = measurementAdiposeRectangle.Location;
 
-                _threshold = 0.1f;
+                //_threshold = 0.1f;
                 
                 _visited = new bool[_height][];
                 _region = new double[_height][];
@@ -53,7 +60,7 @@ namespace IRImageApplication
                     _visited[i] = new bool[_width];
                     _region[i] = new double[_width];
                 }
-
+                Console.WriteLine("Im run");
                 GrowFromSeed(measurementAdiposeRectangle.Hotspot);
             } 
             else
