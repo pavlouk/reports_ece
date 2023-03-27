@@ -53,7 +53,6 @@
             this.toolStripButtonSelect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSpot = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonArea = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLine = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -68,6 +67,9 @@
             this.isoThermToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownThreshold = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.labelAtmTemp = new System.Windows.Forms.Label();
             this.labelDist = new System.Windows.Forms.Label();
@@ -112,15 +114,13 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rangeSliderControl1 = new IRImageApplication.RangeSliderControl();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownThreshold = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScale)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRelHum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAtmTemp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDistance)).BeginInit();
@@ -131,7 +131,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -208,11 +207,9 @@
             // 
             // pictureBoxScale
             // 
-            this.pictureBoxScale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxScale.BackColor = System.Drawing.Color.White;
             this.pictureBoxScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxScale.Location = new System.Drawing.Point(751, 148);
+            this.pictureBoxScale.Location = new System.Drawing.Point(741, 149);
             this.pictureBoxScale.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxScale.Name = "pictureBoxScale";
             this.pictureBoxScale.Size = new System.Drawing.Size(30, 316);
@@ -222,10 +219,8 @@
             // 
             // labelMax
             // 
-            this.labelMax.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMax.AutoSize = true;
-            this.labelMax.Location = new System.Drawing.Point(743, 123);
+            this.labelMax.Location = new System.Drawing.Point(738, 127);
             this.labelMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMax.Name = "labelMax";
             this.labelMax.Size = new System.Drawing.Size(43, 13);
@@ -235,9 +230,8 @@
             // 
             // labelMin
             // 
-            this.labelMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMin.AutoSize = true;
-            this.labelMin.Location = new System.Drawing.Point(743, 474);
+            this.labelMin.Location = new System.Drawing.Point(738, 465);
             this.labelMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMin.Name = "labelMin";
             this.labelMin.Size = new System.Drawing.Size(43, 13);
@@ -247,8 +241,7 @@
             // 
             // autoAdjustButton
             // 
-            this.autoAdjustButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.autoAdjustButton.Location = new System.Drawing.Point(743, 572);
+            this.autoAdjustButton.Location = new System.Drawing.Point(681, 572);
             this.autoAdjustButton.Name = "autoAdjustButton";
             this.autoAdjustButton.Size = new System.Drawing.Size(38, 30);
             this.autoAdjustButton.TabIndex = 8;
@@ -265,7 +258,6 @@
             this.toolStripButtonSelect,
             this.toolStripButtonSpot,
             this.toolStripButtonArea,
-            this.toolStripButton2,
             this.toolStripButtonLine,
             this.toolStripButton1,
             this.toolStripSeparator1,
@@ -329,18 +321,8 @@
             this.toolStripButtonArea.Name = "toolStripButtonArea";
             this.toolStripButtonArea.Size = new System.Drawing.Size(28, 28);
             this.toolStripButtonArea.Text = "Area Tool";
+            this.toolStripButtonArea.ToolTipText = "Adipose Area Tool";
             this.toolStripButtonArea.Click += new System.EventHandler(this.toolStripButtonArea_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.CheckOnClick = true;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton2.Text = "Adipose Area Tool";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButtonLine
             // 
@@ -434,16 +416,17 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(802, 52);
+            this.tabControl1.Location = new System.Drawing.Point(780, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(328, 676);
+            this.tabControl1.Size = new System.Drawing.Size(350, 686);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage4
@@ -468,10 +451,47 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(320, 650);
+            this.tabPage4.Size = new System.Drawing.Size(342, 660);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Object Parameters";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(184, 190);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(18, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "℃";
+            // 
+            // numericUpDownThreshold
+            // 
+            this.numericUpDownThreshold.DecimalPlaces = 2;
+            this.numericUpDownThreshold.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownThreshold.Location = new System.Drawing.Point(74, 188);
+            this.numericUpDownThreshold.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownThreshold.Name = "numericUpDownThreshold";
+            this.numericUpDownThreshold.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownThreshold.TabIndex = 15;
+            this.numericUpDownThreshold.ValueChanged += new System.EventHandler(this.numericUpDownThreshold_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 195);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Threshold";
             // 
             // label6
             // 
@@ -649,7 +669,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(320, 650);
+            this.tabPage2.Size = new System.Drawing.Size(342, 660);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Volume Estimation";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -660,19 +680,18 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(320, 650);
+            this.tabPage1.Size = new System.Drawing.Size(342, 660);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.LineColor = System.Drawing.SystemColors.ControlDark;
-            this.propertyGrid1.Location = new System.Drawing.Point(3, 6);
+            this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(310, 681);
+            this.propertyGrid1.Size = new System.Drawing.Size(336, 654);
             this.propertyGrid1.TabIndex = 4;
             // 
             // tabPage5
@@ -687,7 +706,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(320, 650);
+            this.tabPage5.Size = new System.Drawing.Size(342, 660);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Isotherms";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -825,8 +844,6 @@
             // 
             // listViewMeasurements
             // 
-            this.listViewMeasurements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewMeasurements.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -844,7 +861,7 @@
             this.listViewMeasurements.Location = new System.Drawing.Point(12, 608);
             this.listViewMeasurements.MultiSelect = false;
             this.listViewMeasurements.Name = "listViewMeasurements";
-            this.listViewMeasurements.Size = new System.Drawing.Size(762, 123);
+            this.listViewMeasurements.Size = new System.Drawing.Size(762, 126);
             this.listViewMeasurements.TabIndex = 10;
             this.listViewMeasurements.UseCompatibleStateImageBehavior = false;
             this.listViewMeasurements.View = System.Windows.Forms.View.Details;
@@ -898,51 +915,12 @@
             // 
             // rangeSliderControl1
             // 
-            this.rangeSliderControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.rangeSliderControl1.BackColor = System.Drawing.Color.Transparent;
-            this.rangeSliderControl1.Location = new System.Drawing.Point(12, 572);
+            this.rangeSliderControl1.Location = new System.Drawing.Point(54, 572);
             this.rangeSliderControl1.Name = "rangeSliderControl1";
-            this.rangeSliderControl1.Size = new System.Drawing.Size(726, 30);
+            this.rangeSliderControl1.Size = new System.Drawing.Size(621, 30);
             this.rangeSliderControl1.TabIndex = 7;
             this.rangeSliderControl1.Text = "rangeSliderControl1";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 195);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Threshold";
-            // 
-            // numericUpDownThreshold
-            // 
-            this.numericUpDownThreshold.DecimalPlaces = 2;
-            this.numericUpDownThreshold.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownThreshold.Location = new System.Drawing.Point(74, 188);
-            this.numericUpDownThreshold.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDownThreshold.Name = "numericUpDownThreshold";
-            this.numericUpDownThreshold.Size = new System.Drawing.Size(104, 20);
-            this.numericUpDownThreshold.TabIndex = 15;
-            this.numericUpDownThreshold.ValueChanged += new System.EventHandler(this.numericUpDownThreshold_ValueChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(184, 190);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "℃";
             // 
             // MainForm
             // 
@@ -973,6 +951,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRelHum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAtmTemp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDistance)).EndInit();
@@ -984,7 +963,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownThreshold)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1068,7 +1046,6 @@
         private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.TabPage tabPage2;
         private SeededRegionGrowing seededRegionGrowing;
         private System.Windows.Forms.Label label8;

@@ -376,16 +376,16 @@ namespace IRImageApplication
             _delete = false;
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            _currentTool = MeasurmentTool.AdiposeArea;
-            toolStripButtonSpot.Checked = false;
-            toolStripButtonLine.Checked = false;
-            toolStripButton2.Checked = true;
-            toolStripButtonSelect.Checked = false;
-            _adding = true;
-            _delete = false;
-        }
+        //private void toolStripButton2_Click(object sender, EventArgs e)
+        //{
+        //    _currentTool = MeasurmentTool.AdiposeArea;
+        //    toolStripButtonSpot.Checked = false;
+        //    toolStripButtonLine.Checked = false;
+        //    toolStripButton2.Checked = true;
+        //    toolStripButtonSelect.Checked = false;
+        //    _adding = true;
+        //    _delete = false;
+        //}
 
         private void toolStripButtonSpot_Click(object sender, EventArgs e)
         {
@@ -1229,7 +1229,7 @@ namespace IRImageApplication
                 toolStripButtonLine.Checked = false;
                 toolStripButtonSpot.Checked = false;
                 toolStripButton1.Checked = false;
-                toolStripButton2.Checked = false;
+                //toolStripButton2.Checked = false;
 
                 switch (_currentTool)
                 {
