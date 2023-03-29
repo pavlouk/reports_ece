@@ -87,6 +87,7 @@ namespace IRImageApplication
             dataGridView1.Rows.Add("Face 3", null, null, 1);
             dataGridView1.Rows.Add("Face 4", null, null, 1);
             dataGridView1.Rows.Add("Total", null, null, null);
+
             dataGridView1.Rows[4].Cells[0].ReadOnly = true;
             dataGridView1.Rows[4].Cells[1].ReadOnly = true;
             dataGridView1.Rows[4].Cells[2].ReadOnly = true;
@@ -97,6 +98,33 @@ namespace IRImageApplication
             {
                 dataGridView1.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            double areaTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[0].Value != null)
+                    areaTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
+            }
+            dataGridView1.Rows[4].Cells[1].Value = areaTotal.ToString();
+
+            double tempTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[0].Value != null)
+                    tempTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
+            }
+            dataGridView1.Rows[4].Cells[2].Value = tempTotal.ToString();
+
+            double weightTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[0].Value != null)
+                    weightTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
+            }
+            dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
         }
 
         private void SelectColorDistributionMode()
