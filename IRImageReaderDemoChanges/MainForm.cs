@@ -82,6 +82,21 @@ namespace IRImageApplication
             seededRegionGrowing = new SeededRegionGrowing(null);
             seededRegionGrowing.SetThreshold(0.1);
 
+            dataGridView1.Rows.Add("Face 1", null, null, 1);
+            dataGridView1.Rows.Add("Face 2", null, null, 1);
+            dataGridView1.Rows.Add("Face 3", null, null, 1);
+            dataGridView1.Rows.Add("Face 4", null, null, 1);
+            dataGridView1.Rows.Add("Total", null, null, null);
+            dataGridView1.Rows[4].Cells[0].ReadOnly = true;
+            dataGridView1.Rows[4].Cells[1].ReadOnly = true;
+            dataGridView1.Rows[4].Cells[2].ReadOnly = true;
+            dataGridView1.Rows[4].Cells[3].ReadOnly = true;
+
+            dataGridView1.AllowUserToAddRows = false;
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                dataGridView1.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void SelectColorDistributionMode()
