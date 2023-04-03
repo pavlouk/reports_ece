@@ -438,7 +438,7 @@
             this.tabControl1.Location = new System.Drawing.Point(780, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(350, 686);
+            this.tabControl1.Size = new System.Drawing.Size(350, 647);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage4
@@ -463,7 +463,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(342, 660);
+            this.tabPage4.Size = new System.Drawing.Size(342, 621);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Object Parameters";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -696,7 +696,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(342, 660);
+            this.tabPage2.Size = new System.Drawing.Size(342, 621);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Volume Estimation";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -734,6 +734,7 @@
             0,
             0,
             0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label11
             // 
@@ -791,7 +792,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(342, 660);
+            this.tabPage1.Size = new System.Drawing.Size(342, 621);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -802,7 +803,7 @@
             this.propertyGrid1.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(336, 654);
+            this.propertyGrid1.Size = new System.Drawing.Size(336, 615);
             this.propertyGrid1.TabIndex = 4;
             // 
             // tabPage5
@@ -817,7 +818,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(342, 660);
+            this.tabPage5.Size = new System.Drawing.Size(342, 621);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Isotherms";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1037,7 +1038,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 740);
+            this.ClientSize = new System.Drawing.Size(1130, 701);
             this.Controls.Add(this.listViewMeasurements);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.autoAdjustButton);

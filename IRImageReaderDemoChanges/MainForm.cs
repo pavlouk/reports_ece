@@ -102,21 +102,20 @@ namespace IRImageApplication
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            Console.WriteLine("dataGridView1_CellContentClick ");
+
             double areaTotal = 0.0f;
             for (int i = 0; i < dataGridView1.RowCount - 1; i++)
             {
                 if (dataGridView1.Rows[i].Cells[1].Value != null)
-                    areaTotal += double.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
+                    areaTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
             }
-            dataGridView1.Rows[4].Cells[1].Value = areaTotal.ToString();
-            Console.WriteLine(areaTotal.ToString());
             double tempTotal = 0.0f;
             for (int i = 0; i < dataGridView1.RowCount - 1; i++)
             {
                 if (dataGridView1.Rows[i].Cells[2].Value != null)
-                    tempTotal += double.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
+                    tempTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
             }
-            dataGridView1.Rows[4].Cells[2].Value = tempTotal.ToString();
 
             double weightTotal = 0.0f;
             for (int i = 0; i < dataGridView1.RowCount - 1; i++)
@@ -124,36 +123,108 @@ namespace IRImageApplication
                 if (dataGridView1.Rows[i].Cells[3].Value != null)
                     weightTotal += double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
             }
+            Console.WriteLine("area total is ");
+
+            Console.WriteLine(areaTotal.ToString());
+
+            Console.WriteLine("weight total is ");
+
+            Console.WriteLine(weightTotal.ToString());
+
+            Console.WriteLine("area  / weight total is ");
+
+            Console.WriteLine((areaTotal / weightTotal).ToString());
+
+            dataGridView1.Rows[4].Cells[1].Value = (areaTotal / weightTotal).ToString();
+            dataGridView1.Rows[4].Cells[2].Value = (tempTotal / weightTotal).ToString();
             dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            //double areaTotal = 0.0f;
-            //for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            //{
-            //    if (dataGridView1.Rows[i].Cells[0].Value != null)
-            //        areaTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-            //}
-            //dataGridView1.Rows[4].Cells[1].Value = areaTotal.ToString();
-            //Console.WriteLine(areaTotal.ToString());
-            //double tempTotal = 0.0f;
-            //for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            //{
-            //    if (dataGridView1.Rows[i].Cells[0].Value != null)
-            //        tempTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-            //}
-            //dataGridView1.Rows[4].Cells[2].Value = tempTotal.ToString();
+            Console.WriteLine("dataGridView1_CellValueChanged ");
 
-            //double weightTotal = 0.0f;
-            //for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            //{
-            //    if (dataGridView1.Rows[i].Cells[0].Value != null)
-            //        weightTotal += double.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-            //}
-            //dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
+            double areaTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[1].Value != null)
+                    areaTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
+            }
+            double tempTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[2].Value != null)
+                    tempTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
+            }
+
+            double weightTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[3].Value != null)
+                    weightTotal += double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
+            }
+            Console.WriteLine("area total is ");
+
+            Console.WriteLine(areaTotal.ToString());
+
+            Console.WriteLine("weight total is ");
+
+            Console.WriteLine(weightTotal.ToString());
+
+            Console.WriteLine("area  / weight total is ");
+
+            Console.WriteLine((areaTotal / weightTotal).ToString());
+
+            dataGridView1.Rows[4].Cells[1].Value = (areaTotal / weightTotal).ToString();
+            dataGridView1.Rows[4].Cells[2].Value = (tempTotal / weightTotal).ToString();
+            dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
         }
 
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("dataGridView1_MouseDoubleClick ");
+
+            double areaTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[1].Value != null)
+                    areaTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
+            }
+            double tempTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[2].Value != null)
+                    tempTotal += double.Parse((double.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString()) * double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString())).ToString());
+            }
+
+            double weightTotal = 0.0f;
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[3].Value != null)
+                    weightTotal += double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
+            }
+            Console.WriteLine("area total is ");
+
+            Console.WriteLine(areaTotal.ToString());
+
+            Console.WriteLine("weight total is ");
+
+            Console.WriteLine(weightTotal.ToString());
+
+            Console.WriteLine("area  / weight total is ");
+
+            Console.WriteLine((areaTotal / weightTotal).ToString());
+
+            dataGridView1.Rows[4].Cells[1].Value = (areaTotal / weightTotal).ToString();
+            dataGridView1.Rows[4].Cells[2].Value = (tempTotal / weightTotal).ToString();
+            dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
+        }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            double averageArea = double.Parse(dataGridView1.Rows[4].Cells[1].Value.ToString());
+            double estimatedVolume = averageArea * (double)numericUpDown1.Value;
+            label13.Text = estimatedVolume.ToString();
+        }
         private void SelectColorDistributionMode()
         {
             switch (_image.ColorDistribution)
@@ -1893,31 +1964,5 @@ namespace IRImageApplication
 
         }
 
-        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            double areaTotal = 0.0f;
-            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            {
-                if (dataGridView1.Rows[i].Cells[1].Value != null)
-                    areaTotal += double.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
-            }
-            dataGridView1.Rows[4].Cells[1].Value = areaTotal.ToString();
-            Console.WriteLine(areaTotal.ToString());
-            double tempTotal = 0.0f;
-            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            {
-                if (dataGridView1.Rows[i].Cells[2].Value != null)
-                    tempTotal += double.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
-            }
-            dataGridView1.Rows[4].Cells[2].Value = tempTotal.ToString();
-
-            double weightTotal = 0.0f;
-            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
-            {
-                if (dataGridView1.Rows[i].Cells[3].Value != null)
-                    weightTotal += double.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
-            }
-            dataGridView1.Rows[4].Cells[3].Value = weightTotal.ToString();
-        }
     }
 }
