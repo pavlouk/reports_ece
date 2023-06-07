@@ -149,9 +149,10 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 65);
+            this.pictureBox1.Location = new System.Drawing.Point(18, 100);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(726, 502);
+            this.pictureBox1.Size = new System.Drawing.Size(1088, 771);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -169,7 +170,8 @@
             this.rotateToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1130, 24);
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1695, 25);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -181,7 +183,7 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 19);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
@@ -213,7 +215,7 @@
             // rotateToolStripMenuItem
             // 
             this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
-            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(53, 19);
             this.rotateToolStripMenuItem.Text = "Rotate";
             this.rotateToolStripMenuItem.Click += new System.EventHandler(this.rotateToolStripMenuItem_Click);
             // 
@@ -221,10 +223,10 @@
             // 
             this.pictureBoxScale.BackColor = System.Drawing.Color.White;
             this.pictureBoxScale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxScale.Location = new System.Drawing.Point(741, 149);
+            this.pictureBoxScale.Location = new System.Drawing.Point(1112, 229);
             this.pictureBoxScale.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBoxScale.Name = "pictureBoxScale";
-            this.pictureBoxScale.Size = new System.Drawing.Size(30, 316);
+            this.pictureBoxScale.Size = new System.Drawing.Size(44, 485);
             this.pictureBoxScale.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxScale.TabIndex = 4;
             this.pictureBoxScale.TabStop = false;
@@ -232,10 +234,9 @@
             // labelMax
             // 
             this.labelMax.AutoSize = true;
-            this.labelMax.Location = new System.Drawing.Point(738, 127);
-            this.labelMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelMax.Location = new System.Drawing.Point(1107, 195);
             this.labelMax.Name = "labelMax";
-            this.labelMax.Size = new System.Drawing.Size(43, 13);
+            this.labelMax.Size = new System.Drawing.Size(63, 20);
             this.labelMax.TabIndex = 5;
             this.labelMax.Text = "777777";
             this.labelMax.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -243,19 +244,19 @@
             // labelMin
             // 
             this.labelMin.AutoSize = true;
-            this.labelMin.Location = new System.Drawing.Point(738, 465);
-            this.labelMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelMin.Location = new System.Drawing.Point(1107, 715);
             this.labelMin.Name = "labelMin";
-            this.labelMin.Size = new System.Drawing.Size(43, 13);
+            this.labelMin.Size = new System.Drawing.Size(63, 20);
             this.labelMin.TabIndex = 6;
             this.labelMin.Text = "777777";
             this.labelMin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // autoAdjustButton
             // 
-            this.autoAdjustButton.Location = new System.Drawing.Point(681, 572);
+            this.autoAdjustButton.Location = new System.Drawing.Point(1022, 880);
+            this.autoAdjustButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.autoAdjustButton.Name = "autoAdjustButton";
-            this.autoAdjustButton.Size = new System.Drawing.Size(38, 30);
+            this.autoAdjustButton.Size = new System.Drawing.Size(57, 46);
             this.autoAdjustButton.TabIndex = 8;
             this.autoAdjustButton.Text = "Auto";
             this.autoAdjustButton.UseVisualStyleBackColor = true;
@@ -282,9 +283,10 @@
             this.toolStripComboBoxColorDist,
             this.isoThermToolStripButton,
             this.isoThermToolStripComboBox});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1130, 31);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStrip1.Size = new System.Drawing.Size(1695, 31);
             this.toolStrip1.TabIndex = 9;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -372,7 +374,7 @@
             // 
             this.paletteToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.paletteToolStripComboBox.Name = "paletteToolStripComboBox";
-            this.paletteToolStripComboBox.Size = new System.Drawing.Size(121, 31);
+            this.paletteToolStripComboBox.Size = new System.Drawing.Size(180, 31);
             this.paletteToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.paletteToolStripComboBox_SelectedIndexChanged);
             // 
             // toolStripSeparator2
@@ -407,7 +409,7 @@
             this.toolStripComboBoxColorDist.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBoxColorDist.DropDownWidth = 140;
             this.toolStripComboBoxColorDist.Name = "toolStripComboBoxColorDist";
-            this.toolStripComboBoxColorDist.Size = new System.Drawing.Size(121, 23);
+            this.toolStripComboBoxColorDist.Size = new System.Drawing.Size(180, 23);
             // 
             // isoThermToolStripButton
             // 
@@ -423,7 +425,7 @@
             // 
             this.isoThermToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.isoThermToolStripComboBox.Name = "isoThermToolStripComboBox";
-            this.isoThermToolStripComboBox.Size = new System.Drawing.Size(121, 31);
+            this.isoThermToolStripComboBox.Size = new System.Drawing.Size(180, 31);
             this.isoThermToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.isoThermToolStripComboBox_SelectedIndexChanged);
             // 
             // tabControl1
@@ -435,10 +437,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(780, 52);
+            this.tabControl1.Location = new System.Drawing.Point(1170, 80);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(350, 647);
+            this.tabControl1.Size = new System.Drawing.Size(525, 995);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage4
@@ -460,10 +463,11 @@
             this.tabPage4.Controls.Add(this.label3);
             this.tabPage4.Controls.Add(this.label2);
             this.tabPage4.Controls.Add(this.label1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(342, 621);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPage4.Size = new System.Drawing.Size(517, 962);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Object Parameters";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -471,9 +475,10 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(184, 190);
+            this.label8.Location = new System.Drawing.Point(276, 292);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 13);
+            this.label8.Size = new System.Drawing.Size(21, 20);
             this.label8.TabIndex = 16;
             this.label8.Text = "℃";
             // 
@@ -485,7 +490,8 @@
             0,
             0,
             131072});
-            this.numericUpDownThreshold.Location = new System.Drawing.Point(74, 188);
+            this.numericUpDownThreshold.Location = new System.Drawing.Point(111, 289);
+            this.numericUpDownThreshold.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownThreshold.Maximum = new decimal(new int[] {
             5,
             0,
@@ -497,7 +503,7 @@
             0,
             131072});
             this.numericUpDownThreshold.Name = "numericUpDownThreshold";
-            this.numericUpDownThreshold.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownThreshold.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownThreshold.TabIndex = 15;
             this.numericUpDownThreshold.Value = new decimal(new int[] {
             10,
@@ -509,61 +515,68 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 195);
+            this.label7.Location = new System.Drawing.Point(14, 300);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.Size = new System.Drawing.Size(79, 20);
             this.label7.TabIndex = 14;
             this.label7.Text = "Threshold";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(184, 132);
+            this.label6.Location = new System.Drawing.Point(276, 203);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(15, 13);
+            this.label6.Size = new System.Drawing.Size(23, 20);
             this.label6.TabIndex = 13;
             this.label6.Text = "%";
             // 
             // labelAtmTemp
             // 
             this.labelAtmTemp.AutoSize = true;
-            this.labelAtmTemp.Location = new System.Drawing.Point(184, 106);
+            this.labelAtmTemp.Location = new System.Drawing.Point(276, 163);
+            this.labelAtmTemp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAtmTemp.Name = "labelAtmTemp";
-            this.labelAtmTemp.Size = new System.Drawing.Size(18, 13);
+            this.labelAtmTemp.Size = new System.Drawing.Size(25, 20);
             this.labelAtmTemp.TabIndex = 12;
             this.labelAtmTemp.Text = "°C";
             // 
             // labelDist
             // 
             this.labelDist.AutoSize = true;
-            this.labelDist.Location = new System.Drawing.Point(184, 79);
+            this.labelDist.Location = new System.Drawing.Point(276, 122);
+            this.labelDist.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDist.Name = "labelDist";
-            this.labelDist.Size = new System.Drawing.Size(15, 13);
+            this.labelDist.Size = new System.Drawing.Size(22, 20);
             this.labelDist.TabIndex = 11;
             this.labelDist.Text = "m";
             // 
             // labelReflTemp
             // 
             this.labelReflTemp.AutoSize = true;
-            this.labelReflTemp.Location = new System.Drawing.Point(184, 50);
+            this.labelReflTemp.Location = new System.Drawing.Point(276, 77);
+            this.labelReflTemp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelReflTemp.Name = "labelReflTemp";
-            this.labelReflTemp.Size = new System.Drawing.Size(18, 13);
+            this.labelReflTemp.Size = new System.Drawing.Size(25, 20);
             this.labelReflTemp.TabIndex = 10;
             this.labelReflTemp.Text = "°C";
             // 
             // numericUpDownRelHum
             // 
             this.numericUpDownRelHum.DecimalPlaces = 1;
-            this.numericUpDownRelHum.Location = new System.Drawing.Point(74, 129);
+            this.numericUpDownRelHum.Location = new System.Drawing.Point(111, 198);
+            this.numericUpDownRelHum.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownRelHum.Name = "numericUpDownRelHum";
-            this.numericUpDownRelHum.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownRelHum.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownRelHum.TabIndex = 9;
             this.numericUpDownRelHum.ValueChanged += new System.EventHandler(this.numericUpDownRelHum_ValueChanged);
             // 
             // numericUpDownAtmTemp
             // 
             this.numericUpDownAtmTemp.DecimalPlaces = 1;
-            this.numericUpDownAtmTemp.Location = new System.Drawing.Point(74, 103);
+            this.numericUpDownAtmTemp.Location = new System.Drawing.Point(111, 158);
+            this.numericUpDownAtmTemp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownAtmTemp.Maximum = new decimal(new int[] {
             200,
             0,
@@ -575,7 +588,7 @@
             0,
             -2147483648});
             this.numericUpDownAtmTemp.Name = "numericUpDownAtmTemp";
-            this.numericUpDownAtmTemp.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownAtmTemp.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownAtmTemp.TabIndex = 8;
             this.numericUpDownAtmTemp.ValueChanged += new System.EventHandler(this.numericUpDownAtmTemp_ValueChanged);
             // 
@@ -587,21 +600,23 @@
             0,
             0,
             65536});
-            this.numericUpDownDistance.Location = new System.Drawing.Point(74, 75);
+            this.numericUpDownDistance.Location = new System.Drawing.Point(111, 115);
+            this.numericUpDownDistance.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownDistance.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
             this.numericUpDownDistance.Name = "numericUpDownDistance";
-            this.numericUpDownDistance.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownDistance.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownDistance.TabIndex = 7;
             this.numericUpDownDistance.ValueChanged += new System.EventHandler(this.numericUpDownDistance_ValueChanged);
             // 
             // numericUpDownReflTemp
             // 
             this.numericUpDownReflTemp.DecimalPlaces = 1;
-            this.numericUpDownReflTemp.Location = new System.Drawing.Point(74, 46);
+            this.numericUpDownReflTemp.Location = new System.Drawing.Point(111, 71);
+            this.numericUpDownReflTemp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownReflTemp.Maximum = new decimal(new int[] {
             200,
             0,
@@ -613,7 +628,7 @@
             0,
             -2147483648});
             this.numericUpDownReflTemp.Name = "numericUpDownReflTemp";
-            this.numericUpDownReflTemp.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownReflTemp.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownReflTemp.TabIndex = 6;
             this.numericUpDownReflTemp.ValueChanged += new System.EventHandler(this.numericUpDownReflTemp_ValueChanged);
             // 
@@ -625,14 +640,15 @@
             0,
             0,
             65536});
-            this.numericUpDownEmis.Location = new System.Drawing.Point(74, 18);
+            this.numericUpDownEmis.Location = new System.Drawing.Point(111, 28);
+            this.numericUpDownEmis.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownEmis.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             65536});
             this.numericUpDownEmis.Name = "numericUpDownEmis";
-            this.numericUpDownEmis.Size = new System.Drawing.Size(104, 20);
+            this.numericUpDownEmis.Size = new System.Drawing.Size(156, 26);
             this.numericUpDownEmis.TabIndex = 5;
             this.numericUpDownEmis.Value = new decimal(new int[] {
             1,
@@ -644,45 +660,50 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 78);
+            this.label5.Location = new System.Drawing.Point(14, 120);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(49, 13);
+            this.label5.Size = new System.Drawing.Size(72, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "Distance";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 133);
+            this.label4.Location = new System.Drawing.Point(12, 205);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
+            this.label4.Size = new System.Drawing.Size(76, 20);
             this.label4.TabIndex = 3;
             this.label4.Text = "Rel. hum.";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 106);
+            this.label3.Location = new System.Drawing.Point(10, 163);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.Size = new System.Drawing.Size(86, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "Atm. temp.";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 49);
+            this.label2.Location = new System.Drawing.Point(9, 75);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.Size = new System.Drawing.Size(86, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Refl. temp.";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 20);
+            this.label1.Location = new System.Drawing.Point(9, 31);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.Size = new System.Drawing.Size(77, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Emissivity";
             // 
@@ -693,10 +714,11 @@
             this.tabPage2.Controls.Add(this.numericUpDown1);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.dataGridView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(342, 621);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPage2.Size = new System.Drawing.Size(517, 962);
             this.tabPage2.TabIndex = 5;
             this.tabPage2.Text = "Volume Estimation";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -704,30 +726,33 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(98, 197);
+            this.label13.Location = new System.Drawing.Point(147, 303);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(0, 13);
+            this.label13.Size = new System.Drawing.Size(0, 20);
             this.label13.TabIndex = 4;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 197);
+            this.label12.Location = new System.Drawing.Point(4, 303);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(91, 13);
+            this.label12.Size = new System.Drawing.Size(139, 20);
             this.label12.TabIndex = 3;
             this.label12.Text = "Estimated Volume";
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(98, 160);
+            this.numericUpDown1.Location = new System.Drawing.Point(147, 246);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             3,
             0,
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(62, 26);
             this.numericUpDown1.TabIndex = 2;
             this.numericUpDown1.Value = new decimal(new int[] {
             3,
@@ -739,9 +764,10 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(31, 162);
+            this.label11.Location = new System.Drawing.Point(46, 249);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
+            this.label11.Size = new System.Drawing.Size(89, 20);
             this.label11.TabIndex = 1;
             this.label11.Text = "Pixel Depth";
             // 
@@ -754,8 +780,9 @@
             this.Column3,
             this.Column4});
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(339, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(508, 231);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
@@ -789,10 +816,11 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.propertyGrid1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(342, 621);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPage1.Size = new System.Drawing.Size(517, 962);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -801,9 +829,10 @@
             // 
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.LineColor = System.Drawing.SystemColors.ControlDark;
-            this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
+            this.propertyGrid1.Location = new System.Drawing.Point(4, 5);
+            this.propertyGrid1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(336, 615);
+            this.propertyGrid1.Size = new System.Drawing.Size(509, 952);
             this.propertyGrid1.TabIndex = 4;
             // 
             // tabPage5
@@ -815,10 +844,11 @@
             this.tabPage5.Controls.Add(this.label10);
             this.tabPage5.Controls.Add(this.label9);
             this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
+            this.tabPage5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(342, 621);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabPage5.Size = new System.Drawing.Size(517, 962);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Isotherms";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -826,25 +856,28 @@
             // labelwidth
             // 
             this.labelwidth.AutoSize = true;
-            this.labelwidth.Location = new System.Drawing.Point(199, 159);
+            this.labelwidth.Location = new System.Drawing.Point(298, 245);
+            this.labelwidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelwidth.Name = "labelwidth";
-            this.labelwidth.Size = new System.Drawing.Size(18, 13);
+            this.labelwidth.Size = new System.Drawing.Size(25, 20);
             this.labelwidth.TabIndex = 7;
             this.labelwidth.Text = "°C";
             // 
             // labelLevel
             // 
             this.labelLevel.AutoSize = true;
-            this.labelLevel.Location = new System.Drawing.Point(199, 133);
+            this.labelLevel.Location = new System.Drawing.Point(298, 205);
+            this.labelLevel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLevel.Name = "labelLevel";
-            this.labelLevel.Size = new System.Drawing.Size(18, 13);
+            this.labelLevel.Size = new System.Drawing.Size(25, 20);
             this.labelLevel.TabIndex = 6;
             this.labelLevel.Text = "°C";
             // 
             // numericUpDownWidth
             // 
             this.numericUpDownWidth.DecimalPlaces = 1;
-            this.numericUpDownWidth.Location = new System.Drawing.Point(98, 156);
+            this.numericUpDownWidth.Location = new System.Drawing.Point(147, 240);
+            this.numericUpDownWidth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -856,7 +889,7 @@
             0,
             0});
             this.numericUpDownWidth.Name = "numericUpDownWidth";
-            this.numericUpDownWidth.Size = new System.Drawing.Size(94, 20);
+            this.numericUpDownWidth.Size = new System.Drawing.Size(141, 26);
             this.numericUpDownWidth.TabIndex = 5;
             this.numericUpDownWidth.Value = new decimal(new int[] {
             1000,
@@ -868,7 +901,8 @@
             // numericUpDownLevel
             // 
             this.numericUpDownLevel.DecimalPlaces = 1;
-            this.numericUpDownLevel.Location = new System.Drawing.Point(98, 129);
+            this.numericUpDownLevel.Location = new System.Drawing.Point(147, 198);
+            this.numericUpDownLevel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numericUpDownLevel.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -880,34 +914,38 @@
             0,
             -2147483648});
             this.numericUpDownLevel.Name = "numericUpDownLevel";
-            this.numericUpDownLevel.Size = new System.Drawing.Size(94, 20);
+            this.numericUpDownLevel.Size = new System.Drawing.Size(141, 26);
             this.numericUpDownLevel.TabIndex = 4;
             this.numericUpDownLevel.ValueChanged += new System.EventHandler(this.numericUpDownLevel_ValueChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 160);
+            this.label10.Location = new System.Drawing.Point(22, 246);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.Size = new System.Drawing.Size(50, 20);
             this.label10.TabIndex = 3;
             this.label10.Text = "Width";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 133);
+            this.label9.Location = new System.Drawing.Point(22, 205);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.Size = new System.Drawing.Size(46, 20);
             this.label9.TabIndex = 2;
             this.label9.Text = "Level";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.propertyGridIsotherms);
-            this.groupBox2.Location = new System.Drawing.Point(7, 6);
+            this.groupBox2.Location = new System.Drawing.Point(10, 9);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(305, 182);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(458, 280);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Isotherms";
@@ -916,9 +954,10 @@
             // 
             this.propertyGridIsotherms.HelpVisible = false;
             this.propertyGridIsotherms.LineColor = System.Drawing.SystemColors.ControlDark;
-            this.propertyGridIsotherms.Location = new System.Drawing.Point(6, 19);
+            this.propertyGridIsotherms.Location = new System.Drawing.Point(9, 29);
+            this.propertyGridIsotherms.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.propertyGridIsotherms.Name = "propertyGridIsotherms";
-            this.propertyGridIsotherms.Size = new System.Drawing.Size(293, 95);
+            this.propertyGridIsotherms.Size = new System.Drawing.Size(440, 146);
             this.propertyGridIsotherms.TabIndex = 8;
             this.propertyGridIsotherms.ToolbarVisible = false;
             this.propertyGridIsotherms.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridIsotherms_PropertyValueChanged);
@@ -970,10 +1009,11 @@
             this.columnHeader13});
             this.listViewMeasurements.FullRowSelect = true;
             this.listViewMeasurements.HideSelection = false;
-            this.listViewMeasurements.Location = new System.Drawing.Point(12, 608);
+            this.listViewMeasurements.Location = new System.Drawing.Point(18, 935);
+            this.listViewMeasurements.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listViewMeasurements.MultiSelect = false;
             this.listViewMeasurements.Name = "listViewMeasurements";
-            this.listViewMeasurements.Size = new System.Drawing.Size(762, 126);
+            this.listViewMeasurements.Size = new System.Drawing.Size(1141, 192);
             this.listViewMeasurements.TabIndex = 10;
             this.listViewMeasurements.UseCompatibleStateImageBehavior = false;
             this.listViewMeasurements.View = System.Windows.Forms.View.Details;
@@ -998,6 +1038,7 @@
             // columnHeader9
             // 
             this.columnHeader9.Text = "Average";
+            this.columnHeader9.Width = 90;
             // 
             // columnHeader3
             // 
@@ -1019,26 +1060,29 @@
             // 
             // columnHeader12
             // 
-            this.columnHeader12.Text = "Pixel Area";
+            this.columnHeader12.Text = "BAT Area";
+            this.columnHeader12.Width = 90;
             // 
             // columnHeader13
             // 
-            this.columnHeader13.Text = "Area Average";
+            this.columnHeader13.Text = "BAT Temp";
+            this.columnHeader13.Width = 90;
             // 
             // rangeSliderControl1
             // 
             this.rangeSliderControl1.BackColor = System.Drawing.Color.Transparent;
-            this.rangeSliderControl1.Location = new System.Drawing.Point(54, 572);
+            this.rangeSliderControl1.Location = new System.Drawing.Point(81, 880);
+            this.rangeSliderControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rangeSliderControl1.Name = "rangeSliderControl1";
-            this.rangeSliderControl1.Size = new System.Drawing.Size(621, 30);
+            this.rangeSliderControl1.Size = new System.Drawing.Size(932, 46);
             this.rangeSliderControl1.TabIndex = 7;
             this.rangeSliderControl1.Text = "rangeSliderControl1";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1130, 701);
+            this.ClientSize = new System.Drawing.Size(1695, 1061);
             this.Controls.Add(this.listViewMeasurements);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.autoAdjustButton);
@@ -1051,6 +1095,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Demo IRImageReader";

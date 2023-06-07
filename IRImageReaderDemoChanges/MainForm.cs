@@ -82,11 +82,11 @@ namespace IRImageApplication
             seededRegionGrowing = new SeededRegionGrowing(null);
             seededRegionGrowing.SetThreshold(0.1);
 
-            dataGridView1.Rows.Add("Face 1", null, null, 1);
-            dataGridView1.Rows.Add("Face 2", null, null, 1);
-            dataGridView1.Rows.Add("Face 3", null, null, 1);
-            dataGridView1.Rows.Add("Face 4", null, null, 1);
-            dataGridView1.Rows.Add("Total", null, null, null);
+            dataGridView1.Rows.Add("Posterior", null, null, 0.8);
+            dataGridView1.Rows.Add("Left", null, null, 0.07);
+            dataGridView1.Rows.Add("Anterior", null, null, 0.05);
+            dataGridView1.Rows.Add("Right", null, null, 0.07);
+            dataGridView1.Rows.Add("Total", null, null, 0.99);
 
             dataGridView1.Rows[4].Cells[0].ReadOnly = true;
             dataGridView1.Rows[4].Cells[1].ReadOnly = true;
