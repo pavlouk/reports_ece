@@ -1,6 +1,7 @@
 import typer
 import sqlite3
 from rich.console import Console
+from bus_app.rich import itinerary_table
 from bus_app.entity_models.itinerary import itinerary
 from bus_app.database_functions.model_based.itinerary_functions import ItHelp
 from bus_app.database_functions.model_based.card_functions import CardHelp
@@ -30,8 +31,27 @@ app = typer.Typer()
 ##itinerary
 @app.command(short_help="Shows Selected Itinerary's Info")
 def get_itinerary_info():
-    print(itinerary_functions.get_all_itineraries())
-    pass
+    itinerary_index = 0
+    date_index = 1
+    bus_index = 2
+    route_index = 3
+    driver_index = 4
+    arrival_index = 5
+    card_index = 6
+    
+    table = itinerary_table()
+    itineraries = itinerary_functions.get_all_itineraries()
+    for itinerary in itineraries:
+        table.add_row(
+            str(itinerary[itinerary_index]),
+            itinerary[date_index],
+            str(itinerary[bus_index]),
+            str(itinerary[route_index]),
+            str(itinerary[driver_index]),
+            str(itinerary[arrival_index]),
+            str(itinerary[card_index])
+        )
+    console.print(table)
 
 
 @app.command(short_help="Creates Personal Card")
