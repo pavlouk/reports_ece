@@ -1,7 +1,7 @@
 import datetime
 
 
-class card:
+class Card:
     def __init__(self, ticket_id, passenger_name, balance=0, category_name=None):
         self.ticket_id = ticket_id
         self.balance = balance

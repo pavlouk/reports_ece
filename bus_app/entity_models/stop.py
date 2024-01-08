@@ -1,7 +1,7 @@
 import datetime
 
 
-class stop:
+class Stop:
     def __init__(self, stop_name, location, bus_stop_id=None):
         self.bus_stop_id = bus_stop_id if bus_stop_id is not None else None
         self.stop_name = stop_name

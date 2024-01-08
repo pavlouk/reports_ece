@@ -1,5 +1,5 @@
 from datetime import datetime
-from bus_app.entity_models.stop import stop
+from bus_app.entity_models.stop import Stop
 from bus_app.sql.create_tables import CREATE_STOP_TABLE
 from bus_app.sql.insert_tables import INSERT_STOP
 

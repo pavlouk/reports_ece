@@ -1,7 +1,7 @@
 import datetime
 
 
-class itinerary:
+class Itinerary:
     def __init__(
         self,
         starting_time: str,

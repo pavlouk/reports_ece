@@ -1,6 +1,8 @@
 from datetime import datetime
-from bus_app.entity_models.itinerary import itinerary
+from bus_app.entity_models.itinerary import Itinerary
 from bus_app.sql.create_tables import CREATE_ITINERARY_TABLE
+from bus_app.sql.insert_tables import INSERT_ITINERARY
+
 
 class ItineraryHelp:
     def __init__(self, cursor, connection):
@@ -9,11 +11,17 @@ class ItineraryHelp:
         self.cursor.executescript(CREATE_ITINERARY_TABLE)
 
     ##itinerary functions
-    def insert_itinerary(self, itinerary: itinerary):
+    def insert_itinerary(self, itinerary: Itinerary):
         with self.connection:
             self.cursor.execute(
-                f"INSERT INTO 'itinerary' ('starting_time','direction','routeName','busId','driverId') \
-            VALUES ('{itinerary.starting_time}', '{itinerary.direction}', '{itinerary.route_name}', '{itinerary.bus_id}', '{itinerary.driver_id}')"
+                INSERT_ITINERARY,
+                (
+                    itinerary.starting_time,
+                    itinerary.direction,
+                    itinerary.route_name,
+                    itinerary.bus_id,
+                    itinerary.driver_id,
+                ),
             )
 
     def get_all_itineraries(self):

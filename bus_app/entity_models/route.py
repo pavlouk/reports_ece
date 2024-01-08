@@ -1,7 +1,7 @@
 import datetime
 
 
-class route:
+class Route:
     def __init__(self, route_name, stops: list):
         self.route_name = route_name
         self.stops = stops  ## 2D list: [[ stop_id, stop_position, estTOA],...]

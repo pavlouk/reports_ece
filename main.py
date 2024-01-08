@@ -2,7 +2,7 @@ import typer
 import sqlite3
 from rich.console import Console
 from bus_app.rich import itinerary_table, card_info_table
-from bus_app.entity_models.itinerary import itinerary
+from bus_app.entity_models.itinerary import Itinerary
 from bus_app.database_functions.model_based.itinerary_functions import ItineraryHelp
 from bus_app.database_functions.model_based.card_functions import CardHelp
 from bus_app.database_functions.model_based.category_functions import CategoryHelp
@@ -56,8 +56,7 @@ def get_itinerary_info():
 
 @app.command(short_help="Creates Personal Card")
 def insert_itinerary():
-    itinerary_functions.insert_itinerary(itinerary("2019-01-14", 1, 1, 1, 1, None))
-    pass
+    itinerary_functions.insert_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
 
 
 @app.command(short_help="Delete Itinerary")
@@ -79,17 +78,17 @@ def complete_itinerary(itinerary_id: int):
 ##personalized_card
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="student"):
-    
     card_functions.add_card(name, category)
+    console.echo(f"Card {name} created")
 
 
 @app.command(short_help="Shows Personal Card Info")
-def get_card_info():
+def get_card_info(card_id: int):
     pass
 
 
 @app.command(short_help="Buy Ticket with Personal Card")
-def buy_card_ticket():
+def buy_card_ticket(card_id: int, category: str, total_tickets: int, price_id: int):
     # python main.py buy-card-ticket
     # --card-id 123
     # --category student

@@ -1,5 +1,5 @@
 from datetime import datetime
-from bus_app.entity_models.route import route
+from bus_app.entity_models.route import Route
 from bus_app.sql.create_tables import CREATE_ROUTE_TABLE
 
 class RouteHelp:
