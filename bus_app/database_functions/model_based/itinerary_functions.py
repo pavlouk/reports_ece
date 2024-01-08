@@ -1,11 +1,12 @@
 from datetime import datetime
 from bus_app.entity_models.itinerary import itinerary
+from bus_app.sql.create_tables import CREATE_ITINERARY_TABLE
 
-
-class ItHelp:
+class ItineraryHelp:
     def __init__(self, cursor, connection):
         self.cursor = cursor
         self.connection = connection
+        self.cursor.executescript(CREATE_ITINERARY_TABLE)
 
     ##itinerary functions
     def insert_itinerary(self, itinerary: itinerary):
@@ -16,7 +17,7 @@ class ItHelp:
             )
 
     def get_all_itineraries(self):
-        self.cursor.execute("select * from itinerary")
+        self.cursor.execute("SELECT * from itinerary")
         results = self.cursor.fetchall()
 
         itinerarys = []
