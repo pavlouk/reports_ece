@@ -1,6 +1,6 @@
-INSERT_CHARGE = "INSERT INTO Charge (discount, category_name) VALUES (?, ?)"
+INSERT_CHARGE = "INSERT INTO Charge (category_name) VALUES (?, ?)"
 INSERT_CARD = "INSERT INTO Card (passenger_name, category_name) VALUES (?, ?)"
-INSERT_CATEGORY = "INSERT INTO Category (category_name, discount) VALUES (?, ?)"
+INSERT_CATEGORY = "INSERT OR IGNORE INTO Category (category_name, discount) VALUES (?, ?)"
 
 INSERT_CONSIST = "INSERT INTO Consists (name) VALUES (?)"
 INSERT_STOP = "INSERT OR IGNORE INTO Stop (name, location) VALUES (?, ?)"

@@ -11,6 +11,7 @@ from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
 
 connection = sqlite3.connect("./bus.db")
+connection.execute("PRAGMA foreign_keys = ON")
 cursor = connection.cursor()
 
 
@@ -62,11 +63,9 @@ def complete_itinerary(itinerary_id: int):
 
 ##personalized_card
 @app.command(short_help="Creates Personal Card")
-def create_card(name: str, category=None):
+def create_card(name: str, category="normal"):
     try:
         card_functions.add_card(name, category)
-        cursor.execute("INSERT INTO Card (passenger_name, category_name) VALUES (?, ?)", (name, category))
-        connection.commit()
     except sqlite3.IntegrityError:
         typer.echo("Error: Invalid Category")
         return
@@ -81,28 +80,42 @@ def create_card(name: str, category=None):
 
 
 @app.command(short_help="Shows Personal Card Info")
-def get_card_info(card_id: int):
-    card_tuple = card_functions.get_card(card_id).pop()
-  
-    typer.echo(f"Card Information received")
+def get_card(card_id: int):
+    try:
+        card_tuple = card_functions.get_card(card_id).pop()
+    except Exception:
+        typer.echo("Error: Invalid Card ID")
+        return
+    
+    typer.echo(f"Card Information")
     table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
 
 
 @app.command(short_help="Buy Ticket with Personal Card")
-def buy_card_ticket(card_id: int, category: str, total_tickets: int, price_id: int):
-    # python main.py buy-card-ticket --card-id 123 # --total-tickets 1 --price-id 2
-    pass
+def add_ticket(card_id: int, total_tickets=1):
+    try:
+        card_tuple = card_functions.get_card(card_id).pop()
+        category_id = card_tuple[2]
+        
+        discount = category_functions.get_discount(category_id).pop()[0]
+    except Exception:
+        typer.echo("Error: Invalid Card ID")
+        return
+    typer.echo(f"Category {category_id} Discount: {discount}")
+    
+    charge_functions.add_charge(card_id, category_id, total_tickets)
+    # card_functions.update_balance(card_id, total_tickets)
 
 
 @app.command(short_help="Validate Ticket with Personal Card")
-def validate_card_ticket(card_id: int, itinerary_id: int):
+def validate_ticket(card_id: int, itinerary_id: int):
     pass
 
 
 @app.command(short_help="Shows Bus Stop Info as well as the Routes that it Belongs to")
-def get_bus_stop_info():
+def get_stop_info():
     pass
 
 
@@ -111,14 +124,12 @@ def show_total_tickets(start_date: str, end_date: str):
     pass
 
 
-if __name__ == "__main__":
-    try:
-        category_functions.add_category(name="normal", discount=0.0)
-        category_functions.add_category(name="student", discount=0.5)
-        category_functions.add_category(name="elderly", discount=0.25)
-        category_functions.add_category(name="unemployed", discount=0.45)
-        category_functions.add_category(name="military", discount=0.55)
-        category_functions.add_category(name="disability", discount=0.65)
-    except sqlite3.IntegrityError:
-        pass
+if __name__ == "__main__":    
+    category_functions.add_category(name="normal", discount=0.0)
+    category_functions.add_category(name="student", discount=0.5)
+    category_functions.add_category(name="elderly", discount=0.25)
+    category_functions.add_category(name="unemployed", discount=0.45)
+    category_functions.add_category(name="military", discount=0.55)
+    category_functions.add_category(name="disability", discount=0.65)
+
     app()
