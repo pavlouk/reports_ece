@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS "Itinerary" (
 );
 """
 CREATE_VALIDATION_TABLE = """
-CREATE TABLE IF NOT EXISTS "Validate" (
+CREATE TABLE IF NOT EXISTS "Validation" (
 	"card_id"	INTEGER NOT NULL,
 	"itinerary_id"	INTEGER NOT NULL,
 	"embarkation_time"	datetime NOT NULL DEFAULT '',
-	"dissembarkation_time"	datetime DEFAULT NULL,
+	"disembarkation_time"	datetime DEFAULT NULL,
 	FOREIGN KEY("itinerary_id") REFERENCES "Itinerary"("id") ON UPDATE CASCADE,
 	FOREIGN KEY("card_id") REFERENCES "Card"("id") ON UPDATE CASCADE,
 	PRIMARY KEY("card_id","itinerary_id")

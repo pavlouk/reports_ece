@@ -18,9 +18,10 @@ cursor = connection.cursor()
 card_functions = CardHelp(cursor, connection)
 category_functions = CategoryHelp(cursor, connection)
 charge_functions = ChargeHelp(cursor, connection)
+validation_functions = ValidationHelp(cursor, connection)
+
 
 itinerary_functions = ItineraryHelp(cursor, connection)
-
 stop_functions = StopHelp(cursor, connection)
 route_functions = RouteHelp(cursor, connection)
 
@@ -29,7 +30,7 @@ console = Console()
 app = typer.Typer()
 
 
-##itinerary
+# itinerary
 @app.command(short_help="Shows Selected Itinerary's Info")
 def get_itinerary_info():
     table = itinerary_table()
@@ -62,11 +63,7 @@ def get_stop_info():
     pass
 
 
-##
-##
-
-
-##personalized_card
+# personalized_card
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="normal"):
     try:
@@ -109,17 +106,15 @@ def add_ticket(card_id: int, total_tickets=1):
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
-    typer.echo(f"Category {category_id} Discount: {discount}")
+    
     pay = TICKET_PRICE * int(total_tickets) * (1 - discount)
+    typer.echo(f"Category {category_id} Discount: {discount}")
     typer.echo(f"Total Pay: {pay}")
+    
     charge_functions.add_charge(total_tickets, pay, card_id, category_id)
 
     card_functions.update_balance(card_id, total_tickets)
-    try:
-        card_tuple = card_functions.get_card(card_id).pop()
-    except Exception:
-        typer.echo("Error: Invalid Card ID")
-        return
+    card_tuple = card_functions.get_card(card_id).pop()
 
     typer.echo(f"Card Information")
     table = card_info_table()
@@ -133,7 +128,7 @@ def validate_ticket(card_id: int, itinerary_id: int):
 
 
 @app.command(short_help="Show Total Tickets of Bus Route")
-def show_total_tickets(start_date: str, end_date: str):
+def total_tickets(start_date: str, end_date: str):
     pass
 
 
