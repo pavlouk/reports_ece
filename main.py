@@ -31,26 +31,11 @@ app = typer.Typer()
 ##itinerary
 @app.command(short_help="Shows Selected Itinerary's Info")
 def get_itinerary_info():
-    itinerary_index = 0
-    date_index = 1
-    bus_index = 2
-    route_index = 3
-    driver_index = 4
-    arrival_index = 5
-    card_index = 6
-
     table = itinerary_table()
+    
     itineraries = itinerary_functions.get_all_itineraries()
     for itinerary in itineraries:
-        table.add_row(
-            str(itinerary[itinerary_index]),
-            itinerary[date_index],
-            str(itinerary[bus_index]),
-            str(itinerary[route_index]),
-            str(itinerary[driver_index]),
-            str(itinerary[arrival_index]),
-            str(itinerary[card_index]),
-        )
+        table.add_row(*[str(c) for c in itinerary])
     console.print(table)
 
 
@@ -77,13 +62,19 @@ def complete_itinerary(itinerary_id: int):
 
 ##personalized_card
 @app.command(short_help="Creates Personal Card")
-def create_card(name: str, category="student"):
-    card_functions.add_card(name, category)
-    last_id = card_functions.cursor.lastrowid
+def create_card(name: str, category=None):
+    try:
+        card_functions.add_card(name, category)
+        cursor.execute("INSERT INTO Card (passenger_name, category_name) VALUES (?, ?)", (name, category))
+        connection.commit()
+    except sqlite3.IntegrityError:
+        typer.echo("Error: Invalid Category")
+        return
     
+    last_id = card_functions.cursor.lastrowid
     card_tuple = card_functions.get_card(last_id).pop()
   
-    typer.echo(f"Card holder {name} created with card_id {last_id}")
+    typer.echo(f"New cardholder {name} with card_id {last_id}")
     table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
@@ -101,11 +92,7 @@ def get_card_info(card_id: int):
 
 @app.command(short_help="Buy Ticket with Personal Card")
 def buy_card_ticket(card_id: int, category: str, total_tickets: int, price_id: int):
-    # python main.py buy-card-ticket
-    # --card-id 123
-    # --category student
-    # --total-tickets 1
-    # --price-id 2
+    # python main.py buy-card-ticket --card-id 123 # --total-tickets 1 --price-id 2
     pass
 
 
@@ -125,11 +112,13 @@ def show_total_tickets(start_date: str, end_date: str):
 
 
 if __name__ == "__main__":
-    category_functions.add_category(name="normal", discount=0.0)
-    category_functions.add_category(name="student", discount=0.5)
-    category_functions.add_category(name="elderly", discount=0.25)
-    category_functions.add_category(name="unemployed", discount=0.45)
-    category_functions.add_category(name="military", discount=0.55)
-    category_functions.add_category(name="disability", discount=0.65)
-
+    try:
+        category_functions.add_category(name="normal", discount=0.0)
+        category_functions.add_category(name="student", discount=0.5)
+        category_functions.add_category(name="elderly", discount=0.25)
+        category_functions.add_category(name="unemployed", discount=0.45)
+        category_functions.add_category(name="military", discount=0.55)
+        category_functions.add_category(name="disability", discount=0.65)
+    except sqlite3.IntegrityError:
+        pass
     app()

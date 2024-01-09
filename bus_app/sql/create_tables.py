@@ -1,9 +1,9 @@
 CREATE_CARD_TABLE = """
 CREATE TABLE IF NOT EXISTS "Card" (
-	"id"	INTEGER NOT NULL,
-	"passenger_name"	varchar(50) NOT NULL,
-	"category_name"	varchar(50) NOT NULL,
-	"balance"	float NOT NULL DEFAULT 0,
+	id	INTEGER NOT NULL,
+	passenger_name	varchar(50) NOT NULL,
+	category_name	varchar(50) NOT NULL REFERENCES Category(category_name),
+	balance	float NOT NULL DEFAULT 0,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 """

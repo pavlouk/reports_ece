@@ -10,8 +10,11 @@ class CardHelp:
         self.cursor.executescript(CREATE_CARD_TABLE)
 
     def add_card(self, name, category):
-        with self.connection:
-            self.cursor.execute(INSERT_CARD, (name, category))
+        print(name, category)
+
+        self.cursor.execute(INSERT_CARD, (name, category))
+       
+        self.connection.commit()
 
     def get_card(self, card_id):
         with self.connection:
