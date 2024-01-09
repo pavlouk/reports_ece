@@ -80,24 +80,21 @@ def complete_itinerary(itinerary_id: int):
 def create_card(name: str, category="student"):
     card_functions.add_card(name, category)
     last_id = card_functions.cursor.lastrowid
-    typer.echo(f"Card holder {name} created with card_id {last_id}")
     
-    table = card_info_table()
-
     card_tuple = card_functions.get_card(last_id).pop()
   
+    typer.echo(f"Card holder {name} created with card_id {last_id}")
+    table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
 
 
 @app.command(short_help="Shows Personal Card Info")
 def get_card_info(card_id: int):
-    from bus_app.entity_models.card import Card
-    # card_dataclass = Card(*card_tuple)
-    table = card_info_table()
-
     card_tuple = card_functions.get_card(card_id).pop()
   
+    typer.echo(f"Card Information received")
+    table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
 
