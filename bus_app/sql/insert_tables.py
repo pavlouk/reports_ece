@@ -1,4 +1,4 @@
-INSERT_CHARGE = "INSERT INTO Charge (category_name) VALUES (?, ?)"
+INSERT_CHARGE = "INSERT INTO Charge (purchase_date, tickets, pay, card_id, category_id) VALUES (?, ?, ?, ?, ?)"
 INSERT_CARD = "INSERT INTO Card (passenger_name, category_name) VALUES (?, ?)"
 INSERT_CATEGORY = "INSERT OR IGNORE INTO Category (category_name, discount) VALUES (?, ?)"
 
