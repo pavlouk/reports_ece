@@ -11,6 +11,6 @@ class CategoryHelp:
         self.connection = connection
         self.cursor.executescript(CREATE_CATEGORY_TABLE)
 
-    def add_category(self, name, category):
+    def add_category(self, name, discount):
         with self.connection:
-            self.cursor.execute(INSERT_CATEGORY, (name, category))
+            self.cursor.execute(INSERT_CATEGORY, (name, discount))

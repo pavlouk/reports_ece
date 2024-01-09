@@ -1,0 +1,1 @@
+SELECT_CARD_INFO = "SELECT id, passenger_name, category_name, balance FROM Card WHERE id = (?)"

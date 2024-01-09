@@ -1,8 +1,7 @@
-import sqlite3
-from datetime import datetime
 from bus_app.entity_models.card import Card
 from bus_app.sql.create_tables import CREATE_CARD_TABLE
 from bus_app.sql.insert_tables import INSERT_CARD
+from bus_app.sql.select_tables import SELECT_CARD_INFO
 
 class CardHelp:
     def __init__(self, cursor, connection):
@@ -13,3 +12,7 @@ class CardHelp:
     def add_card(self, name, category):
         with self.connection:
             self.cursor.execute(INSERT_CARD, (name, category))
+
+    def get_card(self, card_id):
+        with self.connection:
+            return self.cursor.execute(SELECT_CARD_INFO, (card_id,)).fetchall()

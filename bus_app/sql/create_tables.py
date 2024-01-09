@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS "Card" (
 """
 CREATE_CATEGORY_TABLE = """
 CREATE TABLE IF NOT EXISTS "Category" (
-	"discount"	float NOT NULL,
 	"category_name"	varchar(50) NOT NULL,
+	"discount"	float NOT NULL,
 	PRIMARY KEY("category_name")
 );
 """

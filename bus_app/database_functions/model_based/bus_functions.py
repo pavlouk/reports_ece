@@ -15,10 +15,6 @@ class BusHelp:
         with self.connection:
             self.cursor.execute(INSERT_BUS, (bus,),)
 
-    def delete_itinerary(self, itinerary_id: int):
-        with self.connection:
-            self.cursor.execute(f"DELETE from itinerary WHERE id={itinerary_id}")
-
     def set_bus_status(self, bus_id: int):
         with self.connection:
             self.cursor.execute(

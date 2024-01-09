@@ -1,5 +1,5 @@
 INSERT_CARD = "INSERT INTO Card (passenger_name, category_name) VALUES (?, ?)"
-INSERT_CATEGORY = "INSERT INTO Category (discount, category_name) VALUES (?, ?)"
+INSERT_CATEGORY = "INSERT INTO Category (category_name, discount) VALUES (?, ?)"
 INSERT_CHARGE = "INSERT INTO Charge (discount, category_name) VALUES (?, ?)"
 
 INSERT_ARRIVAL = "INSERT INTO Arrives (name) VALUES (?)"

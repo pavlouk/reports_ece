@@ -1,13 +1,9 @@
-import datetime
-
-
 class Card:
-    def __init__(self, ticket_id, passenger_name, balance=0, category_name=None):
-        self.ticket_id = ticket_id
-        self.balance = balance
-        self.category_name = category_name
-        self.passenger_name = passenger_name
+    def __init__(self, *args):
+        self.ticket_id = args[0]
+        self.passenger_name = args[1]
+        self.category_name = args[2]
+        self.balance = args[3]
 
-    def __repr__(self) -> str:
-        return f"Personalized_card details:[ ticket_id: {self.ticket_id},passenger_name: {self.passenger_name}\
-            ,passenger_name: {self.passenger_name},balance: {self.balance} ]"
+    def __str__(self):
+        return f"{self.ticket_id} {self.passenger_name} {self.category_name} {self.balance}"

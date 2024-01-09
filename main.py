@@ -79,12 +79,27 @@ def complete_itinerary(itinerary_id: int):
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="student"):
     card_functions.add_card(name, category)
-    typer.echo(f"Card {name} created with id {card_functions.cursor.lastrowid}")
+    last_id = card_functions.cursor.lastrowid
+    typer.echo(f"Card holder {name} created with card_id {last_id}")
+    
+    table = card_info_table()
+
+    card_tuple = card_functions.get_card(last_id).pop()
+  
+    table.add_row(*[str(c) for c in card_tuple])
+    console.print(table)
 
 
 @app.command(short_help="Shows Personal Card Info")
 def get_card_info(card_id: int):
-    pass
+    from bus_app.entity_models.card import Card
+    # card_dataclass = Card(*card_tuple)
+    table = card_info_table()
+
+    card_tuple = card_functions.get_card(card_id).pop()
+  
+    table.add_row(*[str(c) for c in card_tuple])
+    console.print(table)
 
 
 @app.command(short_help="Buy Ticket with Personal Card")
@@ -98,7 +113,7 @@ def buy_card_ticket(card_id: int, category: str, total_tickets: int, price_id: i
 
 
 @app.command(short_help="Validate Ticket with Personal Card")
-def validate_card_ticket():
+def validate_card_ticket(card_id: int, itinerary_id: int):
     pass
 
 
@@ -113,4 +128,11 @@ def show_total_tickets(start_date: str, end_date: str):
 
 
 if __name__ == "__main__":
+    category_functions.add_category(name="normal", discount=0.0)
+    category_functions.add_category(name="student", discount=0.5)
+    category_functions.add_category(name="elderly", discount=0.25)
+    category_functions.add_category(name="unemployed", discount=0.45)
+    category_functions.add_category(name="military", discount=0.55)
+    category_functions.add_category(name="disability", discount=0.65)
+
     app()
