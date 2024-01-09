@@ -9,6 +9,7 @@ from bus_app.database_functions.model_based.category_functions import CategoryHe
 from bus_app.database_functions.model_based.charge_functions import ChargeHelp
 from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
+from bus_app.database_functions.model_based.validation_functions import ValidationHelp
 
 connection = sqlite3.connect("./bus.db")
 connection.execute("PRAGMA foreign_keys = ON")
@@ -124,7 +125,26 @@ def add_ticket(card_id: int, total_tickets=1):
 
 @app.command(short_help="Validate Ticket with Personal Card")
 def validate_ticket(card_id: int, itinerary_id: int):
-    pass
+    try:
+        card_tuple = card_functions.get_card(card_id).pop()
+        card_balance = card_tuple[3]
+    except Exception:
+        typer.echo("Error: Invalid Card ID")
+        return
+    
+    if card_balance > 0:
+        validation_functions.validate_ticket(card_id, itinerary_id)
+    else:
+        typer.echo("Error: Insufficient Balance")
+        return
+    
+    card_functions.update_balance(card_id, -1)
+    card_tuple = card_functions.get_card(card_id).pop()
+
+    typer.echo(f"Card Information")
+    table = card_info_table()
+    table.add_row(*[str(c) for c in card_tuple])
+    console.print(table)
 
 
 @app.command(short_help="Show Total Tickets of Bus Route")
