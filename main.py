@@ -79,7 +79,7 @@ def complete_itinerary(itinerary_id: int):
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="student"):
     card_functions.add_card(name, category)
-    console.echo(f"Card {name} created")
+    typer.echo(f"Card {name} created with id {card_functions.cursor.lastrowid}")
 
 
 @app.command(short_help="Shows Personal Card Info")

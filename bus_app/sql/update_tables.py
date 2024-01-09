@@ -1,0 +1,1 @@
+SELECT_LATEST_ROW_ID = "SELECT last_insert_rowid()"

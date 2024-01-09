@@ -11,7 +11,7 @@ class ItineraryHelp:
         self.cursor.executescript(CREATE_ITINERARY_TABLE)
 
     ##itinerary functions
-    def insert_itinerary(self, itinerary: Itinerary):
+    def add_itinerary(self, itinerary: Itinerary):
         with self.connection:
             self.cursor.execute(
                 INSERT_ITINERARY,
