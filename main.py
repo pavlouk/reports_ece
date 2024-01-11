@@ -67,8 +67,11 @@ def get_stop_info():
 # personalized_card
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="normal"):
+    from bus_app.entity_models.card import Card
     try:
-        card_functions.add_card(name, category)
+        card_model = Card(name, category, signup)
+        # card_functions.add_card(name, category)
+        card_functions.add_card(card_model)
     except sqlite3.IntegrityError:
         typer.echo("Error: Invalid Category")
         return
@@ -98,7 +101,7 @@ def get_card(card_id: int):
 
 @app.command(short_help="Buy Ticket with Personal Card")
 def add_ticket(card_id: int, total_tickets=1):
-    TICKET_PRICE = 2.0
+    TICKET_PRICE = 1.0
     try:
         card_tuple = card_functions.get_card(card_id).pop()
         category_id = card_tuple[2]
@@ -124,7 +127,7 @@ def add_ticket(card_id: int, total_tickets=1):
 
 
 @app.command(short_help="Validate Ticket with Personal Card")
-def validate_ticket(card_id: int, itinerary_id: int):
+def embark_ticket(card_id: int, itinerary_id: int):
     try:
         card_tuple = card_functions.get_card(card_id).pop()
         card_balance = card_tuple[3]
@@ -145,6 +148,10 @@ def validate_ticket(card_id: int, itinerary_id: int):
     table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
+
+@app.command(short_help="Disembark Ticket with Personal Card")
+def disembark_ticket(card_id: int, itinerary_id: int):
+    pass
 
 
 @app.command(short_help="Show Total Tickets of Bus Route")
