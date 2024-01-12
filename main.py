@@ -190,25 +190,26 @@ def company_balance(start_date: str, end_date: str):
 
 
 if __name__ == "__main__":
-    MAX_CARDS = 100
-    
-    category_functions.add_category(name="normal", discount=0.0)
-    category_functions.add_category(name="student", discount=0.5)
-    category_functions.add_category(name="student", discount=0.25)
-    category_functions.add_category(name="unemployed", discount=0.45)
-    category_functions.add_category(name="military", discount=0.55)
-    category_functions.add_category(name="disability", discount=0.65)
+    if not category_functions.get_categories():
+        MAX_CARDS = 100
+        
+        category_functions.add_category(name="normal", discount=0.0)
+        category_functions.add_category(name="student", discount=0.5)
+        category_functions.add_category(name="student", discount=0.25)
+        category_functions.add_category(name="unemployed", discount=0.45)
+        category_functions.add_category(name="military", discount=0.55)
+        category_functions.add_category(name="disability", discount=0.65)
 
-    for _ in range(MAX_CARDS):
-        card_functions.add_card(Card())
+        for _ in range(MAX_CARDS):
+            card_functions.add_card(Card())
 
-    for _ in range(MAX_CARDS):
-        purchase_functions.add_purchase(Purchase())
+        for _ in range(MAX_CARDS):
+            purchase_functions.add_purchase(Purchase())
 
-    for _ in range(10):
-        stop_functions.add_stop(Stop())
-        route_functions.add_route(Route())
-        bus_functions.add_bus(Bus())
-        driver_functions.add_driver(Driver())
-        # itinerary_functions.insert_itinerary(Itinerary())
+        for _ in range(10):
+            stop_functions.add_stop(Stop())
+            route_functions.add_route(Route())
+            bus_functions.add_bus(Bus())
+            driver_functions.add_driver(Driver())
+            # itinerary_functions.insert_itinerary(Itinerary())
     app()
