@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS "Consists" (
 	"route_name"	varchar(50) NOT NULL,
  	"stop_position"	INTEGER NOT NULL,
 	"est_next_stop_toa"	float NOT NULL DEFAULT 0,
-	FOREIGN KEY("stop_id") REFERENCES "Route"("id") ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY("route_name") REFERENCES "Stop"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY("stop_id") REFERENCES "Stop"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY("route_name") REFERENCES "Route"("name") ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY("stop_id", "route_name")
 );
 """

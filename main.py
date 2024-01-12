@@ -13,6 +13,7 @@ from bus_app.database_functions.model_based.purchase_functions import PurchaseHe
 from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
 from bus_app.database_functions.model_based.validation_functions import ValidationHelp
+from bus_app.database_functions.model_based.consists_functions import ConsistsHelp
 
 from bus_app.entity_models.bus import Bus
 from bus_app.entity_models.card import Card
@@ -21,6 +22,7 @@ from bus_app.entity_models.itinerary import Itinerary
 from bus_app.entity_models.purchase import Purchase
 from bus_app.entity_models.route import Route
 from bus_app.entity_models.stop import Stop
+from bus_app.entity_models.consists import Consists
 
 connection = sqlite3.connect("./bus.db")
 connection.execute("PRAGMA foreign_keys = ON")
@@ -32,7 +34,7 @@ category_functions = CategoryHelp(cursor, connection)
 purchase_functions = PurchaseHelp(cursor, connection)
 validation_functions = ValidationHelp(cursor, connection)
 
-
+consists_functions = ConsistsHelp(cursor, connection)
 itinerary_functions = ItineraryHelp(cursor, connection)
 stop_functions = StopHelp(cursor, connection)
 route_functions = RouteHelp(cursor, connection)
@@ -52,17 +54,6 @@ def get_itinerary_info():
     for itinerary in itineraries:
         table.add_row(*[str(c) for c in itinerary])
     console.print(table)
-
-
-@app.command(short_help="Creates Personal Card")
-def insert_itinerary():
-    itinerary_functions.insert_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
-
-
-@app.command(short_help="Completes Itinerary with Ending Time: Now")
-def complete_itinerary(itinerary_id: int):
-    itinerary_functions.set_ending_time(itinerary_id)
-    pass
 
 
 @app.command(short_help="Shows Bus Stop Info")
@@ -192,7 +183,7 @@ def company_balance(start_date: str, end_date: str):
 if __name__ == "__main__":
     if not category_functions.get_categories():
         MAX_CARDS = 100
-        
+
         category_functions.add_category(name="normal", discount=0.0)
         category_functions.add_category(name="student", discount=0.5)
         category_functions.add_category(name="student", discount=0.25)
@@ -200,16 +191,22 @@ if __name__ == "__main__":
         category_functions.add_category(name="military", discount=0.55)
         category_functions.add_category(name="disability", discount=0.65)
 
+        for _ in range(10):
+            stop_functions.add_stop(Stop())
+            route_functions.add_route(Route())
+            bus_functions.add_bus(Bus())
+            driver_functions.add_driver(Driver())
+
+        for _ in range(10):
+            consists_functions.add_consists(Consists())
+            
+        itinerary_functions.add_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
+        itinerary_functions.set_ending_time(itinerary_id)
+
         for _ in range(MAX_CARDS):
             card_functions.add_card(Card())
 
         for _ in range(MAX_CARDS):
             purchase_functions.add_purchase(Purchase())
 
-        for _ in range(10):
-            stop_functions.add_stop(Stop())
-            route_functions.add_route(Route())
-            bus_functions.add_bus(Bus())
-            driver_functions.add_driver(Driver())
-            # itinerary_functions.insert_itinerary(Itinerary())
     app()
