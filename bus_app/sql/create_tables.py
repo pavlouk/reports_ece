@@ -120,23 +120,23 @@ CREATE TABLE IF NOT EXISTS "Disembarkation" (
 	FOREIGN KEY("card_id") REFERENCES "card"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 """
-CREATE_CARD_TRIGGER_ON_DISEMBARKATION = """
+CREATE_CARD_BALANCE_CHARGE_TRIGGER_ON_DISEMBARKATION = """
 CREATE TRIGGER card_balance_charge
 AFTER INSERT ON Disembarkation 
 BEGIN
 	UPDATE Card SET balance = balance - (
-        SELECT Charge.amountCharged
+        SELECT Charge.charged_amount
         FROM Charge
         WHERE Charge.id = NEW.charge_id
     )
     WHERE Card.id = NEW.card_id;
 END;
 """
-CREATE_ON_PURCHASE_TRIGGER = """
+CREATE_CARD_BALANCE_FILLUP_ON_PURCHASE_TRIGGER = """
 CREATE TRIGGER card_balance_fillup
 AFTER INSERT ON Purchase
 BEGIN
-    UPDATE Card SET balance = balance + NEW.balancePurchased
-    WHERE id = NEW.cardId;
+    UPDATE Card SET balance = balance + NEW.purchased_balance
+    WHERE id = NEW.card_id;
 END;
 """

@@ -10,7 +10,6 @@ class ItineraryHelp:
         self.connection = connection
         self.cursor.executescript(CREATE_ITINERARY_TABLE)
 
-    ##itinerary functions
     def add_itinerary(self, itinerary: Itinerary):
         with self.connection:
             self.cursor.execute(
@@ -34,11 +33,8 @@ class ItineraryHelp:
 
         return itinerarys
 
-    def delete_itinerary(self, itinerary_id: int):
-        with self.connection:
-            self.cursor.execute(f"DELETE from itinerary WHERE id={itinerary_id}")
 
-    def set_itinerary_ending_time(self, itinerary_id: int):
+    def set_ending_time(self, itinerary_id: int):
         with self.connection:
             self.cursor.execute(
                 f"UPDATE itinerary SET 'ending_time'='{str(datetime.now())}' WHERE 'id'='{itinerary_id}'"

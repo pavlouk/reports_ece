@@ -9,7 +9,7 @@ from bus_app.database_functions.model_based.category_functions import CategoryHe
 from bus_app.database_functions.model_based.bus_functions import BusHelp
 from bus_app.database_functions.model_based.driver_functions import DriverHelp
 from bus_app.database_functions.model_based.itinerary_functions import ItineraryHelp
-from bus_app.database_functions.model_based.charge_functions import ChargeHelp
+from bus_app.database_functions.model_based.purchase_functions import PurchaseHelp
 from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
 from bus_app.database_functions.model_based.validation_functions import ValidationHelp
@@ -18,6 +18,7 @@ from bus_app.entity_models.bus import Bus
 from bus_app.entity_models.card import Card
 from bus_app.entity_models.driver import Driver
 from bus_app.entity_models.itinerary import Itinerary
+from bus_app.entity_models.purchase import Purchase
 from bus_app.entity_models.route import Route
 from bus_app.entity_models.stop import Stop
 
@@ -28,7 +29,7 @@ cursor = connection.cursor()
 
 card_functions = CardHelp(cursor, connection)
 category_functions = CategoryHelp(cursor, connection)
-charge_functions = ChargeHelp(cursor, connection)
+purchase_functions = PurchaseHelp(cursor, connection)
 validation_functions = ValidationHelp(cursor, connection)
 
 
@@ -58,15 +59,10 @@ def insert_itinerary():
     itinerary_functions.insert_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
 
 
-@app.command(short_help="Delete Itinerary")
-def delete_itinerary(itinerary_id: int):
-    itinerary_functions.delete_itinerary(itinerary_id)
-    pass
-
 
 @app.command(short_help="Completes Itinerary with Ending Time: Now")
 def complete_itinerary(itinerary_id: int):
-    itinerary_functions.set_itinerary_ending_time(itinerary_id)
+    itinerary_functions.set_ending_time(itinerary_id)
     pass
 
 
@@ -113,25 +109,19 @@ def get_card(card_id: int):
     console.print(table)
 
 
-@app.command(short_help="Buy Ticket with Personal Card")
-def add_ticket(card_id: int, total_tickets=1):
-    TICKET_PRICE = 1.0
+@app.command(short_help="Purchase balance to Personal Card")
+def purchase_balance(card_id: int, purchased_balance=1):
     try:
         card_tuple = card_functions.get_card(card_id).pop()
-        category_id = card_tuple[2]
-
-        discount = category_functions.get_discount(category_id).pop()[0]
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
 
-    pay = TICKET_PRICE * int(total_tickets) * (1 - discount)
-    typer.echo(f"Category {category_id} Discount: {discount}")
-    typer.echo(f"Total Pay: {pay}")
+    typer.echo(f"Purchased Amount: {purchased_balance}")
 
-    charge_functions.add_charge(total_tickets, pay, card_id, category_id)
-
-    card_functions.update_balance(card_id, total_tickets)
+    purchase_functions.add_purchase(Purchase(purchased_balance, card_id))
+    # gets triggered supposedly 
+    # card_functions.update_balance(card_id, purchased_balance)
     card_tuple = card_functions.get_card(card_id).pop()
 
     typer.echo(f"Card Information")
@@ -140,7 +130,7 @@ def add_ticket(card_id: int, total_tickets=1):
     console.print(table)
 
 
-@app.command(short_help="Validate Ticket with Personal Card")
+@app.command(short_help="Embark Bus with Personal Card")
 def embark_ticket(card_id: int, itinerary_id: int):
     try:
         card_tuple = card_functions.get_card(card_id).pop()
@@ -164,17 +154,40 @@ def embark_ticket(card_id: int, itinerary_id: int):
     console.print(table)
 
 
-@app.command(short_help="Disembark Ticket with Personal Card")
+@app.command(short_help="Disembark Bus with Personal Card")
 def disembark_ticket(card_id: int, itinerary_id: int):
-    pass
+    TICKET_PRICE = 1.0
+    try:
+        card_tuple = card_functions.get_card(card_id).pop()
+        category_id = card_tuple[2]
+
+        discount = category_functions.get_discount(category_id).pop()[0]
+    except Exception:
+        typer.echo("Error: Invalid Card ID")
+        return
+
+    pay = TICKET_PRICE * int(purchased_balance) * (1 - discount)
+    typer.echo(f"Category {category_id} Discount: {discount}")
+    typer.echo(f"Total Pay: {pay}")
+
+    # charge_functions.add_charge(purchased_balance, pay, card_id, category_id)
+
+    card_functions.update_balance(card_id, purchased_balance)
+    card_tuple = card_functions.get_card(card_id).pop()
+
+    typer.echo(f"Card Information")
+    table = card_info_table()
+    table.add_row(*[str(c) for c in card_tuple])
+    console.print(table)
 
 
 @app.command(short_help="Show Total Tickets of Bus Route")
-def total_tickets(start_date: str, end_date: str):
+def purchased_balance(start_date: str, end_date: str):
     pass
 
 
 if __name__ == "__main__":
+    MAX_CARDS = 100
     category_functions.add_category(name="normal", discount=0.0)
     category_functions.add_category(name="student", discount=0.5)
     category_functions.add_category(name="student", discount=0.25)
@@ -182,8 +195,13 @@ if __name__ == "__main__":
     category_functions.add_category(name="military", discount=0.55)
     category_functions.add_category(name="disability", discount=0.65)
 
-    for _ in range(10):
+    for _ in range(MAX_CARDS):
         card_functions.add_card(Card())
+    
+    for _ in range(MAX_CARDS):
+        purchase_functions.add_purchase(Purchase())
+    
+    for _ in range(10):
         stop_functions.add_stop(Stop())
         route_functions.add_route(Route())
         bus_functions.add_bus(Bus())

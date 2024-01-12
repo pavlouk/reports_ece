@@ -1,4 +1,5 @@
 INSERT_CHARGE = "INSERT INTO Charge (purchase_date, tickets, pay, card_id, category_id) VALUES (?, ?, ?, ?, ?)"
+INSERT_PURCHASE = "INSERT INTO Purchase (purchase_date, purchased_balance, card_id) VALUES (?, ?, ?)"
 INSERT_CARD = "INSERT INTO Card (passenger_name, category_name, signup_date) VALUES (?, ?, ?)"
 INSERT_CATEGORY = "INSERT OR IGNORE INTO Category (name, discount) VALUES (?, ?)"
 INSERT_VALIDATION = "INSERT OR IGNORE INTO Validation (card_id, itinerary_id, embarkation_time, disembarkation_time) VALUES (?, ?)"
