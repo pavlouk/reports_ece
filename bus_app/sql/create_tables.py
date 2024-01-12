@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS "Disembarkation" (
 );
 """
 CREATE_CARD_BALANCE_CHARGE_TRIGGER_ON_DISEMBARKATION = """
-CREATE TRIGGER card_balance_charge
+CREATE TRIGGER IF NOT EXISTS card_balance_charge
 AFTER INSERT ON Disembarkation 
 BEGIN
 	UPDATE Card SET balance = balance - (
@@ -133,7 +133,7 @@ BEGIN
 END;
 """
 CREATE_CARD_BALANCE_FILLUP_ON_PURCHASE_TRIGGER = """
-CREATE TRIGGER card_balance_fillup
+CREATE TRIGGER IF NOT EXISTS card_balance_fillup
 AFTER INSERT ON Purchase
 BEGIN
     UPDATE Card SET balance = balance + NEW.purchased_balance

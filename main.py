@@ -59,14 +59,13 @@ def insert_itinerary():
     itinerary_functions.insert_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
 
 
-
 @app.command(short_help="Completes Itinerary with Ending Time: Now")
 def complete_itinerary(itinerary_id: int):
     itinerary_functions.set_ending_time(itinerary_id)
     pass
 
 
-@app.command(short_help="Shows Bus Stop Info as well as the Routes that it Belongs to")
+@app.command(short_help="Shows Bus Stop Info")
 def get_stop_info():
     pass
 
@@ -110,18 +109,22 @@ def get_card(card_id: int):
 
 
 @app.command(short_help="Purchase balance to Personal Card")
-def purchase_balance(card_id: int, purchased_balance=1):
+def purchase_balance(card_id: int, amount=1.0):
     try:
         card_tuple = card_functions.get_card(card_id).pop()
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
 
-    typer.echo(f"Purchased Amount: {purchased_balance}")
+    typer.echo(f"Purchased Amount: {amount}")
 
-    purchase_functions.add_purchase(Purchase(purchased_balance, card_id))
-    # gets triggered supposedly 
-    # card_functions.update_balance(card_id, purchased_balance)
+    purchase_functions.add_purchase(
+        Purchase(
+            card_id=card_id,
+            purchased_balance=amount,
+            purchase_date=str(datetime.now().date()),
+        )
+    )
     card_tuple = card_functions.get_card(card_id).pop()
 
     typer.echo(f"Card Information")
@@ -166,13 +169,13 @@ def disembark_ticket(card_id: int, itinerary_id: int):
         typer.echo("Error: Invalid Card ID")
         return
 
-    pay = TICKET_PRICE * int(purchased_balance) * (1 - discount)
+    pay = TICKET_PRICE * (1 - discount)
     typer.echo(f"Category {category_id} Discount: {discount}")
     typer.echo(f"Total Pay: {pay}")
 
     # charge_functions.add_charge(purchased_balance, pay, card_id, category_id)
 
-    card_functions.update_balance(card_id, purchased_balance)
+    # card_functions.update_balance(card_id, purchased_balance)
     card_tuple = card_functions.get_card(card_id).pop()
 
     typer.echo(f"Card Information")
@@ -181,13 +184,14 @@ def disembark_ticket(card_id: int, itinerary_id: int):
     console.print(table)
 
 
-@app.command(short_help="Show Total Tickets of Bus Route")
-def purchased_balance(start_date: str, end_date: str):
+@app.command(short_help="Show Total income of the company")
+def company_balance(start_date: str, end_date: str):
     pass
 
 
 if __name__ == "__main__":
     MAX_CARDS = 100
+    
     category_functions.add_category(name="normal", discount=0.0)
     category_functions.add_category(name="student", discount=0.5)
     category_functions.add_category(name="student", discount=0.25)
@@ -197,10 +201,10 @@ if __name__ == "__main__":
 
     for _ in range(MAX_CARDS):
         card_functions.add_card(Card())
-    
+
     for _ in range(MAX_CARDS):
         purchase_functions.add_purchase(Purchase())
-    
+
     for _ in range(10):
         stop_functions.add_stop(Stop())
         route_functions.add_route(Route())
