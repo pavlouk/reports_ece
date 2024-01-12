@@ -1,15 +1,25 @@
+from datetime import datetime
 import typer
 import sqlite3
 from rich.console import Console
 from bus_app.rich import itinerary_table, card_info_table
-from bus_app.entity_models.itinerary import Itinerary
-from bus_app.database_functions.model_based.itinerary_functions import ItineraryHelp
+
 from bus_app.database_functions.model_based.card_functions import CardHelp
 from bus_app.database_functions.model_based.category_functions import CategoryHelp
+from bus_app.database_functions.model_based.bus_functions import BusHelp
+from bus_app.database_functions.model_based.driver_functions import DriverHelp
+from bus_app.database_functions.model_based.itinerary_functions import ItineraryHelp
 from bus_app.database_functions.model_based.charge_functions import ChargeHelp
 from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
 from bus_app.database_functions.model_based.validation_functions import ValidationHelp
+
+from bus_app.entity_models.bus import Bus
+from bus_app.entity_models.card import Card
+from bus_app.entity_models.driver import Driver
+from bus_app.entity_models.itinerary import Itinerary
+from bus_app.entity_models.route import Route
+from bus_app.entity_models.stop import Stop
 
 connection = sqlite3.connect("./bus.db")
 connection.execute("PRAGMA foreign_keys = ON")
@@ -25,7 +35,8 @@ validation_functions = ValidationHelp(cursor, connection)
 itinerary_functions = ItineraryHelp(cursor, connection)
 stop_functions = StopHelp(cursor, connection)
 route_functions = RouteHelp(cursor, connection)
-
+bus_functions = BusHelp(cursor, connection)
+driver_functions = DriverHelp(cursor, connection)
 
 console = Console()
 app = typer.Typer()
@@ -68,7 +79,13 @@ def get_stop_info():
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="normal"):
     try:
-        card_functions.add_card(card_model)
+        card_functions.add_card(
+            Card(
+                passenger_name=name,
+                category=category,
+                signup_date=str(datetime.now().date()),
+            )
+        )
     except sqlite3.IntegrityError:
         typer.echo("Error: Invalid Category")
         return
@@ -107,11 +124,11 @@ def add_ticket(card_id: int, total_tickets=1):
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
-    
+
     pay = TICKET_PRICE * int(total_tickets) * (1 - discount)
     typer.echo(f"Category {category_id} Discount: {discount}")
     typer.echo(f"Total Pay: {pay}")
-    
+
     charge_functions.add_charge(total_tickets, pay, card_id, category_id)
 
     card_functions.update_balance(card_id, total_tickets)
@@ -131,13 +148,13 @@ def embark_ticket(card_id: int, itinerary_id: int):
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
-    
+
     if card_balance > 0:
         validation_functions.validate_ticket(card_id, itinerary_id)
     else:
         typer.echo("Error: Insufficient Balance")
         return
-    
+
     card_functions.update_balance(card_id, -1)
     card_tuple = card_functions.get_card(card_id).pop()
 
@@ -145,6 +162,7 @@ def embark_ticket(card_id: int, itinerary_id: int):
     table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
     console.print(table)
+
 
 @app.command(short_help="Disembark Ticket with Personal Card")
 def disembark_ticket(card_id: int, itinerary_id: int):
@@ -157,8 +175,6 @@ def total_tickets(start_date: str, end_date: str):
 
 
 if __name__ == "__main__":
-    from bus_app.entity_models.card import Card
-    
     category_functions.add_category(name="normal", discount=0.0)
     category_functions.add_category(name="student", discount=0.5)
     category_functions.add_category(name="student", discount=0.25)
@@ -168,4 +184,9 @@ if __name__ == "__main__":
 
     for _ in range(10):
         card_functions.add_card(Card())
+        stop_functions.add_stop(Stop())
+        route_functions.add_route(Route())
+        bus_functions.add_bus(Bus())
+        driver_functions.add_driver(Driver())
+        # itinerary_functions.insert_itinerary(Itinerary())
     app()
