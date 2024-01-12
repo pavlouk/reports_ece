@@ -1,11 +1,10 @@
-import datetime
+from faker import Faker
 
+Faker.seed(1234)
+fake = Faker(locale="el_GR")
 
 class Stop:
-    def __init__(self, stop_name, location, bus_stop_id=None):
-        self.bus_stop_id = bus_stop_id
-        self.stop_name = stop_name
-        self.location = location
+    def __init__(self, name=None, location=None):
+        self.name = name or fake.street_name()
+        self.location = location or fake.street_address()
 
-    def __repr__(self) -> str:
-        return f"Stop details:[ bus_stop_id: {self.bus_stop_id}, stop_name: {self.stop_name}, location: {self.location} ]"

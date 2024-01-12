@@ -2,8 +2,8 @@ CREATE_CARD_TABLE = """
 CREATE TABLE IF NOT EXISTS Card (
 	id	INTEGER NOT NULL,
 	passenger_name	varchar(50) NOT NULL,
-	category_name	varchar(50) NOT NULL REFERENCES Category(category_name),
- 	signUpDate	datetime NOT NULL DEFAULT '',
+	category_name	varchar(50) NOT NULL REFERENCES Category(name),
+ 	signup_date	datetime NOT NULL DEFAULT '',
 	balance	float NOT NULL DEFAULT 0,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Driver (
 CREATE_BUS_TABLE = """
 CREATE TABLE IF NOT EXISTS Bus (
 	id	INTEGER NOT NULL,
-	status	varchar(50) NOT NULL DEFAULT 'normal',
+	status	varchar(50) NOT NULL DEFAULT 'operational',
 	capacity	INTEGER DEFAULT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );

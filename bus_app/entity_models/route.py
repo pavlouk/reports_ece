@@ -1,10 +1,9 @@
-import datetime
+from faker import Faker
+
+Faker.seed(1234)
+fake = Faker(locale="el_GR")
 
 
 class Route:
-    def __init__(self, route_name, stops: list):
-        self.route_name = route_name
-        self.stops = stops  ## 2D list: [[ stop_id, stop_position, estTOA],...]
-
-    def __repr__(self) -> str:
-        return f"Route details:[ route_name: {self.route_name},stops: {self.stops} ]"
+    def __init__(self, name=None):
+        self.name = name or f"{fake.city()} - {fake.city()}".upper()

@@ -67,10 +67,7 @@ def get_stop_info():
 # personalized_card
 @app.command(short_help="Creates Personal Card")
 def create_card(name: str, category="normal"):
-    from bus_app.entity_models.card import Card
     try:
-        card_model = Card(name, category, signup)
-        # card_functions.add_card(name, category)
         card_functions.add_card(card_model)
     except sqlite3.IntegrityError:
         typer.echo("Error: Invalid Category")
@@ -160,11 +157,15 @@ def total_tickets(start_date: str, end_date: str):
 
 
 if __name__ == "__main__":
+    from bus_app.entity_models.card import Card
+    
     category_functions.add_category(name="normal", discount=0.0)
     category_functions.add_category(name="student", discount=0.5)
-    category_functions.add_category(name="elderly", discount=0.25)
+    category_functions.add_category(name="student", discount=0.25)
     category_functions.add_category(name="unemployed", discount=0.45)
     category_functions.add_category(name="military", discount=0.55)
     category_functions.add_category(name="disability", discount=0.65)
 
+    for _ in range(10):
+        card_functions.add_card(Card())
     app()
