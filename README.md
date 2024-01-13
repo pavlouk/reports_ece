@@ -26,4 +26,5 @@ This installs the project libraries below
 | ----- | ------------------------------------------------------------ | ------------------------------------------------ |
 | Typer | Library for building CLI applications                        | https://typer.tiangolo.com/                      |
 | Rich  | Library for writing *rich* text (with color and style) to the terminal | https://rich.readthedocs.io/en/stable/index.html |
+| Faker  | Library that generates fake data for you | https://faker.readthedocs.io/en/master/ |
 

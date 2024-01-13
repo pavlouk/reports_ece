@@ -44,7 +44,7 @@ app = typer.Typer()
 def get_itinerary_info():
     table = itinerary_table()
 
-    itineraries = itinerary_functions.get_all_itineraries()
+    itineraries = itinerary_functions.get_itineraries()
     for itinerary in itineraries:
         table.add_row(*[str(c) for c in itinerary])
     console.print(table)
@@ -52,7 +52,12 @@ def get_itinerary_info():
 
 @app.command(short_help="Shows Bus Stop Info")
 def get_stop_info():
-    pass
+    stop_tuple = stop_functions.get_stop(stop_id).pop()
+
+    typer.echo(f"Stop Information")
+    table = stop_info_table()
+    table.add_row(*[str(c) for c in stop_tuple])
+    console.print(table)
 
 
 # personalized_card
@@ -169,9 +174,13 @@ def disembark_ticket(card_id: int, itinerary_id: int):
 
 
 @app.command(short_help="Show Total income of the company")
-def company_balance(start_date: str, end_date: str):
-    pass
-
+def company_balance(start_date=None, end_date=None):
+    if not start_date and not end_date:
+        typer.echo(purchase_functions.get_all_earnings().pop()[0])
+        return
+    
+    typer.echo(purchase_functions.get_earnings(start_date, end_date).pop()[0])
+    
 
 if __name__ == "__main__":
     if not category_functions.get_categories():
