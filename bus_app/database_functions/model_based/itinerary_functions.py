@@ -13,6 +13,7 @@ class ItineraryHelp:
         self.cursor.executescript(CREATE_ITINERARY_TABLE)
 
     def add_itinerary(self, itinerary: Itinerary):
+        print(itinerary.route_name, itinerary.bus_id, itinerary.driver_id)
         with self.connection:
             self.cursor.execute(
                 INSERT_ITINERARY,

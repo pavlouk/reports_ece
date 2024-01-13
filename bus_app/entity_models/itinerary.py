@@ -27,5 +27,5 @@ class Itinerary:
             direction or fake.random_choices(elements=[True, False], length=1).pop()
         )
         self.route_name = route_name or f"{fake.city()} - {fake.city()}".upper()
-        self.bus_id = bus_id or fake.random_int(max=MAX_CARDS)
-        self.driver_id = driver_id or fake.random_int(max=MAX_CARDS)
+        self.bus_id = bus_id or fake.random_int(min=1, max=MAX_CARDS)
+        self.driver_id = driver_id or fake.random_int(min=1, max=MAX_CARDS)
