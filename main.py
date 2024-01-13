@@ -51,11 +51,11 @@ def get_itinerary_info():
 
 
 @app.command(short_help="Shows Bus Stop Info")
-def get_stop_info():
+def get_stop_info(stop_id: int):
     stop_tuple = stop_functions.get_stop(stop_id).pop()
 
     typer.echo(f"Stop Information")
-    table = stop_info_table()
+    table = itinerary_table()
     table.add_row(*[str(c) for c in stop_tuple])
     console.print(table)
 
@@ -133,18 +133,18 @@ def embark_ticket(card_id: int, itinerary_id: int):
         return
 
     if card_balance > 0:
-        validation_functions.add_validation(card_id, itinerary_id)
+        validation_functions.add_validation(
+            Validation(
+                card_id=card_id,
+                itinerary_id=itinerary_id,
+                embarkation_time=datetime.utcnow(),
+            )
+        )
     else:
         typer.echo("Error: Insufficient Balance")
         return
 
-    # card_functions.update_balance(card_id, -1)
-    card_tuple = card_functions.get_card(card_id).pop()
-
-    typer.echo(f"Card Information")
-    table = card_info_table()
-    table.add_row(*[str(c) for c in card_tuple])
-    console.print(table)
+    typer.echo(f"Welcome aboard the itenerary: {itinerary_id}")
 
 
 @app.command(short_help="Disembark Bus with Personal Card")
@@ -153,20 +153,42 @@ def disembark_ticket(card_id: int, itinerary_id: int):
     try:
         card_tuple = card_functions.get_card(card_id).pop()
         category_id = card_tuple[2]
-
         discount = category_functions.get_discount(category_id).pop()[0]
     except Exception:
         typer.echo("Error: Invalid Card ID")
         return
 
-    pay = TICKET_PRICE * (1 - discount)
+    try:
+        disembark_time = validation_functions.get_embarkation_time(
+            card_id, itinerary_id
+        ).pop()[0]
+    except Exception:
+        typer.echo("Error: Itinerary ID")
+        return
+
+    disembark_time = datetime.utcnow()
+    # TODO : calculate timedelta
+    # from datetime import datetime, timedelta
+    # # we specify the input and the format...
+    # t = datetime.strptime("05:20:25","%H:%M:%S")
+    # # ...and use datetime's hour, min and sec properties to build a timedelta
+    # delta = timedelta(hours=t.hour, minutes=t.minute, seconds=t.second)
+
+    TIMEDELTA = 1
+    pay = TICKET_PRICE * (1 - discount) * TIMEDELTA
     typer.echo(f"Category {category_id} Discount: {discount}")
     typer.echo(f"Total Pay: {pay}")
 
-    # charge_functions.add_charge(purchased_balance, pay, card_id, category_id)
-    # card_functions.update_balance(card_id, purchased_balance)
-    card_tuple = card_functions.get_card(card_id).pop()
+    charge_functions.add_charge(
+        Charge(disembark_time=disembark_time, amount_charged=pay)
+    )
+    
+    last_charge_id = charge_functions.cursor.lastrowid
+    disembark_functions.add_disembark(
+        Disembark(card_id=card_id, itinerary_id=itinerary_id, charge_id=last_charge_id)
+    )
 
+    card_tuple = card_functions.get_card(card_id).pop()
     typer.echo(f"Card Information")
     table = card_info_table()
     table.add_row(*[str(c) for c in card_tuple])
@@ -178,9 +200,9 @@ def company_balance(start_date=None, end_date=None):
     if not start_date and not end_date:
         typer.echo(purchase_functions.get_all_earnings().pop()[0])
         return
-    
+
     typer.echo(purchase_functions.get_earnings(start_date, end_date).pop()[0])
-    
+
 
 if __name__ == "__main__":
     if not category_functions.get_categories():

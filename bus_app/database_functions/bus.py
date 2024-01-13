@@ -11,7 +11,7 @@ class BusHelp:
 
     def add_bus(self, bus: Bus):
         with self.connection:
-            self.cursor.execute(INSERT_BUS, (bus.status, bus.capacity),)
+            self.cursor.execute(INSERT_BUS, (bus.status, bus.capacity))
 
     def set_status(self, bus_id: int, status: str):
         with self.connection:
