@@ -125,7 +125,7 @@ CREATE TRIGGER IF NOT EXISTS card_balance_charge
 AFTER INSERT ON Disembarkation 
 BEGIN
 	UPDATE Card SET balance = balance - (
-        SELECT Charge.charged_amount
+        SELECT Charge.amount_charged
         FROM Charge
         WHERE Charge.id = NEW.charge_id
     )

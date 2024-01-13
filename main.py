@@ -4,6 +4,7 @@ import sqlite3
 from rich.console import Console
 from bus_app.rich import itinerary_table, card_info_table
 
+from bus_app.database_functions.model_based.disembark_functions import DisembarkHelp
 from bus_app.database_functions.model_based.card_functions import CardHelp
 from bus_app.database_functions.model_based.category_functions import CategoryHelp
 from bus_app.database_functions.model_based.bus_functions import BusHelp
@@ -15,6 +16,7 @@ from bus_app.database_functions.model_based.route_functions import RouteHelp
 from bus_app.database_functions.model_based.validation_functions import ValidationHelp
 from bus_app.database_functions.model_based.consists_functions import ConsistsHelp
 from bus_app.database_functions.model_based.arrival_functions import ArrivalHelp
+from bus_app.database_functions.model_based.charge_functions import ChargeHelp
 
 from bus_app.entity_models.bus import Bus
 from bus_app.entity_models.card import Card
@@ -26,6 +28,8 @@ from bus_app.entity_models.stop import Stop
 from bus_app.entity_models.consists import Consists
 from bus_app.entity_models.validation import Validation
 from bus_app.entity_models.arrival import Arrival
+from bus_app.entity_models.disembark import Disembark
+from bus_app.entity_models.charge import Charge
 
 connection = sqlite3.connect("./bus.db")
 connection.execute("PRAGMA foreign_keys = ON")
@@ -43,6 +47,8 @@ stop_functions = StopHelp(cursor, connection)
 route_functions = RouteHelp(cursor, connection)
 bus_functions = BusHelp(cursor, connection)
 driver_functions = DriverHelp(cursor, connection)
+disembark_functions = DisembarkHelp(cursor, connection)
+charge_functions = ChargeHelp(cursor, connection)
 
 console = Console()
 app = typer.Typer()
@@ -209,6 +215,8 @@ if __name__ == "__main__":
 
         for _ in range(10):
             stop_functions.add_stop(Stop())
+        
+        for _ in range(10):
             bus_functions.add_bus(Bus())
             driver_functions.add_driver(Driver())
 
@@ -227,7 +235,13 @@ if __name__ == "__main__":
         for _ in range(MAX_CARDS):
             validation_functions.add_validation(Validation())
 
-        for _ in range(MAX_CARDS):
+        for _ in range(10):
             arrival_functions.add_arrival(Arrival())
+
+        for _ in range(10):
+            charge_functions.add_charge(Charge())
+        
+        for _ in range(10):
+            disembark_functions.add_disembark(Disembark())
 
     app()

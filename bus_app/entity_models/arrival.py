@@ -15,7 +15,7 @@ class Arrival:
         real_toa=None,
     ):
         self.itinerary_id = itinerary_id or fake.unique.random_int(min=1, max=MAX_CARDS)
-        self.stop_id = stop_id or fake.unique.random_int(min=1, max=MAX_CARDS)
+        self.stop_id = stop_id or fake.random_int(min=1, max=MAX_CARDS)
         self.real_toa = real_toa or fake.date_time_this_decade(
             before_now=False
         )

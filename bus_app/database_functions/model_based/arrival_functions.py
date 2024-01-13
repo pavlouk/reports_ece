@@ -10,7 +10,6 @@ class ArrivalHelp:
         self.cursor.executescript(CREATE_ARRIVAL_TABLE)
 
     def add_arrival(self, arrival: Arrival):
-        print(arrival.itinerary_id, arrival.stop_id, arrival.real_toa)
         with self.connection:
             self.cursor.execute(INSERT_ARRIVAL,
                 (
