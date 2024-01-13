@@ -2,53 +2,38 @@ from datetime import datetime
 import typer
 import sqlite3
 from rich.console import Console
+
 from bus_app.rich import itinerary_table, card_info_table
 
-from bus_app.database_functions.disembark import DisembarkHelp
-from bus_app.database_functions.card import CardHelp
-from bus_app.database_functions.category import CategoryHelp
-from bus_app.database_functions.bus import BusHelp
-from bus_app.database_functions.driver import DriverHelp
-from bus_app.database_functions.itinerary import ItineraryHelp
-from bus_app.database_functions.purchase import PurchaseHelp
-from bus_app.database_functions.stop import StopHelp
-from bus_app.database_functions.route import RouteHelp
-from bus_app.database_functions.validation import ValidationHelp
-from bus_app.database_functions.consists import ConsistsHelp
-from bus_app.database_functions.arrival import ArrivalHelp
-from bus_app.database_functions.charge import ChargeHelp
-
-from bus_app.entity_models.bus import Bus
-from bus_app.entity_models.card import Card
-from bus_app.entity_models.driver import Driver
-from bus_app.entity_models.itinerary import Itinerary
-from bus_app.entity_models.purchase import Purchase
-from bus_app.entity_models.route import Route
-from bus_app.entity_models.stop import Stop
-from bus_app.entity_models.consists import Consists
-from bus_app.entity_models.validation import Validation
-from bus_app.entity_models.arrival import Arrival
-from bus_app.entity_models.disembark import Disembark
-from bus_app.entity_models.charge import Charge
-
-connection = sqlite3.connect("./bus.db")
-connection.execute("PRAGMA foreign_keys = ON")
-cursor = connection.cursor()
-
-
-card_functions = CardHelp(cursor, connection)
-category_functions = CategoryHelp(cursor, connection)
-purchase_functions = PurchaseHelp(cursor, connection)
-validation_functions = ValidationHelp(cursor, connection)
-arrival_functions = ArrivalHelp(cursor, connection)
-consists_functions = ConsistsHelp(cursor, connection)
-itinerary_functions = ItineraryHelp(cursor, connection)
-stop_functions = StopHelp(cursor, connection)
-route_functions = RouteHelp(cursor, connection)
-bus_functions = BusHelp(cursor, connection)
-driver_functions = DriverHelp(cursor, connection)
-disembark_functions = DisembarkHelp(cursor, connection)
-charge_functions = ChargeHelp(cursor, connection)
+from bus_app import (
+    card_functions,
+    category_functions,
+    purchase_functions,
+    validation_functions,
+    arrival_functions,
+    consists_functions,
+    itinerary_functions,
+    stop_functions,
+    route_functions,
+    bus_functions,
+    driver_functions,
+    disembark_functions,
+    charge_functions,
+)
+from bus_app.entity_models import (
+    Bus,
+    Card,
+    Driver,
+    Itinerary,
+    Purchase,
+    Route,
+    Stop,
+    Consists,
+    Validation,
+    Arrival,
+    Disembark,
+    Charge,
+)
 
 console = Console()
 app = typer.Typer()
@@ -143,7 +128,7 @@ def embark_ticket(card_id: int, itinerary_id: int):
         return
 
     if card_balance > 0:
-        validation_functions.validate_ticket(card_id, itinerary_id)
+        validation_functions.add_validation(card_id, itinerary_id)
     else:
         typer.echo("Error: Insufficient Balance")
         return
@@ -225,9 +210,7 @@ if __name__ == "__main__":
         for i in range(10):
             name = f"{fake2.city()} - {fake2.city()}".upper()
             for i in range(1, 11):
-                consists_functions.add_consists(
-                    Consists(route_name=name, stop_id=i)
-                )
+                consists_functions.add_consists(Consists(route_name=name, stop_id=i))
 
         for _ in range(10):
             itinerary_functions.add_itinerary(

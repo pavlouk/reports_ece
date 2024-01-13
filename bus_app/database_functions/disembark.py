@@ -11,7 +11,6 @@ class DisembarkHelp:
         self.cursor.executescript(CREATE_CARD_BALANCE_CHARGE_TRIGGER_ON_DISEMBARKATION)
 
     def add_disembark(self, disembark: Disembark):
-        print(disembark.card_id, disembark.itinerary_id, disembark.charge_id)
         with self.connection:
             self.cursor.execute(INSERT_DISEMBARKATION,
                 (
