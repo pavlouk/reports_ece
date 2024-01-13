@@ -9,7 +9,7 @@ class ConsistsHelp:
         self.connection = connection
         self.cursor.executescript(CREATE_CONSISTS_TABLE)
 
-    def add_consist(self, consists: Consists):
+    def add_consists(self, consists: Consists):
         with self.connection:
             self.cursor.execute(
                 INSERT_CONSISTS,

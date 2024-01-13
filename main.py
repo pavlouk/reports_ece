@@ -182,6 +182,13 @@ def company_balance(start_date: str, end_date: str):
 
 if __name__ == "__main__":
     if not category_functions.get_categories():
+        from faker import Faker
+        fake1 = Faker("el_GR")
+        fake1.seed_instance(0)
+        
+        fake2 = Faker("el_GR")
+        fake2.seed_instance(0)
+
         MAX_CARDS = 100
 
         category_functions.add_category(name="normal", discount=0.0)
@@ -192,16 +199,18 @@ if __name__ == "__main__":
         category_functions.add_category(name="disability", discount=0.65)
 
         for _ in range(10):
+            route_functions.add_route(Route(name=f"{fake1.city()} - {fake1.city()}".upper()))
+
+        for _ in range(10):
             stop_functions.add_stop(Stop())
-            route_functions.add_route(Route())
             bus_functions.add_bus(Bus())
             driver_functions.add_driver(Driver())
 
         for _ in range(10):
-            consists_functions.add_consists(Consists())
+            consists_functions.add_consists(Consists(route_name=f"{fake2.city()} - {fake2.city()}".upper()))
             
-        itinerary_functions.add_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
-        itinerary_functions.set_ending_time(itinerary_id)
+        # itinerary_functions.add_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
+        # itinerary_functions.set_ending_time(itinerary_id)
 
         for _ in range(MAX_CARDS):
             card_functions.add_card(Card())

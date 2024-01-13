@@ -9,6 +9,6 @@ INSERT_STOP = "INSERT OR IGNORE INTO Stop (name, location) VALUES (?, ?)"
 INSERT_ROUTE = "INSERT OR IGNORE INTO Route (name) VALUES (?)"
 INSERT_ARRIVAL = "INSERT INTO Arrives (name) VALUES (?)"
 
-INSERT_ITINERARY = "INSERT INTO Itinerary (starting_time, direction, routeName, busId, driverId) VALUES (?,?,?,?,?)"
+INSERT_ITINERARY = "INSERT INTO Itinerary (starting_time, direction, route_name, bus_id, driver_id) VALUES (?,?,?,?,?)"
 INSERT_BUS = "INSERT OR IGNORE INTO Bus (status, capacity) VALUES (?, ?)"
 INSERT_DRIVER = "INSERT OR IGNORE INTO Driver (hired_date, availiability, name) VALUES (?, ?, ?)"
