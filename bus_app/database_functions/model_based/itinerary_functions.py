@@ -18,6 +18,7 @@ class ItineraryHelp:
                 INSERT_ITINERARY,
                 (
                     itinerary.starting_time,
+                    itinerary.ending_time,
                     itinerary.direction,
                     itinerary.route_name,
                     itinerary.bus_id,

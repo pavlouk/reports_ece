@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS "Consists" (
 CREATE_ITINERARY_TABLE = """
 CREATE TABLE IF NOT EXISTS "Itinerary" (
 	"id"	INTEGER NOT NULL,
-	"starting_time"	date NOT NULL DEFAULT '',
-	"ending_time"	date DEFAULT NULL,
+	"starting_time"	datetime NOT NULL DEFAULT '',
+	"ending_time"	datetime DEFAULT NULL,
 	"direction"	bool NOT NULL DEFAULT 1,
 	"route_name"	varchar(50) NOT NULL DEFAULT '',
 	"bus_id"	varchar(50) NOT NULL DEFAULT '',

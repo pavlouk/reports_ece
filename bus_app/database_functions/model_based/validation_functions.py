@@ -1,6 +1,6 @@
 from bus_app.sql.create_tables import CREATE_VALIDATION_TABLE
 from bus_app.sql.insert_tables import INSERT_VALIDATION
-from datetime import datetime
+from bus_app.entity_models.validation import Validation
 
 
 class ValidationHelp:
@@ -9,16 +9,12 @@ class ValidationHelp:
         self.connection = connection
         self.cursor.executescript(CREATE_VALIDATION_TABLE)
 
-    def validate_ticket(
-        self, card_id, itinerary_id, embarkation_time=None, disembarkation_time=None
-    ):
+    def add_validation(self, validation: Validation):
         with self.connection:
-            self.cursor.execute(
-                INSERT_VALIDATION,
+            self.cursor.execute(INSERT_VALIDATION,
                 (
-                    card_id,
-                    itinerary_id,
-                    embarkation_time or datetime.utcnow(),
-                    disembarkation_time,
+                    validation.card_id,
+                    validation.itinerary_id,
+                    validation.embarkation_time,
                 ),
             )

@@ -14,6 +14,7 @@ from bus_app.database_functions.model_based.stop_functions import StopHelp
 from bus_app.database_functions.model_based.route_functions import RouteHelp
 from bus_app.database_functions.model_based.validation_functions import ValidationHelp
 from bus_app.database_functions.model_based.consists_functions import ConsistsHelp
+from bus_app.database_functions.model_based.arrival_functions import ArrivalHelp
 
 from bus_app.entity_models.bus import Bus
 from bus_app.entity_models.card import Card
@@ -23,6 +24,8 @@ from bus_app.entity_models.purchase import Purchase
 from bus_app.entity_models.route import Route
 from bus_app.entity_models.stop import Stop
 from bus_app.entity_models.consists import Consists
+from bus_app.entity_models.validation import Validation
+from bus_app.entity_models.arrival import Arrival
 
 connection = sqlite3.connect("./bus.db")
 connection.execute("PRAGMA foreign_keys = ON")
@@ -33,7 +36,7 @@ card_functions = CardHelp(cursor, connection)
 category_functions = CategoryHelp(cursor, connection)
 purchase_functions = PurchaseHelp(cursor, connection)
 validation_functions = ValidationHelp(cursor, connection)
-
+arrival_functions = ArrivalHelp(cursor, connection)
 consists_functions = ConsistsHelp(cursor, connection)
 itinerary_functions = ItineraryHelp(cursor, connection)
 stop_functions = StopHelp(cursor, connection)
@@ -139,7 +142,7 @@ def embark_ticket(card_id: int, itinerary_id: int):
         typer.echo("Error: Insufficient Balance")
         return
 
-    card_functions.update_balance(card_id, -1)
+    # card_functions.update_balance(card_id, -1)
     card_tuple = card_functions.get_card(card_id).pop()
 
     typer.echo(f"Card Information")
@@ -188,6 +191,9 @@ if __name__ == "__main__":
         
         fake2 = Faker("el_GR")
         fake2.seed_instance(0)
+        
+        fake3 = Faker("el_GR")
+        fake3.seed_instance(0)
 
         MAX_CARDS = 100
 
@@ -208,14 +214,20 @@ if __name__ == "__main__":
 
         for _ in range(10):
             consists_functions.add_consists(Consists(route_name=f"{fake2.city()} - {fake2.city()}".upper()))
-            
-        # itinerary_functions.add_itinerary(Itinerary("2019-01-14", 1, 1, 1, 1, None))
-        # itinerary_functions.set_ending_time(itinerary_id)
+        
+        for _ in range(10):
+            itinerary_functions.add_itinerary(Itinerary(route_name=f"{fake3.city()} - {fake3.city()}".upper()))
 
         for _ in range(MAX_CARDS):
             card_functions.add_card(Card())
 
         for _ in range(MAX_CARDS):
             purchase_functions.add_purchase(Purchase())
+
+        for _ in range(MAX_CARDS):
+            validation_functions.add_validation(Validation())
+
+        for _ in range(MAX_CARDS):
+            arrival_functions.add_arrival(Arrival())
 
     app()
