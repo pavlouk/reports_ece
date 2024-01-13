@@ -4,19 +4,19 @@ import sqlite3
 from rich.console import Console
 from bus_app.rich import itinerary_table, card_info_table
 
-from bus_app.database_functions.model_based.disembark_functions import DisembarkHelp
-from bus_app.database_functions.model_based.card_functions import CardHelp
-from bus_app.database_functions.model_based.category_functions import CategoryHelp
-from bus_app.database_functions.model_based.bus_functions import BusHelp
-from bus_app.database_functions.model_based.driver_functions import DriverHelp
-from bus_app.database_functions.model_based.itinerary_functions import ItineraryHelp
-from bus_app.database_functions.model_based.purchase_functions import PurchaseHelp
-from bus_app.database_functions.model_based.stop_functions import StopHelp
-from bus_app.database_functions.model_based.route_functions import RouteHelp
-from bus_app.database_functions.model_based.validation_functions import ValidationHelp
-from bus_app.database_functions.model_based.consists_functions import ConsistsHelp
-from bus_app.database_functions.model_based.arrival_functions import ArrivalHelp
-from bus_app.database_functions.model_based.charge_functions import ChargeHelp
+from bus_app.database_functions.disembark import DisembarkHelp
+from bus_app.database_functions.card import CardHelp
+from bus_app.database_functions.category import CategoryHelp
+from bus_app.database_functions.bus import BusHelp
+from bus_app.database_functions.driver import DriverHelp
+from bus_app.database_functions.itinerary import ItineraryHelp
+from bus_app.database_functions.purchase import PurchaseHelp
+from bus_app.database_functions.stop import StopHelp
+from bus_app.database_functions.route import RouteHelp
+from bus_app.database_functions.validation import ValidationHelp
+from bus_app.database_functions.consists import ConsistsHelp
+from bus_app.database_functions.arrival import ArrivalHelp
+from bus_app.database_functions.charge import ChargeHelp
 
 from bus_app.entity_models.bus import Bus
 from bus_app.entity_models.card import Card
@@ -174,7 +174,6 @@ def disembark_ticket(card_id: int, itinerary_id: int):
     typer.echo(f"Total Pay: {pay}")
 
     # charge_functions.add_charge(purchased_balance, pay, card_id, category_id)
-
     # card_functions.update_balance(card_id, purchased_balance)
     card_tuple = card_functions.get_card(card_id).pop()
 
