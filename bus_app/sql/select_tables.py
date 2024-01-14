@@ -7,3 +7,6 @@ SELECT_COMPANY_EARNINGS = "SELECT SUM (purchased_balance) from Purchase WHERE pu
 SELECT_TOTAL_COMPANY_EARNINGS = "SELECT SUM (purchased_balance) from Purchase"
 SELECT_STOP_INFO = "SELECT * FROM Stop WHERE id = ?"
 SELECT_VALIDATION_TIME = "SELECT embarkation_time FROM Validation WHERE card_id = ? AND itinerary_id = ?"
+SELECT_ARRIVALS_1 = "SELECT MAX(a.real_toa) FROM Arrives as a where a.itinerary_id = ?"
+SELECT_ARRIVALS_2 = "SELECT a.stop_id FROM Arrives as a where a.itinerary_id = ? and ? = a.real_toa"
+SELECT_ARRIVALS_3 = "SELECT SUM(ccc.est_next_stop_toa) FROM Consists as c, Itinerary as i, Consists as cc, Consists as ccc where c.route_name = i.route_name and i.id = ? and ? = c.stop_id and cc.stop_id = ? and  cc.route_name = i.route_name and ccc.route_name = i.route_name and ccc.stop_position >= c.stop_position and ccc.stop_position < cc.stop_position"

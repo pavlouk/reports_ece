@@ -3,7 +3,7 @@ import typer
 import sqlite3
 from rich.console import Console
 
-from bus_app.rich import itinerary_table, card_info_table
+from bus_app.rich import itinerary_table, card_info_table, stop_info_table, arrival_table
 
 from bus_app import (
     card_functions,
@@ -55,10 +55,23 @@ def get_stop_info(stop_id: int):
     stop_tuple = stop_functions.get_stop(stop_id).pop()
 
     typer.echo(f"Stop Information")
-    table = itinerary_table()
+    table = stop_info_table()
     table.add_row(*[str(c) for c in stop_tuple])
     console.print(table)
 
+@app.command(short_help="Shows Bus Stop Info")
+def get_stop_bus_arrivals(stop_id: int, itinerary_id: int):
+    stop_tuple = stop_functions.get_stop(stop_id).pop()
+    typer.echo(f"Stop Information")
+    table = stop_info_table()
+    table.add_row(*[str(c) for c in stop_tuple])
+    console.print(table)
+    
+    stop_tuple = stop_functions.get_arrivals(stop_id, itinerary_id).pop()
+    typer.echo(f"Itinerary expected to Arrive to Stop")
+    table = arrival_table()
+    table.add_row(str(itinerary_id), str(stop_tuple[0]))
+    console.print(table)
 
 # personalized_card
 @app.command(short_help="Creates Personal Card")
