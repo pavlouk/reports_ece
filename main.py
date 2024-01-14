@@ -87,7 +87,7 @@ def create_card(name: str, category="normal"):
         card_functions.add_card(
             Card(
                 passenger_name=name,
-                category=category,
+                category_name=category,
                 signup_date=str(datetime.now().date()),
             )
         )
