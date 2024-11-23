@@ -1,0 +1,23 @@
+SPCR	.set 0x1900008 
+DXR 	.set 0x1900004
+
+	.def entry
+	.text
+
+entry:	MVKL .S1 DXR,A1
+	MVKH .S1 DXR,A1
+	MVKL .S1 SPCR, A2
+	MVKH .S1 SPCR, A2
+	MVKL .S1 0x10000, A3
+	MVKH .S1 0x10000, A3
+	
+loop:	LDW *A2, B1 
+	NOP 4
+	AND B1, A3, B1  ;Isolating 17th position
+	XOR B1, A3, B1  ;Xor logic for inverting      
+	[B1] B loop
+	NOP 5
+        STW A0, *A1   	;Storing input
+	    
+        IDLE
+        .end

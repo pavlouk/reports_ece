@@ -1,0 +1,3 @@
+ADD .L1 A1, A2, A1
+MPY .M1 A1, A0, A1
+ADD .L1 A1, A3, A1
